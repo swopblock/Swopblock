@@ -1,2 +1,2 @@
 # CAT
-Command-line Access Terminal (dotnet 6.0 console)
+Command-line Access Terminal (.NET 6.0 Console)
