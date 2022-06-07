@@ -1,2 +1,2 @@
 # CAT
-Command-line Access Terminal (.NET 6.0 Console)
+Crypto Access Terminal (.NET 6.0 Console)
