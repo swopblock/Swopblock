@@ -1,2 +1,3 @@
-# swop
-Swop is a S)aving, W)ithdrawing and O)rdering P)rotocol (swop) and is the console app second processing layer (CLI) just under the first mobile app processing layer (GUI).
+# Saving, Withdrawing and Ordering Protocol (swop)
+
+Swop is a saving, withdrawing and ordering protocol second processing layer console app (CLI) just under the first processing layer mobile app (GUI) of the (1) mobile, (2) console, (3) application, (4) incentive, (5) consensus, (6) internet and (7) blockchain processing layers of  Swopblock.
