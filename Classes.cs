@@ -1,32 +1,35 @@
 ﻿using System;
 namespace swop
 {
-	public class Classes
+	public class Clauses
 	{
-		public Classes()
+		public Subjects Subject;
+
+		public Predicates Predicate;
+
+		public Clauses()
 		{
+
 		}
 
-		public static Classes Parse(string text)
+		public static Clauses Parse(string text)
 		{
 			if (text.EndsWith(".") == false)
 			{
-				return new Classes();
+				return new Clauses();
 			}
 
 			if (Char.IsUpper(text[0]) == false)
 			{
-				return new Classes();
+				return new Clauses();
 			}
 
-
-            //switch (text[0])
-            //{
-            //    case 'I': return SignedOrders.Parse(text);
-            //    case 'W': return ConfirmedOrders.Parse(text);
-            //}
-
             return Intentions.Parse(text);
+		}
+
+		public void Text()
+		{
+
 		}
 	}
 }

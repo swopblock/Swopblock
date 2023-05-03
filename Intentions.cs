@@ -1,7 +1,7 @@
 ﻿using System;
 namespace swop
 {
-	public class Intentions: Classes
+	public class Intentions: Clauses
 	{
 		public string IntentionText;
 
@@ -13,7 +13,7 @@ namespace swop
 		{
 		}
 
-		public static Intentions Parse(string text)
+		public static Intentions ParseSave(string text)
 		{
 			var intentions = new Intentions();
 
@@ -26,6 +26,16 @@ namespace swop
 			intentions.IntentionText += intentions.Predicate.Text;
 
 			return intentions;
+		}
+
+		public new static Intentions Parse(string text)
+		{
+			return null;// Orders.Parse(text);
+		}
+
+		public string Text()
+		{
+			return "";
 		}
 	}
 }

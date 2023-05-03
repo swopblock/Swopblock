@@ -1,7 +1,7 @@
 ﻿using System;
 namespace swop
 {
-	public class Verbs: Classes
+	public class Verbs: Clauses
 	{
 		public Verbs()
 		{

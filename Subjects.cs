@@ -1,7 +1,7 @@
 ﻿using System;
 namespace swop
 {
-	public class Subjects: Classes
+	public class Subjects: Clauses
 	{
 		public string Text;
 

@@ -1,7 +1,7 @@
 ﻿using System;
 namespace swop
 {
-	public class SetsOfObjects: Classes
+	public class SetsOfObjects: Clauses
 	{
 		public SetsOfObjects()
 		{

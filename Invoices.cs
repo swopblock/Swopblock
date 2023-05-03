@@ -1,7 +1,7 @@
 ﻿using System;
 namespace swop
 {
-	public class Invoices: Orders
+	public class Invoices: Offers
 	{
 		public Invoices()
 		{

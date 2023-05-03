@@ -2,7 +2,7 @@
 
 namespace swop
 {
-	public class Predicates: Classes
+	public class Predicates: Clauses
 	{
 		public string Text;
 
