@@ -1,6 +1,86 @@
 ﻿using System;
 namespace swop
 {
+	public class Ordering: IOrderable
+	{
+		private IOrderable OrderStatus;
+
+        private IProcessable ProcessStatus;
+
+        private class Offering : OfferForms, IOfferable, IProcessable
+        {
+            public INewable Confirm()
+            {
+                throw new NotImplementedException();
+            }
+
+            public ISignable New()
+            {
+                throw new NotImplementedException();
+            }
+
+            public IInvoiceable Offer()
+            {
+                throw new NotImplementedException();
+            }
+
+            public IConfirmable Pend()
+            {
+                throw new NotImplementedException();
+            }
+
+            public IPendable Sign()
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        private class Invoicing: InvoiceForms
+		{
+
+		}
+
+		private class Delivering: DeliveryForms
+		{
+
+		}
+
+		public class Receipting: ReceiptForms
+		{
+
+		}
+
+		public IInvoiceable Offer()
+        {
+            if (OrderStatus is IOfferable offerable)
+			{
+				return (IInvoiceable)offerable.Offer();
+			}
+
+			return OrderStatus;
+        }
+
+        public IDeliverable Invoice()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IReceiptable Deliver()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IOfferable Receipt()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IOrderable Order()
+        {
+            throw new NotImplementedException();
+        }
+    }
+
 	public class OrderForms
 	{
 
@@ -15,6 +95,30 @@ namespace swop
 	{
 
 	}
+
+	public interface IProcessable : INewable, ISignable, IPendable, IConfirmable { }
+
+	public interface INewable { ISignable New(); }
+
+	public interface ISignable { IPendable Sign(); }
+
+	public interface IPendable { IConfirmable Pend(); }
+
+	public interface IConfirmable { INewable Confirm(); }
+
+
+	public interface IOrderable : IOfferable, IInvoiceable, IDeliverable, IReceiptable
+	{
+		IOrderable Order();
+	}
+
+	public interface IOfferable { IInvoiceable Offer(); }
+
+	public interface IInvoiceable { IDeliverable Invoice(); }
+
+	public interface IDeliverable { IReceiptable Deliver(); }
+
+	public interface IReceiptable { IOfferable Receipt(); }
 
 	namespace NeedsMoreAndRefactoring
 	{
