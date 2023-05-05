@@ -5,13 +5,23 @@ namespace swop
 	{
 		private IOrderable OrderStatus;
 
-        private IProcessable ProcessStatus;
-
         private class Offering : OfferForms, IOfferable, IProcessable
         {
+			private IProcessable ProcessStatus;
+
+			public Offering()
+			{
+				ProcessStatus = (IProcessable)((INewable)this);
+			}
+
             public INewable Confirm()
             {
-                throw new NotImplementedException();
+				if (ProcessStatus is IConfirmable confirmable)
+				{
+					return (INewable)confirmable.Confirm();
+				}
+
+				return ProcessStatus;
             }
 
             public ISignable New()
@@ -45,6 +55,11 @@ namespace swop
 
 		}
 
+		public Ordering()
+		{
+			OrderStatus = new Offering();
+		}
+
 		public class Receipting: ReceiptForms
 		{
 
@@ -54,7 +69,7 @@ namespace swop
         {
             if (OrderStatus is IOfferable offerable)
 			{
-				return (IInvoiceable)offerable.Offer();
+				return offerable.Offer();
 			}
 
 			return OrderStatus;
@@ -62,22 +77,47 @@ namespace swop
 
         public IDeliverable Invoice()
         {
-            throw new NotImplementedException();
+            if (OrderStatus is IInvoiceable invoiceable)
+            {
+                return invoiceable.Invoice();
+            }
+
+            return OrderStatus;
         }
 
         public IReceiptable Deliver()
         {
-            throw new NotImplementedException();
+            if (OrderStatus is IDeliverable deliverable)
+            {
+                return deliverable.Deliver();
+            }
+
+            return OrderStatus;
         }
 
         public IOfferable Receipt()
         {
-            throw new NotImplementedException();
+            if (OrderStatus is IReceiptable receiptable)
+            {
+                return receiptable.Receipt();
+            }
+
+            return OrderStatus;
         }
 
-        public IOrderable Order()
+        public IOfferable Order()
         {
-            throw new NotImplementedException();
+			var offerable = (IOfferable)this;
+
+			var invoiceable = offerable.Offer();
+
+			var deliverable = invoiceable.Invoice();
+
+			var receiptable = deliverable.Deliver();
+
+			offerable = receiptable.Receipt();
+
+			return null;
         }
     }
 
@@ -109,7 +149,7 @@ namespace swop
 
 	public interface IOrderable : IOfferable, IInvoiceable, IDeliverable, IReceiptable
 	{
-		IOrderable Order();
+		IOfferable Order();
 	}
 
 	public interface IOfferable { IInvoiceable Offer(); }
