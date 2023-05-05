@@ -1,14 +1,14 @@
 ﻿using System;
 namespace swop
 {
-	public class Asks: Offers
+	public class AskForms: OfferForms
 	{
-		public Asks()
+		public AskForms()
 		{
 
 		}
 
-        public new static Asks Parse(string text)
+        public new static AskForms Parse(string text)
         {
             var ask = text.Split("in order to", 2)[0];
 
@@ -21,13 +21,13 @@ namespace swop
             {
                 return EthAsks.Parse(text);
             }
-            return new Asks();
+            return new AskForms();
         }
     }
 
 
 
-    public class BtcAsks: Asks
+    public class BtcAsks: AskForms
     {
         public BtcAsks()
         {
@@ -75,7 +75,7 @@ namespace swop
 
 
 
-    public class EthAsks: Asks
+    public class EthAsks: AskForms
     {
         public EthAsks()
         {

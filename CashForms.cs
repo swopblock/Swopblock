@@ -1,14 +1,14 @@
 ﻿using System;
 namespace swop
 {
-    public class Cashments : Deliveries
+    public class CashForms : DeliveryForms
     {
-        public Cashments()
+        public CashForms()
         {
 
         }
 
-        public new static Cashments Parse(string text)
+        public new static CashForms Parse(string text)
         {
             var txt = text.Split("in order to", 2)[0];
 
@@ -22,13 +22,13 @@ namespace swop
                 return EthCashments.Parse(text);
             }
 
-            return new Cashments();
+            return new CashForms();
         }
     }
 
 
 
-    public class BtcCashments : Cashments
+    public class BtcCashments : CashForms
     {
         public BtcCashments()
         {
@@ -81,7 +81,7 @@ namespace swop
 
 
 
-    public class EthCashments : Cashments
+    public class EthCashments : CashForms
     {
         public EthCashments()
         {

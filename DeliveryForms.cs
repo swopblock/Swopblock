@@ -1,20 +1,20 @@
 ﻿using System;
 namespace swop
 {
-	public class Deliveries: ExecOrderForms
+	public class DeliveryForms: ExecOrderForms
 	{
-		public Deliveries()
+		public DeliveryForms()
 		{
 
 		}
 
-		public new static Deliveries Parse(string text)
+		public new static DeliveryForms Parse(string text)
 		{
-            if (text.Contains("paying")) return Payments.Parse(text);
+            if (text.Contains("paying")) return PayForms.Parse(text);
 
-            if (text.Contains("cashing")) return Cashments.Parse(text);
+            if (text.Contains("cashing")) return CashForms.Parse(text);
 
-            return new Deliveries();
+            return new DeliveryForms();
 		}
 	}
 }

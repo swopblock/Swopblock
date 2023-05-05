@@ -16,13 +16,13 @@ var receipter = new Receipters();
 
 // orders
 
-var offer = new Offers();
+var offer = new OfferForms();
 
-var invoice = new Invoices();
+var invoice = new InvoiceForms();
 
-var delivery = new Deliveries();
+var delivery = new DeliveryForms();
 
-var receipt = new Receipts();
+var receipt = new ReceiptForms();
 
 string? line;
 

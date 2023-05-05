@@ -1,14 +1,14 @@
 ﻿using System;
 namespace swop
 {
-    public class Sales : Invoices
+    public class SellForms : InvoiceForms
     {
-        public Sales()
+        public SellForms()
         {
 
         }
 
-        public new static Sales Parse(string text)
+        public new static SellForms Parse(string text)
         {
             var txt = text.Split("in order to", 2)[0];
 
@@ -22,13 +22,13 @@ namespace swop
                 return EthSales.Parse(text);
             }
 
-            return new Sales();
+            return new SellForms();
         }
     }
 
 
 
-    public class BtcSales : Sales
+    public class BtcSales : SellForms
     {
         public BtcSales()
         {
@@ -80,7 +80,7 @@ namespace swop
 
 
 
-    public class EthSales : Sales
+    public class EthSales : SellForms
     {
         public EthSales()
         {

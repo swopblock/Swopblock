@@ -1,14 +1,14 @@
 ﻿using System;
 namespace swop
 {
-	public class Bids: Offers
+	public class BidForms: OfferForms
 	{
-		public Bids()
+		public BidForms()
 		{
 
 		}
 
-		public new static Bids Parse(string text)
+		public new static BidForms Parse(string text)
 		{
 			var txt = text.Split("in order to", 2)[0];
 
@@ -22,13 +22,13 @@ namespace swop
 				return EthBids.Parse(text);
 			}
 
-			return new Bids();
+			return new BidForms();
 		}
 	}
 
 
 
-	public class BtcBids: Bids
+	public class BtcBids: BidForms
 	{
 		public BtcBids()
 		{
@@ -92,7 +92,7 @@ namespace swop
 
 
 
-	public class EthBids: Bids
+	public class EthBids: BidForms
 	{
 		public EthBids()
 		{

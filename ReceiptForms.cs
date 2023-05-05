@@ -1,20 +1,20 @@
 ﻿using System;
 namespace swop
 {
-    public class Receipts: AdminOrderForms
+    public class ReceiptForms: AdminOrderForms
 	{
-		public Receipts()
+		public ReceiptForms()
 		{
 
 		}
 
-		public new static Receipts Parse(string text)
+		public new static ReceiptForms Parse(string text)
 		{
-            if (text.Contains("expensing")) return Expenses.Parse(text);
+            if (text.Contains("expensing")) return ExpenseForms.Parse(text);
 
-            if (text.Contains("incoming")) return Incomes.Parse(text);
+            if (text.Contains("incoming")) return IncomeForms.Parse(text);
 
-            return new Receipts();
+            return new ReceiptForms();
         }
     }
 }

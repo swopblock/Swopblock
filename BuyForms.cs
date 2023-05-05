@@ -2,14 +2,14 @@
 
 namespace swop
 {
-    public class Buys: Invoices
+    public class BuyForms: InvoiceForms
     {
-        public Buys()
+        public BuyForms()
         {
 
         }
 
-        public new static Buys Parse(string text)
+        public new static BuyForms Parse(string text)
         {
             var txt = text.Split("in order to", 2)[0];
 
@@ -23,13 +23,13 @@ namespace swop
                 return EthBuys.Parse(text);
             }
 
-            return new Buys();
+            return new BuyForms();
         }
     }
 
 
 
-    public class BtcBuys : Buys
+    public class BtcBuys : BuyForms
     {
         public BtcBuys()
         {
@@ -81,7 +81,7 @@ namespace swop
 
 
 
-    public class EthBuys : Buys
+    public class EthBuys : BuyForms
     {
         public EthBuys()
         {

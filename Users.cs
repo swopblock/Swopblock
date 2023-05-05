@@ -4,7 +4,7 @@ namespace swop
 {
 	public class Users: Applicators
 	{
-        Offers Offer = new Offers();
+        OfferForms Offer = new OfferForms();
 
 		public Users()
 		{

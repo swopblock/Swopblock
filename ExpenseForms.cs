@@ -1,14 +1,14 @@
 ﻿using System;
 namespace swop
 {
-    public class Expenses : Receipts
+    public class ExpenseForms: ReceiptForms
     {
-        public Expenses()
+        public ExpenseForms()
         {
 
         }
 
-        public new static Expenses Parse(string text)
+        public new static ExpenseForms Parse(string text)
         {
             var txt = text.Split("in order to", 2)[0];
 
@@ -22,13 +22,13 @@ namespace swop
                 return EthExpenses.Parse(text);
             }
 
-            return new Expenses();
+            return new ExpenseForms();
         }
     }
 
 
 
-    public class BtcExpenses : Expenses
+    public class BtcExpenses : ExpenseForms
     {
         public BtcExpenses()
         {
@@ -80,7 +80,7 @@ namespace swop
 
 
 
-    public class EthExpenses : Expenses
+    public class EthExpenses : ExpenseForms
     {
         public EthExpenses()
         {
