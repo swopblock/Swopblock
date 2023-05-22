@@ -14,6 +14,11 @@ namespace swop
 				ProcessStatus = (IProcessable)((INewable)this);
 			}
 
+			public IOfferable Order()
+			{
+				throw new NotImplementedException();
+			}
+
             public INewable Confirm()
             {
 				if (ProcessStatus is IConfirmable confirmable)
@@ -57,10 +62,10 @@ namespace swop
 
 		public Ordering()
 		{
-			OrderStatus = new Offering();
-		}
+            OrderStatus = (IOrderable)this;
+        }
 
-		public class Receipting: ReceiptForms
+        public class Receipting: ReceiptForms
 		{
 
 		}
@@ -72,7 +77,7 @@ namespace swop
 				return offerable.Offer();
 			}
 
-			return OrderStatus;
+			return null;
         }
 
         public IDeliverable Invoice()
@@ -82,7 +87,7 @@ namespace swop
                 return invoiceable.Invoice();
             }
 
-            return OrderStatus;
+            return null;
         }
 
         public IReceiptable Deliver()
@@ -92,7 +97,7 @@ namespace swop
                 return deliverable.Deliver();
             }
 
-            return OrderStatus;
+            return null;
         }
 
         public IOfferable Receipt()
@@ -102,7 +107,7 @@ namespace swop
                 return receiptable.Receipt();
             }
 
-            return OrderStatus;
+            return null;
         }
 
         public IOfferable Order()
@@ -147,18 +152,18 @@ namespace swop
 	public interface IConfirmable { INewable Confirm(); }
 
 
-	public interface IOrderable : IOfferable, IInvoiceable, IDeliverable, IReceiptable
+	public interface IOrderable
 	{
 		IOfferable Order();
 	}
 
-	public interface IOfferable { IInvoiceable Offer(); }
+	public interface IOfferable : IOrderable { IInvoiceable Offer(); }
 
-	public interface IInvoiceable { IDeliverable Invoice(); }
+	public interface IInvoiceable : IOrderable { IDeliverable Invoice(); }
 
-	public interface IDeliverable { IReceiptable Deliver(); }
+	public interface IDeliverable : IOrderable { IReceiptable Deliver(); }
 
-	public interface IReceiptable { IOfferable Receipt(); }
+	public interface IReceiptable : IOrderable { IOfferable Receipt(); }
 
 	namespace NeedsMoreAndRefactoring
 	{
