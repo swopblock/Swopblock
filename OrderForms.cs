@@ -3,6 +3,8 @@ namespace swop
 {
 	public class Ordering: IOrderable
 	{
+		public Signatures Signature;
+
 		private IOrderable OrderStatus;
 
         private class Offering : OfferForms, IOfferable, IProcessable
@@ -126,12 +128,30 @@ namespace swop
         }
     }
 
-	public class OrderForms
-	{
+    public class OrderForms : IProcessable
+    {
+        public INewable Confirm()
+        {
+            throw new NotImplementedException();
+        }
 
-	}
+        public ISignable New(string text)
+        {
+            throw new NotImplementedException();
+        }
 
-	public class AdminOrderForms : OrderForms
+        public IConfirmable Pend()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IPendable Sign()
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class AdminOrderForms : OrderForms
 	{
 
 	}
@@ -143,7 +163,7 @@ namespace swop
 
 	public interface IProcessable : INewable, ISignable, IPendable, IConfirmable { }
 
-	public interface INewable { ISignable New(); }
+	public interface INewable { ISignable New(string text); }
 
 	public interface ISignable { IPendable Sign(); }
 

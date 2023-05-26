@@ -33,15 +33,22 @@ while (true)
 
     if (line == "I am closing swop.")
     {
+        Console.WriteLine("We closed swop.");
+
         break;
     }
 
-    if (args.Contains("u"))
-    {
-        user.WriteLine(line);
+    offer.New(line);
 
-        line = user.ReadLine();
-    }
+    offer.Sign();
+
+    offer.Pend();
+
+    offer.Confirm();
+
+    //user.WriteLine(offerText);
+
+    line = user.ReadLine();
 
     invoicer.WriteLine(line);
 
@@ -62,7 +69,39 @@ while (true)
     Console.WriteLine(line);
 }
 
+string Offer(string text)
+{
+    text = "I am bidding at least 100 and at most 200 SWOBL " +
 
+        "saved at my BTC address 0x123456 " +
 
+        "in order to " +
 
+        "buy at least 200 and at most 300 BTC from the market " +
+
+        "and save it to my BTC address 0x654321 " +
+
+        "and this offer is good until " +
+
+        "the market volume reaches at least 1000 and at most 2000 SWOBL " +
+
+        "and is signed using my signature 0x789.";
+
+    return "OFFER:";
+}
+
+string Invoice(string text)
+{
+    return "INVOICE:";
+}
+
+string Deliver(string text)
+{
+    return "DELIVERY:";
+}
+
+string Receipt(string text)
+{
+    return "RECEIPT:";
+}
 

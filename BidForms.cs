@@ -3,6 +3,26 @@ namespace swop
 {
 	public class BidForms: OfferForms
 	{
+		int AtLeastBuy;
+
+		int AtMostBuy;
+
+		Addresses Delivery;
+
+        //"saved at my BTC address 0x123456 " +
+
+        //"in order to " +
+
+        //"buy at least 200 and at most 300 BTC from the market " +
+
+        //"and save it to my BTC address 0x654321 " +
+
+        //"and this offer is good until " +
+
+        //"the market volume reaches at least 1000 and at most 2000 SWOBL " +
+
+        //"and is signed using my signature 0x789.";
+
 		public BidForms()
 		{
 

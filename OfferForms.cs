@@ -3,7 +3,17 @@ namespace swop
 {
 	public class OfferForms: ExecOrderForms
 	{
-		public OfferForms()
+        UInt64 AtLeastMedium;
+
+        UInt64 AtMostMedium;
+
+        Addresses Medium;
+
+        UInt64 AtLeastMediumExpiration;
+
+        UInt64 AtMostMediumExpiration;
+
+        public OfferForms()
 		{
 
 		}
