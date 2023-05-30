@@ -1,10 +1,10 @@
 ﻿using swop;
 
-Console.WriteLine("Hello, World!");
+string text = "I am starting swop.";
+
+Console.WriteLine("You are starting swop.");
 
 // workers
-
-var applicator = new Applicators();
 
 var user = new Users();
 
@@ -24,50 +24,83 @@ var delivery = new DeliveryForms();
 
 var receipt = new ReceiptForms();
 
-string? line;
 
-while (true)
+text = "I am opening swop.";
+
+Console.WriteLine("You are opening swop.");
+
+string order;
+
+while ((order = Console.ReadLine() ?? "I am closing swop.").Contains("closing") == false)
 {
-    // Console Command
-    line = Console.ReadLine();
+    var fields = order.Split(" am ");
 
-    if (line == "I am closing swop.")
+    string ordering = "You are " + order.Split(" am ")[1].Split("ing ")[0] + "ing.";
+
+    switch (ordering)
     {
-        Console.WriteLine("We closed swop.");
-
-        break;
+        case "You are bidding.":
+            {
+                Console.WriteLine("You are ordering.");
+                Console.WriteLine("You are offering.");
+                Console.WriteLine(ordering);
+                break;
+            }
+        case "You are asking.":
+            {
+                Console.WriteLine("You are ordering.");
+                Console.WriteLine("You are offering.");
+                Console.WriteLine(ordering);
+                break;
+            }
+        case "You are buying.":
+            {
+                Console.WriteLine("You are ordering.");
+                Console.WriteLine("You are invoicing.");
+                Console.WriteLine(ordering);
+                break;
+            }
+        case "You are selling.":
+            {
+                Console.WriteLine("You are ordering.");
+                Console.WriteLine("You are invoicing.");
+                Console.WriteLine(ordering);
+                break;
+            }
+        case "You are paying.":
+            {
+                Console.WriteLine("You are ordering.");
+                Console.WriteLine("You are delivering.");
+                Console.WriteLine(ordering);
+                break;
+            }
+        case "You are cashing.":
+            {
+                Console.WriteLine("You are ordering.");
+                Console.WriteLine("You are delivering.");
+                Console.WriteLine(ordering);
+                break;
+            }
+        case "You are expencing.":
+            {
+                Console.WriteLine("You are ordering.");
+                Console.WriteLine("You are receipting.");
+                Console.WriteLine(ordering);
+                break;
+            }
+        case "You are incoming.":
+            {
+                Console.WriteLine("You are ordering.");
+                Console.WriteLine("You are receipting.");
+                Console.WriteLine(ordering);
+                break;
+            }
     }
-
-    offer.New(line);
-
-    offer.Sign();
-
-    offer.Pend();
-
-    offer.Confirm();
-
-    //user.WriteLine(offerText);
-
-    line = user.ReadLine();
-
-    invoicer.WriteLine(line);
-
-    line = invoicer.ReadLine();
-
-
-    autoer.WriteLine(line);
-
-    line = autoer.ReadLine();
-
-
-    receipter.WriteLine(line);
-
-    line = receipter.ReadLine();
-
-
-    // Console Notification
-    Console.WriteLine(line);
 }
+
+Console.WriteLine("You are closing swop.");
+
+// 
 
 string Offer(string text)
 {

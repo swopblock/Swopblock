@@ -18,6 +18,8 @@ namespace swop
 
 		}
 
+        public IInvoiceable Offer() { return null; }
+
         public new static OfferForms Parse(string text)
         {
             if (text.Contains("bidding")) return BidForms.Parse(text);
