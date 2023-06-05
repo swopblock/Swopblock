@@ -155,47 +155,63 @@ namespace swop
     }
 	*/
 
-    public class OrderForms : IOrderable
-    {
+	public class OrderForms : IOrderable
+	{
 		public OfferForms OfferForm;
 
 		public InvoiceForms InvoiceForm;
 
 		public DeliveryForms DeliveryForm;
 
-		public ReceiptForms Receipt;
+		public ReceiptForms ReceiptForm;
 
-        public IOrderable Order(string text)
-        {
+		public IOrderable Order(string text)
+		{
 			//this.Offer(text);
 
 			return (IOrderable)((IOfferable)null);
-        }
+		}
 
-        IInvoiceable IOfferable.Offer(string text)
+		public static IOfferable Intend(string intention)
+		{
+			if (intention.StartsWith("I am bidding"))
+				return (IOfferable)new BidForms();
+
+			if (intention.StartsWith("I am asking"))
+				return (IOfferable)new AskForms();
+
+			return null;
+		}
+
+        public IInvoiceable Offer()
         {
             throw new NotImplementedException();
         }
 
-        IDeliverable IInvoiceable.Invoice(string text)
-        {
-            throw new NotImplementedException();
-        }
+        public IDeliverable Invoice()
+		{
+			throw new NotImplementedException();
+		}
 
-        public IReceiptable Deliver(string text)
-        {
-            throw new NotImplementedException();
-        }
+		public IReceiptable Deliver()
+		{
+			throw new NotImplementedException();
+		}
 
-        IOfferable IReceiptable.Receipt(string text)
-        {
-            throw new NotImplementedException();
-        }
+		public INotifiable Receipt()
+		{
+			throw new NotImplementedException();
+		}
+
+		public string Notify()
+		{
+			return "To Be Done Yet";
+		}
     }
 
     public class AdminOrderForms : OrderForms
 	{
-
+		//public static 
 	}
 
 	public class ExecOrderForms : OrderForms
@@ -214,18 +230,20 @@ namespace swop
 	public interface IConfirmable { INewable Confirm(string text); }
 
 
-	public interface IOrderable : IOfferable, IInvoiceable, IDeliverable, IReceiptable
+	public interface IOrderable : IOfferable, IInvoiceable, IDeliverable, IReceiptable, INotifiable
 	{
-		IOrderable Order(string text);
+		//IOfferable Order();
 	}
 
-	public interface IOfferable { IInvoiceable Offer(string text); }
+	public interface IOfferable : INotifiable { IInvoiceable Offer(); }
 
-	public interface IInvoiceable { IDeliverable Invoice(string text); }
+	public interface IInvoiceable : INotifiable { IDeliverable Invoice(); }
 
-	public interface IDeliverable { IReceiptable Deliver(string text); }
+    public interface IDeliverable : INotifiable { IReceiptable Deliver(); }
 
-	public interface IReceiptable { IOfferable Receipt(string text); }
+    public interface IReceiptable : INotifiable { INotifiable Receipt(); }
+
+    public interface INotifiable { string Notify(); }
 
 	namespace NeedsMoreAndRefactoring
 	{
