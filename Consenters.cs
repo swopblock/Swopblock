@@ -1,9 +1,9 @@
 ﻿using System;
 namespace swop
 {
-	public class Consenter
+	public class Consenters : Networkers
 	{
-		public Consenter()
+		public Consenters()
 		{
 		}
 	}

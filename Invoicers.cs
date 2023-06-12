@@ -1,22 +1,22 @@
 ﻿using System;
 namespace swop
 {
-	public class Invoicers: Applicators
+	public class Invoicers: Incenters
 	{
 		public Invoicers()
 		{
 		}
 
-        public override string? ReadLine()
+        public string? ReadLine()
         {
-            return base.ReadLine();
+            return null; // base.ReadLine();
         }
 
-        public override void WriteLine(string line)
+        public void WriteLine(string line)
         {
             Console.WriteLine($"Invoicer: {line}");
 
-            base.WriteLine(line);
+            //base.WriteLine(line);
         }
     }
 }

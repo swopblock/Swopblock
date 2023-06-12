@@ -1,9 +1,9 @@
 ﻿using System;
 namespace swop
 {
-	public class Incenter
+	public class Incenters : Consenters
 	{
-		public Incenter()
+		public Incenters()
 		{
 		}
 	}

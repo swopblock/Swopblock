@@ -7,20 +7,6 @@ namespace swop
 
     }
 
-    public class Incenters : Consenters
-    {
-
-    }
-
-    public class Consenters : NetWorkers
-    {
-
-    }
-
-    public class NetWorkers
-    {
-
-    }
 
     
     

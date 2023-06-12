@@ -1,22 +1,22 @@
 ﻿using System;
 namespace swop
 {
-	public class Autoers: Applicators
+	public class Autoers: Incenters
 	{
 		public Autoers()
 		{
 		}
 
-        public override string? ReadLine()
+        public  string? ReadLine()
         {
-            return base.ReadLine();
+            return null;// base.ReadLine();
         }
 
-        public override void WriteLine(string line)
+        public  void WriteLine(string line)
         {
             Console.WriteLine($"Autoer: {line}");
 
-            base.WriteLine(line);
+            //base.WriteLine(line);
         }
     }
 }

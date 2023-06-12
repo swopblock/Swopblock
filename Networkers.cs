@@ -1,9 +1,9 @@
 ﻿using System;
 namespace swop
 {
-	public class Internetter
+	public class Networkers
 	{
-		public Internetter()
+		public Networkers()
 		{
 		}
 	}
