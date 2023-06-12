@@ -2,11 +2,38 @@
 
 namespace swop
 {
-	public class Users: Applicators
+    public class Users : Incenters
+    {
+
+    }
+
+    public class Incenters : Consenters
+    {
+
+    }
+
+    public class Consenters : NetWorkers
+    {
+
+    }
+
+    public class NetWorkers
+    {
+
+    }
+
+    
+    
+
+    //public class Autoers : ExecutiveWorkers
+    //{
+
+    //}
+	public class UsersOld: Applicators
 	{
         OfferForms Offer = new OfferForms();
 
-		public Users()
+		public UsersOld()
 		{
 
 		}
