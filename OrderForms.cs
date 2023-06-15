@@ -157,6 +157,8 @@ namespace swop
 
 	public class OrderForms : IOrderable
 	{
+		public OrderSetOfParts Parts;
+		
 		public OfferForms OfferForm;
 
 		public InvoiceForms InvoiceForm;

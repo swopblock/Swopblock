@@ -1,12 +1,13 @@
 ﻿using System;
 namespace swop
 {
-	public class SuperMarkets
+	public class SuperSetOfMarkets
 	{
-		public Markets[] SetOfMarkets;
+		public LinkedList<Markets> Markets;
 
-		public SuperMarkets()
+		public SuperSetOfMarkets()
 		{
+			//ArrayOfMarkets = new 
 		}
 	}
 }
