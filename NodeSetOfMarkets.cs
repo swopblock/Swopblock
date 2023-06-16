@@ -3,11 +3,11 @@ namespace swop
 {
 	public class NodeSetOfMarkets
 	{
-		public LinkedList<Markets> Markets;
+		public LinkedList<Markets> LinkedList;
 
 		public NodeSetOfMarkets()
 		{
-			//ArrayOfMarkets = new 
+			LinkedList = new LinkedList<Markets>(); 
 		}
 	}
 }

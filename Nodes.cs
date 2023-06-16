@@ -3,32 +3,34 @@ namespace swop
 {
 	public class Nodes
 	{
-		//public OfferingCores OfferingCore;
+        public NodeSetOfMarkets Markets;
 
-		//public InvoicingCores InvoicingCore;
+        //public OfferingCores OfferingCore;
 
-		//public DeliveringCores DeliveringCore;
+        //public InvoicingCores InvoicingCore;
 
-		//public ReceiptingCores ReceiptingCore;
+        //public DeliveringCores DeliveringCore;
 
-		//public AppCores[] AppSetOfCores;
+        //public ReceiptingCores ReceiptingCore;
 
-		//public AdminCores[] AdminSetOfCores;
+        //public AppCores[] AppSetOfCores;
 
-		public NetworkSetOfNodes Neighborhood;
+        //public AdminCores[] AdminSetOfCores;
 
-		public SuperSetOfCores SuperCore;
+        public NodeSetOfNodes Neighborhood;
 
-		public SuperSetOfMarkets SuperMarket;
+		public NodeSetOfCores SuperCore;
+
 
 
         public Nodes()
 		{
-			Neighborhood = new NetworkSetOfNodes();
+            Markets = new NodeSetOfMarkets();
 
-			SuperCore = new SuperSetOfCores();
+            Neighborhood = new NodeSetOfNodes();
 
-			SuperMarket = new SuperSetOfMarkets();
+			SuperCore = new NodeSetOfCores();
+
 		}
 
 		public void Run()

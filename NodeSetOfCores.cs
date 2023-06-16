@@ -2,11 +2,11 @@
 
 namespace swop;
 
-public class SuperSetOfCores
+public class NodeSetOfCores
 {
 	public LinkedList<Cores> Cores;
 
-	public SuperSetOfCores()
+	public NodeSetOfCores()
 	{
 	}
 }

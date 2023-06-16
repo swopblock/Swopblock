@@ -3,7 +3,7 @@ namespace swop
 {
 	public class OfferingCores: AppCores
 	{
-		public SuperSetOfMarkets SuperMarket;
+		public NodeSetOfMarkets SuperMarket;
 
 		public OfferingCores()
 		{

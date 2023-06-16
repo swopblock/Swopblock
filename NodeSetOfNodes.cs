@@ -1,11 +1,11 @@
 ﻿using System;
 namespace swop
 {
-	public class NetworkSetOfNodes
+	public class NodeSetOfNodes
 	{
 		public LinkedList<Nodes> Nodes;
 
-		public NetworkSetOfNodes()
+		public NodeSetOfNodes()
 		{
 			Nodes = new LinkedList<Nodes>();
 		}
