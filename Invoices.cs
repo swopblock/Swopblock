@@ -2,7 +2,7 @@
 
 namespace swop;
 
-public class Invoices: Schedules
+public class Invoices: Entry
 {
 	public Invoices()
 	{

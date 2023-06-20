@@ -2,11 +2,11 @@
 
 namespace swop;
 
-public class Orders
+public class OrdersOld
 {
 	public OrderSetOfSchedules Schedules;
 
-	public Orders()
+	public OrdersOld()
 	{
 		Schedules = new OrderSetOfSchedules();
 	}

@@ -3,11 +3,11 @@ namespace swop
 {
 	public class OrderSetOfSchedules
 	{
-		public LinkedList<Schedules> LinkedList;
+		public LinkedList<Entry> LinkedList;
 
 		public OrderSetOfSchedules()
 		{
-			LinkedList = new LinkedList<Schedules>();
+			LinkedList = new LinkedList<Entry>();
 		}
 	}
 }

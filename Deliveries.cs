@@ -1,7 +1,7 @@
 ﻿using System;
 namespace swop
 {
-	public class Deliveries: Schedules
+	public class Deliveries: Entry
 	{
 		public Deliveries()
 		{

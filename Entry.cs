@@ -2,9 +2,19 @@
 
 namespace swop;
 
-public class Schedules
+public class Entry
 {
-	public Schedules()
+    public Crypto Source;
+
+    public Signatures Authorization;
+
+    public decimal Exchange;
+
+    public decimal Medium;
+
+    public Wallet Recipient;
+
+    public Entry()
 	{
 	}
 }

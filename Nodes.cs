@@ -1,8 +1,14 @@
 ﻿using System;
 namespace swop
 {
-	public class Nodes
+	public class Wallet
 	{
+		public static Wallet Genesus;
+
+		public Crypto[] Crypto;
+
+		public Signatures[] Signatures;
+
         public NodeSetOfMarkets Markets;
 
         //public OfferingCores OfferingCore;
@@ -23,7 +29,7 @@ namespace swop
 
 
 
-        public Nodes()
+        public Wallet()
 		{
             Markets = new NodeSetOfMarkets();
 

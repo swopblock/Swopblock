@@ -4,11 +4,11 @@ namespace swop;
 
 public class MarketSetOfOrders
 {
-	public LinkedList<Orders> LinkedList;
+	public LinkedList<OrdersOld> LinkedList;
 
 	public MarketSetOfOrders()
 	{
-		LinkedList = new LinkedList<Orders>();
+		LinkedList = new LinkedList<OrdersOld>();
 	}
 }
 
