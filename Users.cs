@@ -17,7 +17,7 @@ namespace swop
     //}
 	public class UsersOld: Applicators
 	{
-        OfferForms Offer = new OfferForms();
+        Offers Offer = new Offers();
 
 		public UsersOld()
 		{

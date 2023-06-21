@@ -1,7 +1,7 @@
 ﻿using System;
 namespace swop
 {
-	public class OfferForms: ExecOrderForms
+	public class OffersOld: ExecOrderForms
 	{
         UInt64 AtLeastMedium;
 
@@ -13,20 +13,20 @@ namespace swop
 
         UInt64 AtMostMediumExpiration;
 
-        public OfferForms()
+        public OffersOld()
 		{
 
 		}
 
         public IInvoiceable Offer() { return null; }
 
-        public new static OfferForms Parse(string text)
+        public new static Offers Parse(string text)
         {
             if (text.Contains("bidding")) return BidForms.Parse(text);
 
             if (text.Contains("asking")) return AskForms.Parse(text);
 
-            return new OfferForms();
+            return new Offers();
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 namespace swop
 {
-	public class AskForms: OfferForms
+	public class AskForms: Offers
 	{
 		public AskForms()
 		{

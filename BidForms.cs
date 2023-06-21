@@ -1,7 +1,7 @@
 ﻿using System;
 namespace swop
 {
-	public class BidForms: OfferForms
+	public class BidForms: Offers
 	{
 		int AtLeastBuy;
 

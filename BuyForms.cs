@@ -2,7 +2,7 @@
 
 namespace swop
 {
-    public class BuyForms: InvoiceForms
+    public class BuyForms: Invoices
     {
         public BuyForms()
         {

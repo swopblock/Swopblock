@@ -85,27 +85,27 @@ string intention;
 
 while ((intention = Console.ReadLine() ?? "I am closing swop.").Contains("closing") == false)
 {
-    var offerable = OfferForms.Intend(intention);
+    var offerable = Offers.Intend(intention);
 
 
     Console.WriteLine(offerable.Notify());
 
-    var invoicable = offerable.Offer();
+    var invoicable = offerable.AddOffer();
 
 
     Console.WriteLine(invoicable.Notify());
 
-    var deliverable = invoicable.Invoice();
+    var deliverable = invoicable.AddInvoice();
 
 
     Console.WriteLine(deliverable.Notify());
 
-    var receiptable = deliverable.Deliver();
+    var receiptable = deliverable.AddDelivery();
 
 
     Console.WriteLine(receiptable.Notify());
 
-    var textable = receiptable.Receipt();
+    var textable = receiptable.AddReceipt();
 }
 
 
