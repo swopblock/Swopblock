@@ -4,6 +4,8 @@ namespace swop;
 
 public class Entry
 {
+    public IBinding Binding;
+
     public Crypto Source;
 
     public Signatures Authorization;
@@ -19,14 +21,58 @@ public class Entry
 	}
 }
 
-public interface IOrdering : INewable, ISignable, IPendable, IConfirmable { }
+public interface IOrderable: IBindable, IDisolvable
+{
+    IReceiptable Order(IOfferable offer)
+    {
+        var invoice = Bind(offer);
 
-public interface INewable { ISignable New(string text); }
+        var receipt = Disolve(invoice);
 
-public interface ISignable { IPendable Sign(string text); }
+        return receipt;
+    }
+}
 
-public interface IPendable { IConfirmable Pend(string text); }
+public interface IBindable : IReviewable, ISignable, ISubmitable, IConfirmable
+{
+    IDeliverable Bind(IOfferable offer)
+    {
+        // IAMHERE var offer
+        return null;
+    }
+}
 
-public interface IConfirmable { INewable Confirm(string text); }
+public interface IDisolvable : IReviewable, ISignable, ISubmitable, IConfirmable
+{
+    IReceiptable Disolve(IDeliverable invoice);
+}
+
+public interface IOfferable : IReviewable, ISignable, ISubmitable, IConfirmable
+{
+    IInvoicable Enter(IOfferable entry);
+}
+
+public interface IInvoicable
+{
+    IDeliverable Enter(IInvoicable offer);
+}
+
+public interface IDeliverable
+{
+    IReceiptable Enter(IDeliverable invoice);
+}
+
+public interface IReceiptable
+{
+    IReceiptable Enter(IReceiptable delivery);
+}
+
+public interface IReviewable { ISignable Review(IReviewable entered); }
+
+public interface ISignable { ISubmitable Sign(ISignable reviewed); }
+
+public interface ISubmitable { IConfirmable Submit(ISubmitable signed); }
+
+public interface IConfirmable { IReviewable Confirm(IConfirmable submitted); }
 
 
