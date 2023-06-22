@@ -8,7 +8,7 @@ public class Transactions: ITransactions
 	{
 	}
 
-    public IReviewable Confirm(string text)
+    public IVerifiable Confirm(string text)
     {
         throw new NotImplementedException();
     }
@@ -29,7 +29,7 @@ public class Transactions: ITransactions
     }
 }
 
-public interface ITransactions : IReviewable, ISignable, IPendable, IConfirmable
+public interface ITransactions : IVerifiable, ISignable, IPendable, IConfirmable
 {
 
 }

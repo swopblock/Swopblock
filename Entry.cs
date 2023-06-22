@@ -21,58 +21,113 @@ public class Entry
 	}
 }
 
-public interface IOrderable: IBindable, IDisolvable
+public interface IOrderable: IExecutable, IDischargeable
 {
-    IReceiptable Order(IOfferable offer)
+    IOrdered Order(IOrderable orderable)
     {
-        var invoice = Bind(offer);
+        var invoiced = Execute(orderable);
 
-        var receipt = Disolve(invoice);
+        var discharged = Discharge(invoiced);
 
-        return receipt;
+        return discharged;
     }
 }
 
-public interface IBindable : IReviewable, ISignable, ISubmitable, IConfirmable
+public interface IOrdered { }
+
+public interface IExecutable: IOfferable, IInvoicable
 {
-    IDeliverable Bind(IOfferable offer)
+    IDeliverable Execute(IExecutable executable)
     {
-        // IAMHERE var offer
-        return null;
+        var offered = Offer(executable);
+
+        var invoiced = Invoice(offered);
+
+        return invoiced;
     }
 }
 
-public interface IDisolvable : IReviewable, ISignable, ISubmitable, IConfirmable
+public interface IDischargeable: IDeliverable, IReceiptable
 {
-    IReceiptable Disolve(IDeliverable invoice);
+    IDischarged Discharge(IDeliverable deliverable)
+    {
+        var delivered = Deliver(deliverable);
+
+        var receipted = Receipt(delivered);
+
+        return receipted;
+    }
 }
 
-public interface IOfferable : IReviewable, ISignable, ISubmitable, IConfirmable
+public interface IDischarged: IOrdered { }
+
+public interface IOfferable : IProcessable
 {
-    IInvoicable Enter(IOfferable entry);
+    IInvoicable Offer(IOfferable offerable)
+    {
+        var confirmed = Process(offerable);
+
+        return (IInvoicable)confirmed;
+    }
 }
 
-public interface IInvoicable
+public interface IInvoicable : IProcessable
 {
-    IDeliverable Enter(IInvoicable offer);
+    IDeliverable Invoice(IInvoicable invoicing);
 }
 
-public interface IDeliverable
+public interface IDeliverable : IProcessable
 {
-    IReceiptable Enter(IDeliverable invoice);
+    IReceiptable Deliver(IDeliverable deliverable)
+    {
+        var delivered = Process(deliverable);
+
+        return (IReceiptable)delivered;
+    }
 }
 
-public interface IReceiptable
+public interface IReceiptable : IProcessable
 {
-    IReceiptable Enter(IReceiptable delivery);
+    IReceipted Receipt(IReceiptable receiptable)
+    {
+        var receipted = Process(receiptable);
+
+        return (IReceipted)receipted;
+    }
 }
 
-public interface IReviewable { ISignable Review(IReviewable entered); }
+public interface IReceipted: IDischarged { }
 
-public interface ISignable { ISubmitable Sign(ISignable reviewed); }
+public interface IProcessable : IVerifiable, ISignable, ISubmitable, IConfirmable
+{
+    IProcessable Process(IProcessable processable)
+    {
+        var verified = Verify(processable);
 
-public interface ISubmitable { IConfirmable Submit(ISubmitable signed); }
+        var signed = Sign(verified);
 
-public interface IConfirmable { IReviewable Confirm(IConfirmable submitted); }
+        var submitted = Submit(signed);
 
+        var confirmed = Confirm(submitted);
 
+        return confirmed;
+    }
+}
+
+public interface IVerifiable { ISignable Verify(IVerifiable verifiable); }
+
+public interface ISignable { ISubmitable Sign(ISignable signable); }
+
+public interface ISubmitable { IConfirmable Submit(ISubmitable submitable); }
+
+public interface IConfirmable { IProcessable Confirm(IConfirmable confirmable); }
+
+public interface IConfirmed : IOffered, IInvoiced, IDelivered, IReceipted  { }
+
+public interface IOffered { }
+
+public interface IInvoiced { }
+
+public interface IDelivered { }
+
+//public interface IReceipted { }
