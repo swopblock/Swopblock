@@ -1,7 +1,7 @@
 ﻿using System;
 namespace swop
 {
-	public class OfferingCores: AppCores
+	public class OfferingCores: OrderingCores
 	{
 		public NodeSetOfMarkets SuperMarket;
 

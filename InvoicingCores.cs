@@ -1,7 +1,7 @@
 ﻿using System;
 namespace swop
 {
-	public class InvoicingCores: AdminCores
+	public class InvoicingCores: Cores
 	{
 		public InvoicingCores()
 		{

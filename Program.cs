@@ -88,24 +88,24 @@ while ((intention = Console.ReadLine() ?? "I am closing swop.").Contains("closin
     var offerable = Offers.Intend(intention);
 
 
-    Console.WriteLine(offerable.Notify());
+    //Console.WriteLine(offerable.Notify());
 
-    var invoicable = offerable.AddOffer();
-
-
-    Console.WriteLine(invoicable.Notify());
-
-    var deliverable = invoicable.AddInvoice();
+    //var invoicable = offerable.AddOffer();
 
 
-    Console.WriteLine(deliverable.Notify());
+    //Console.WriteLine(invoicable.Notify());
 
-    var receiptable = deliverable.AddDelivery();
+    //var deliverable = invoicable.AddInvoice();
 
 
-    Console.WriteLine(receiptable.Notify());
+    //Console.WriteLine(deliverable.Notify());
 
-    var textable = receiptable.AddReceipt();
+    //var receiptable = deliverable.AddDelivery();
+
+
+    //Console.WriteLine(receiptable.Notify());
+
+    //var textable = receiptable.AddReceipt();
 }
 
 

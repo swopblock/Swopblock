@@ -2,9 +2,9 @@
 
 namespace swop;
 
-public class Entry
+public class Entry: INewEntry
 {
-    public IBinding Binding;
+    //public IBinding Binding;
 
     public Crypto Source;
 
@@ -14,30 +14,43 @@ public class Entry
 
     public decimal Medium;
 
-    public Wallet Recipient;
+    public Nodes Recipient;
 
     public Entry()
 	{
 	}
 }
 
-public interface IOrderable: IExecutable, IDischargeable
+public interface INewEntry
 {
+    /*
+    IOrderable NewEntry();
+    
+    {
+        return new Entry();
+    }
+    */
+}
+
+public interface IOrderable //: IExecutable, IDischargeable
+{
+    /*
     IOrdered Order(IOrderable orderable)
     {
-        var invoiced = Execute(orderable);
+        var invoiced = Execute((IExecutable)orderable);
 
         var discharged = Discharge(invoiced);
 
         return discharged;
-    }
+    }*/
 }
 
 public interface IOrdered { }
 
-public interface IExecutable: IOfferable, IInvoicable
+public interface IExecutable //: IOfferable, IInvoicable
 {
-    IDeliverable Execute(IExecutable executable)
+    /*
+    IDeliverable Execute(this IExecutable e, IExecutable executable)
     {
         var offered = Offer(executable);
 
@@ -45,6 +58,7 @@ public interface IExecutable: IOfferable, IInvoicable
 
         return invoiced;
     }
+    */
 }
 
 public interface IDischargeable: IDeliverable, IReceiptable

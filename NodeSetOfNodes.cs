@@ -3,11 +3,11 @@ namespace swop
 {
 	public class NodeSetOfNodes
 	{
-		public LinkedList<Wallet> Nodes;
+		public LinkedList<Nodes> Nodes;
 
 		public NodeSetOfNodes()
 		{
-			Nodes = new LinkedList<Wallet>();
+			Nodes = new LinkedList<Nodes>();
 		}
 	}
 }

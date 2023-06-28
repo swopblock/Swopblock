@@ -155,7 +155,7 @@ public class Ordering: IOrderable
 }
 */
 
-public class Orders : IOrderable
+public class Orders  // : IOrderable
 {
 	public Offers Offer;
 
@@ -221,18 +221,18 @@ public class ExecOrderForms : Orders
 
 
 
-public interface IOrderable : IOfferable, IInvoiceable, IDeliverable, IReceiptable, INotifiable
+public interface IOrderable2 : IOfferable, IInvoiceable, IDeliverable, IReceiptable, INotifiable
 {
 	//IOfferable Order();
 }
 
-public interface IOfferable : INotifiable { IInvoiceable AddOffer(); }
+public interface IOfferable2 : INotifiable { IInvoiceable AddOffer(); }
 
 public interface IInvoiceable : INotifiable { IDeliverable AddInvoice(); }
 
-public interface IDeliverable : INotifiable { IReceiptable AddDelivery(); }
+public interface IDeliverable2 : INotifiable { IReceiptable AddDelivery(); }
 
-public interface IReceiptable : INotifiable { INotifiable AddReceipt(); }
+public interface IReceiptable2 : INotifiable { INotifiable AddReceipt(); }
 
 public interface INotifiable { string Notify(); }
 

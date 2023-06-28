@@ -8,28 +8,28 @@ public class Transactions: ITransactions
 	{
 	}
 
-    public IVerifiable Confirm(string text)
+    public IProcessable Confirm(IConfirmable confirmable)
     {
         throw new NotImplementedException();
     }
 
-    public ISignable New(string text)
+    public ISubmitable Sign(ISignable signable)
     {
         throw new NotImplementedException();
     }
 
-    public IConfirmable Pend(string text)
+    public IConfirmable Submit(ISubmitable submitable)
     {
         throw new NotImplementedException();
     }
 
-    public IPendable Sign(string text)
+    public ISignable Verify(IVerifiable verifiable)
     {
         throw new NotImplementedException();
     }
 }
 
-public interface ITransactions : IVerifiable, ISignable, IPendable, IConfirmable
+public interface ITransactions : IVerifiable, ISignable, ISubmitable, IConfirmable
 {
 
 }

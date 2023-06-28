@@ -1,42 +1,31 @@
 ﻿using System;
 namespace swop
 {
-	public class Wallet
+	public class Nodes
 	{
-		public static Wallet Genesus;
+		public Assets Cash;
 
-		public Crypto[] Crypto;
+		public GroupOfAssets Assets;
 
-		public Signatures[] Signatures;
+		public GroupOfNodes Peers;
 
-        public NodeSetOfMarkets Markets;
+		public GroupOfMarkets Markets;
 
-        //public OfferingCores OfferingCore;
+		public GroupOfOrders OrderHistory;
 
-        //public InvoicingCores InvoicingCore;
+		public OrderingCores OrderingCore;
 
-        //public DeliveringCores DeliveringCore;
-
-        //public ReceiptingCores ReceiptingCore;
-
-        //public AppCores[] AppSetOfCores;
-
-        //public AdminCores[] AdminSetOfCores;
-
-        public NodeSetOfNodes Neighborhood;
-
-		public NodeSetOfCores SuperCore;
-
-
-
-        public Wallet()
+        public Nodes()
 		{
-            Markets = new NodeSetOfMarkets();
+			Cash = new Assets();
 
-            Neighborhood = new NodeSetOfNodes();
+			Peers = new GroupOfNodes();
 
-			SuperCore = new NodeSetOfCores();
+			Markets = new GroupOfMarkets();
 
+			OrderHistory = new GroupOfOrders();
+
+			OrderingCore = new OrderingCores();
 		}
 
 		public void Run()
