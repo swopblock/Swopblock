@@ -1,11 +1,9 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 25.0.1705.2
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "swop", "swop.csproj", "{45D3722E-0B1E-4BBF-A7BB-E835232C4264}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tests", "..\tests\tests.csproj", "{7285E07A-E1D3-4462-ACEB-15D70C04BCAB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +15,6 @@ Global
 		{45D3722E-0B1E-4BBF-A7BB-E835232C4264}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{45D3722E-0B1E-4BBF-A7BB-E835232C4264}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{45D3722E-0B1E-4BBF-A7BB-E835232C4264}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7285E07A-E1D3-4462-ACEB-15D70C04BCAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7285E07A-E1D3-4462-ACEB-15D70C04BCAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7285E07A-E1D3-4462-ACEB-15D70C04BCAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7285E07A-E1D3-4462-ACEB-15D70C04BCAB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
