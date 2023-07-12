@@ -22,4 +22,7 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\swop\swop.csproj" />
+  </ItemGroup>
 </Project>
