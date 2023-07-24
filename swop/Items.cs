@@ -1,129 +1,153 @@
 ﻿using System;
 
 namespace Swopblock
+
 {
-    public interface IRelayNodes
+    public interface ISwopNodeItems
     {
-        public IWallets Wallet { get; set; }
+        ISwopWalletItems SwopWallet { get; init; }
 
-        public IMarketplace Marketplace { get; set; }
+        ISwopMarketItem[] SwopMarketItems { get; init; }
     }
 
+    #region Swop Node Details
 
-    #region Wallet Details
 
-    public interface IWallets
+    public interface ISwopWalletItems
     {
 
-        public IWatchlist Watchlist { get; set; }
+        public IWatchlistItems Watchlist { get; set; }
 
-        public IPortfolio Portfolio { get; set; }
+        public IPortfolioItems Portfolio { get; set; }
 
-        public ICash Cash { get; set; }
+        public ISwoblItems Swobl { get; set; }
 
-        public ITaxDocuments TaxDocuments { get; set; }
+        public ITaxDocumentItems TaxDocuments { get; set; }
 
-        public IBankCards BanksCards { get; set; }
+        public IBankCardItems BanksCards { get; set; }
 
-        public ISettings Settings { get; set; }
+        public ISettingItems Settings { get; set; }
 
-        public INotifications Notifications { get; set; }
+        public INotificationItems Notifications { get; set; }
     }
 
-    public interface IWalletItem { }
+    #region Swop Wallet Details
 
-    public interface IWatchlist: IList<IMarkets>, IWalletItem
+    public interface IWatchlistItems
     {
+        public IWatchlistItem[] WatchlistItems { get; init; }
     }
 
-    public interface IPortfolio: IList<IAssets>, IWalletItem
+    public interface IWatchlistItem { }
+
+
+    public interface IPortfolioItems
     {
+        public IAssetItem[] PortfolioItems { get; init; }
     }
 
-    public interface ICash : IList<IMediums>, IWalletItem
-    { }
+    public interface IAssetItem { }
 
-    public interface ITaxDocuments : IList<IDocuments>, IWalletItem
-    { }
 
-    public interface IDocuments { }
+    public interface ISwoblItems
+    {
+        public ISwoblItem[] SwoblItems { get; init; }
+    }
 
-    public interface IBankCards : IList<ICards>, IWalletItem
-    { }
+    public interface ISwoblItem { }
 
-    public interface ICards { }
 
-    public interface ISettings : IList<IControls>, IWalletItem
-    { }
+    public interface ITaxDocumentItems
+    {
+        public ITaxDocumentItem[] TaxDocumentItems { get; init; }
+    }
 
-    public interface IControls { }
+    public interface ITaxDocumentItem { }
 
-    public interface INotifications: IList<INotices>, IWalletItem
-    { }
 
-    public interface INotices { }
+    public interface IBankCardItems
+    {
+        public IBankCardItem[] BankCardItems { get; init; }
+    }
+
+    public interface IBankCardItem { }
+
+
+    public interface ISettingItems
+    {
+        public ISettingItem[] SettingItems { get; init; }
+    }
+
+    public interface ISettingItem { }
+
+
+    public interface INotificationItems
+    {
+        public INotificationItem[] NotificationItems { get; init; }
+    }
+
+    public interface INotificationItem { }
+
+    #endregion Swop Wallet Set of Items
+
+
+    public interface ISwopMarketItem
+    {
+        IBlockItem[] Blocks { get; init; }
+    }
+
+    #region Swop Market Details
+
+    public interface IBlockItem
+    {
+        IEntryItem[] Entries { get; init; }
+    }
+
+    public interface IBtcBlockItem : IBlockItem { }
+
+    public interface IEthBlockItem : IBlockItem { }
+
+    public interface IEntryItem
+    {
+        IContractItem[] Contracts { get; init; }
+    }
+
+    public interface IBtcEntryItem : IEntryItem { }
+
+    public interface IContractItem { }
+
+    public interface IChargeItem : IContractItem { }
+
+    public interface IDischargeItem : IContractItem { }
+
+    public interface IOfferItem : IChargeItem { }
+
+    public interface IInvoiceItem : IChargeItem { }
+
+    public interface IDeliveryItem : IDischargeItem { }
+
+    public interface IReceiptItem : IDischargeItem { }
+
+    public interface IBidItem : IOfferItem { }
+
+    public interface IAskItem : IOfferItem { }
+
+    public interface IBuyItem : IInvoiceItem { }
+
+    public interface ISellItem : IInvoiceItem { }
+
+    public interface IPayItem : IDeliveryItem { }
+
+    public interface ICashItem : IDeliveryItem { }
+
+    public interface IExpenseItem : IReceiptItem { }
+
+    public interface IIncomeItem : IReceiptItem { }
 
     #endregion
 
 
-    #region Commons Details
-
-    public interface IMarketplace : IList<IMarkets>
-    {
-        public ISwopStream SwopStream { get; set; }
-    }
-
-    public interface ISwopStream
-    {
-        IOrders[] Orders { get; set; }
-    }
-
-    public interface ITradeOrders : IOrders
-    {
-        public IBuyOrders BuyOrder { get; set;}
-        public ISellOrders SellOrder { get; set; }
-    }
-
-    public interface IBuyOrders : IOrders { }
-
-    public interface ISellOrders : IOrders { }
-
-    public interface IOrders
-    {
-        IChargeOrders ChargeOrder { get; set; }
-
-        IDischargeOrders DischargeOrder { get; set; }
-    }
-
-    public interface IChargeOrders
-    {
-        IOffers Offer { get; set; }
-
-        IInvoices Invoice { get; set; }
-    }
-
-    public interface IOffers : IEntries { }
-
-    public interface IInvoices : IEntries { }
-
-    public interface IDischargeOrders
-    {
-        IDeliveries Delivery { get; set; }
-
-        IReceipts Receipt { get; set; }
-    }
-
-    public interface IDeliveries : IEntries { }
-
-    public interface IReceipts : IEntries { }
-
-
-    public interface IMarkets
-    {
-        //INodes[] 
-    }
-
-    #endregion
+   #endregion
 
 
 
@@ -142,15 +166,15 @@ namespace Swopblock
 
     //ITradeOrders[] Orders { get; set; }
 
-        //IMediums[] Mediums { get; set; }
+    //IMediums[] Mediums { get; set; }
 
-        //IAssets[] Assets { get; set; } 
-    }
+    //IAssets[] Assets { get; set; } 
+}
 
 
-    #region IWallets Members
+#region IWallets Members
 
-    public interface IUserAdmins { }
+public interface IUserAdmins { }
 
     #endregion
 

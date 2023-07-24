@@ -3,114 +3,43 @@ using Swopblock;
 
 namespace tests;
 
-public class TestRelayNode: IRelayNodes
+public class TestISwopNodeItems : ISwopNodeItems
 {
-    public IWallets testWallet;
+    private ISwopWalletItems PrivateSwopWallet;
 
-    public IMarketplace testMarketPlace;
+    private ISwopMarketItem[] PrivateSwopMarketItems;
 
-    public TestRelayNode()
+    public TestISwopNodeItems()
     {
-        testWallet = new TestWallet();
+        SwopWallet = PrivateSwopWallet = new TestSwopWalletItems();
 
-        testMarketPlace = new TestMarketplace();
+        SwopMarketItems = PrivateSwopMarketItems = null;
     }
 
-    public IWallets Wallet
+    public ISwopWalletItems SwopWallet
     {
         [Fact]
-        get => testWallet;
+        get => throw new NotImplementedException();
 
-        [Theory]
-        [InlineData(null)]
-        set => testWallet = value;
+        init => throw new NotImplementedException();
     }
 
-    public IMarketplace Marketplace
+    public ISwopMarketItem[] SwopMarketItems
     {
         [Fact]
-        get => testMarketPlace;
+        get => throw new NotImplementedException();
 
-        [Theory]
-        [InlineData(null)]
-        set => testMarketPlace = value;
-    }
-
-    [Fact]
-    public void Test1()
-    {
-
+        init => throw new NotImplementedException();
     }
 }
 
-public class TestWallet : IWallets
+public class TestSwopWalletItems : ISwopWalletItems
 {
-    public IWatchlist Watchlist { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-    public IPortfolio Portfolio { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-    public ICash Cash { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-    public ITaxDocuments TaxDocuments { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-    public IBankCards BanksCards { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-    public ISettings Settings { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-    public INotifications Notifications { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-}
-
-public class TestMarketplace : IMarketplace
-{
-    public Swopblock.IMarkets this[int index] { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
-    public ISwopStream SwopStream { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
-    public int Count => throw new NotImplementedException();
-
-    public bool IsReadOnly => throw new NotImplementedException();
-
-    public void Add(Swopblock.IMarkets item)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void Clear()
-    {
-        throw new NotImplementedException();
-    }
-
-    public bool Contains(Swopblock.IMarkets item)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void CopyTo(Swopblock.IMarkets[] array, int arrayIndex)
-    {
-        throw new NotImplementedException();
-    }
-
-    public IEnumerator<Swopblock.IMarkets> GetEnumerator()
-    {
-        throw new NotImplementedException();
-    }
-
-    public int IndexOf(Swopblock.IMarkets item)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void Insert(int index, Swopblock.IMarkets item)
-    {
-        throw new NotImplementedException();
-    }
-
-    public bool Remove(Swopblock.IMarkets item)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void RemoveAt(int index)
-    {
-        throw new NotImplementedException();
-    }
-
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        throw new NotImplementedException();
-    }
+    public IWatchlistItems Watchlist { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    public IPortfolioItems Portfolio { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    public ISwoblItems Swobl { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    public ITaxDocumentItems TaxDocuments { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    public IBankCardItems BanksCards { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    public ISettingItems Settings { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    public INotificationItems Notifications { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 }
