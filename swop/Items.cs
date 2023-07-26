@@ -16,19 +16,19 @@ namespace Swopblock
     public interface ISwopWalletItems
     {
 
-        public IWatchlistItems Watchlist { get; set; }
+        public IWatchlistItems Watchlist { get; init; }
 
-        public IPortfolioItems Portfolio { get; set; }
+        public IPortfolioItems Portfolio { get; init; }
 
-        public ISwoblItems Swobl { get; set; }
+        public ICashItems Cash { get; init; }
 
-        public ITaxDocumentItems TaxDocuments { get; set; }
+        public ITaxDocumentItems TaxDocuments { get; init; }
 
-        public IBankCardItems BanksCards { get; set; }
+        public IBankCardItems BanksCards { get; init; }
 
-        public ISettingItems Settings { get; set; }
+        public ISettingItems Settings { get; init; }
 
-        public INotificationItems Notifications { get; set; }
+        public INotificationItems Notifications { get; init; }
     }
 
     #region Swop Wallet Details
@@ -49,12 +49,12 @@ namespace Swopblock
     public interface IAssetItem { }
 
 
-    public interface ISwoblItems
+    public interface ICashItems
     {
-        public ISwoblItem[] SwoblItems { get; init; }
+        public ICashItem[] SwoblItems { get; init; }
     }
 
-    public interface ISwoblItem { }
+    public interface ICashItem { }
 
 
     public interface ITaxDocumentItems
@@ -93,61 +93,107 @@ namespace Swopblock
 
     public interface ISwopMarketItem
     {
-        IBlockItem[] Blocks { get; init; }
+        IOrderItem[] Orders { get; init; }
     }
 
     #region Swop Market Details
 
-    public interface IBlockItem
+    public interface IEntryItem { }
+
+    public interface IBuyEntryItem : IEntryItem { }
+
+    public interface ISellEntryItem : IEntryItem { }
+
+
+
+    public interface IChargeItem : IEntryItem
     {
-        IEntryItem[] Entries { get; init; }
+        ISwopMarketItem DischargingMarket { get; init; }
     }
 
-    public interface IBtcBlockItem : IBlockItem { }
+    public interface IBuyChargeItem : IChargeItem, IBuyEntryItem { }
 
-    public interface IEthBlockItem : IBlockItem { }
+    public interface ISellChargeItem : IChargeItem, ISellEntryItem { }
 
-    public interface IEntryItem
+
+
+    public interface IDischargeItem : IChargeItem
     {
-        IContractItem[] Contracts { get; init; }
     }
 
-    public interface IBtcEntryItem : IEntryItem { }
+    public interface IBuyDischargeItem : IDischargeItem, IBuyChargeItem { }
 
-    public interface IContractItem { }
+    public interface ISellDischargeItem : IDischargeItem, ISellChargeItem { }
 
-    public interface IChargeItem : IContractItem { }
 
-    public interface IDischargeItem : IContractItem { }
 
-    public interface IOfferItem : IChargeItem { }
+    public interface IOfferItem : IChargeItem
+    {
+        IAddressItem Address { get; init; }
 
-    public interface IInvoiceItem : IChargeItem { }
+        ISignatureItem OfferSignature { get; init; }
+    }
 
-    public interface IDeliveryItem : IDischargeItem { }
+    public interface IBidItem : IOfferItem, IBuyChargeItem { }
 
-    public interface IReceiptItem : IDischargeItem { }
+    public interface IAskItem : IOfferItem, ISellChargeItem { }
 
-    public interface IBidItem : IOfferItem { }
 
-    public interface IAskItem : IOfferItem { }
 
-    public interface IBuyItem : IInvoiceItem { }
+    public interface IAddressItem { }
 
-    public interface ISellItem : IInvoiceItem { }
 
-    public interface IPayItem : IDeliveryItem { }
 
-    public interface ICashItem : IDeliveryItem { }
+    public interface IInvoiceItem : IOfferItem, IChargeItem
+    {
+        IAddressItem ReturnAddress { get; init; }
 
-    public interface IExpenseItem : IReceiptItem { }
+        IAddressItem DeliveryAddress { get; init; }
+    }
 
-    public interface IIncomeItem : IReceiptItem { }
+    public interface IBuyItem : IInvoiceItem, IBidItem { }
+
+    public interface ISellItem : IInvoiceItem, IAskItem { }
+
+
+
+    public interface IDeliveryItem : IInvoiceItem, IDischargeItem
+    {
+        ISignatureItem DischargingSignature { get; init; }  
+    }
+
+    public interface IPaymentItem : IDeliveryItem, IBuyItem { }
+
+    public interface ICashingItem : IDeliveryItem, ISellItem { }
+
+
+
+    public interface ISignatureItem { }
+
+
+
+    public interface IReceiptItem : IDeliveryItem { }
+
+    public interface IExpenseItem : IReceiptItem, IPaymentItem { }
+
+    public interface IIncomeItem : IReceiptItem, ICashingItem { }
+
+
+
+    public interface IOrderItem : IReceiptItem { }
+
+    public interface IBuyOrderItem : IOrderItem, IExpenseItem { }
+
+    public interface ISellOrderItem : IOrderItem, IIncomeItem { }
+
+
+
+
 
     #endregion
 
 
-   #endregion
+    #endregion
 
 
 
