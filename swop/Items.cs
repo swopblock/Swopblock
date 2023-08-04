@@ -93,50 +93,18 @@ namespace Swopblock
 
     public interface ISwopMarketItem
     {
-        IOrderItem[] Orders { get; init; }
+        //IOrderItem[] Orders { get; init; }
     }
 
     #region Swop Market Details
 
-    public interface IEntryItem { }
-
-    public interface IBuyEntryItem : IEntryItem { }
-
-    public interface ISellEntryItem : IEntryItem { }
 
 
 
-    public interface IChargeItem : IEntryItem
-    {
-        ISwopMarketItem DischargingMarket { get; init; }
-    }
-
-    public interface IBuyChargeItem : IChargeItem, IBuyEntryItem { }
-
-    public interface ISellChargeItem : IChargeItem, ISellEntryItem { }
 
 
 
-    public interface IDischargeItem : IChargeItem
-    {
-    }
 
-    public interface IBuyDischargeItem : IDischargeItem, IBuyChargeItem { }
-
-    public interface ISellDischargeItem : IDischargeItem, ISellChargeItem { }
-
-
-
-    public interface IOfferItem : IChargeItem
-    {
-        IAddressItem Address { get; init; }
-
-        ISignatureItem OfferSignature { get; init; }
-    }
-
-    public interface IBidItem : IOfferItem, IBuyChargeItem { }
-
-    public interface IAskItem : IOfferItem, ISellChargeItem { }
 
 
 
@@ -144,27 +112,9 @@ namespace Swopblock
 
 
 
-    public interface IInvoiceItem : IOfferItem, IChargeItem
-    {
-        IAddressItem ReturnAddress { get; init; }
-
-        IAddressItem DeliveryAddress { get; init; }
-    }
-
-    public interface IBuyItem : IInvoiceItem, IBidItem { }
-
-    public interface ISellItem : IInvoiceItem, IAskItem { }
 
 
 
-    public interface IDeliveryItem : IInvoiceItem, IDischargeItem
-    {
-        ISignatureItem DischargingSignature { get; init; }  
-    }
-
-    public interface IPaymentItem : IDeliveryItem, IBuyItem { }
-
-    public interface ICashingItem : IDeliveryItem, ISellItem { }
 
 
 
@@ -172,19 +122,9 @@ namespace Swopblock
 
 
 
-    public interface IReceiptItem : IDeliveryItem { }
-
-    public interface IExpenseItem : IReceiptItem, IPaymentItem { }
-
-    public interface IIncomeItem : IReceiptItem, ICashingItem { }
 
 
 
-    public interface IOrderItem : IReceiptItem { }
-
-    public interface IBuyOrderItem : IOrderItem, IExpenseItem { }
-
-    public interface ISellOrderItem : IOrderItem, IIncomeItem { }
 
 
 

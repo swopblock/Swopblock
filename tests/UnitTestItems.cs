@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using Swopblock;
+using Swopblock.Orders;
+using Swopblock.TestOrders;
 
 namespace tests;
 
@@ -169,7 +171,7 @@ public class TestISwopNodeItems : ISwopNodeItems
     {
         public TestISwopMarketItem()
         {
-            Orders = new IOrderItem[2];
+            //Orders = new IOrderItem[2];
 
             Orders[0] = new TestIBlockItem();
 
@@ -236,11 +238,11 @@ public class TestISwopNodeItems : ISwopNodeItems
         {
             public TestIBtcBlockItem()
             {
-                Entries = new TestIBtcEntryItem[2];
+                //Entries = new TestIBtcEntryItem[2];
 
-                Entries[0] = new TestIBtcEntryItem();
+                //Entries[0] = new TestIBtcEntryItem();
 
-                Entries[1] = new TestIBtcEntryItem();
+                //Entries[1] = new TestIBtcEntryItem();
             }
 
             public IEntryItem[] Entries
@@ -257,6 +259,12 @@ public class TestISwopNodeItems : ISwopNodeItems
             }
         }
     }
+
+    public interface IContractItem { }
+
+    public interface IBtcEntryItem { }
+
+    public interface IBtcBlockItem { }
 
 }
 
