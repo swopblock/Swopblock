@@ -203,6 +203,7 @@ public class TestISwopNodeItems : ISwopNodeItems
 
                 init;
             }
+            public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
 
             public class TestIEntryItem : IEntryItem
             {
@@ -220,6 +221,7 @@ public class TestISwopNodeItems : ISwopNodeItems
 
                     init;
                 }
+                public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
 
                 public class TestIContractItem : IContractItem
                 {

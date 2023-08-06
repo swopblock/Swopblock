@@ -7,6 +7,8 @@ namespace Swopblock.TestOrders
 
     public class TestIEntryItem : IEntryItem
     {
+        public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
+
         [Fact]
         public void TestAssignableFromIEntryItem()
         {
@@ -16,6 +18,8 @@ namespace Swopblock.TestOrders
 
     public class TestIBuyEntryItem : IBuyEntryItem
     {
+        public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
+
         [Fact]
         public void TestAssignableFromIEntryItem()
         {
@@ -31,6 +35,8 @@ namespace Swopblock.TestOrders
 
     public class TestISellEntryItem : ISellEntryItem
     {
+        public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
+
         [Fact]
         public void TestAssignableFromIEntryItem()
         {
@@ -50,6 +56,8 @@ namespace Swopblock.TestOrders
 
     public class TestIChargeItem : IChargeItem
     {
+        public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
+
         [Fact]
         public void TestAssignableFromIEntryItem()
         {
@@ -65,6 +73,8 @@ namespace Swopblock.TestOrders
 
     public class TestIBuyChargeItem : IBuyChargeItem
     {
+        public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
+
         [Fact]
         public void TestAssignableFromIEntryItem()
         {
@@ -92,6 +102,8 @@ namespace Swopblock.TestOrders
 
     public class TestISellChargeItem : ISellChargeItem
     {
+        public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
+
         [Fact]
         public void TestAssignableFromIEntryItem()
         {
@@ -122,6 +134,8 @@ namespace Swopblock.TestOrders
 
     public class TestIDischargeItem : IDischargeItem
     {
+        public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
+
         [Fact]
         public void TestAssignableFromIEntryItem()
         {
@@ -143,6 +157,8 @@ namespace Swopblock.TestOrders
 
     public class TestIBuyDischargeItem : IBuyDischargeItem
     {
+        public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
+
         [Fact]
         public void TestAssignableFromIDisChargeItem()
         {
@@ -182,6 +198,8 @@ namespace Swopblock.TestOrders
 
     public class TestISellDischargeItem : ISellDischargeItem
     {
+        public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
+
         [Fact]
         public void TestAssignableFromIDisChargeItem()
         {
@@ -227,6 +245,8 @@ namespace Swopblock.TestOrders
 
     public class TestIOfferItem : IOfferItem
     {
+        public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
+
         [Fact]
         public void TestAssignableFromIEntryItem()
         {
@@ -248,6 +268,8 @@ namespace Swopblock.TestOrders
 
     public class TestIBidItem : IBidItem
     {
+        public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
+
         [Fact]
         public void TestAssignableFromIOfferItem()
         {
@@ -269,6 +291,8 @@ namespace Swopblock.TestOrders
 
     public class TestIAskItem : IAskItem
     {
+        public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
+
         [Fact]
         public void TestAssignableFromIOfferItem()
         {
@@ -295,6 +319,8 @@ namespace Swopblock.TestOrders
 
     public class TestIInvoiceItem : IInvoiceItem
     {
+        public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
+
         [Fact]
         public void TestAssignableFromIInvoiceItem()
         {
@@ -317,6 +343,8 @@ namespace Swopblock.TestOrders
 
     public class TestIBuyItem : IBuyItem
     {
+        public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
+
         [Fact]
         public void TestAssignableFromIBuyItem()
         {
@@ -338,6 +366,8 @@ namespace Swopblock.TestOrders
 
     public class TestISellItem : ISellItem
     {
+        public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
+
         [Fact]
         public void TestAssignableFromISellItem()
         {
@@ -364,6 +394,8 @@ namespace Swopblock.TestOrders
 
     public class TestIDeliveryItem : IDeliveryItem
     {
+        public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
+
         [Fact]
         public void TestAssignableFromIEntryItem()
         {
@@ -397,6 +429,8 @@ namespace Swopblock.TestOrders
 
     public class TestIPaymentItem : IPaymentItem
     {
+        public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
+
         [Fact]
         public void TestAssignableFromIPaymentItem()
         {
@@ -418,6 +452,8 @@ namespace Swopblock.TestOrders
 
     public class TestICashingItem : ICashingItem
     {
+        public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
+
         [Fact]
         public void TestAssignableFromICashingItem()
         {
@@ -444,6 +480,8 @@ namespace Swopblock.TestOrders
 
     public class TestIReceiptItem : IReceiptItem
     {
+        public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
+
         [Fact]
         public void TestAssignableFromIEntryItem()
         {
@@ -483,6 +521,8 @@ namespace Swopblock.TestOrders
 
     public class TestIExpenseItem : IExpenseItem
     {
+        public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
+
         [Fact]
         public void TestAssignableFromIExpenseItem()
         {
@@ -504,6 +544,8 @@ namespace Swopblock.TestOrders
 
     public class TestIIncomeItem : IIncomeItem
     {
+        public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
+
         [Fact]
         public void TestAssingableFromIIncomeItem()
         {
@@ -529,6 +571,8 @@ namespace Swopblock.TestOrders
 
     public class TestIOrderItem : IOrderItem
     {
+        public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
+
         [Fact]
         public void TestAssignableFromIEntryItem()
         {
@@ -580,6 +624,8 @@ namespace Swopblock.TestOrders
 
     public class TestIBuyOrderItem : IBuyOrderItem
     {
+        public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
+
         [Fact]
         public void TestAssignableFromIBuyOrderItem()
         {
@@ -601,6 +647,8 @@ namespace Swopblock.TestOrders
 
     public class TestISellOrderItem : ISellOrderItem
     {
+        public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
+
         [Fact]
         public void TestAssignableFromISellOrderItem()
         {

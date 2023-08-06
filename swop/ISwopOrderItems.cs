@@ -6,12 +6,12 @@ namespace Swopblock.Orders
 
     public interface IEntryItem
     {
-        //public IMarketItem EntryMarket { get; init; }
+        public IMarketItem PersuedMarket { get; init; }
     }
 
     public interface IBuyEntryItem : IEntryItem
     {
-        //public IMarketItem BuyMarket { get; init; }
+        //public IMarketItem BuyMarket { get { return PersuedMarket; } }
 
         //public decimal MinimumBiddingAvailable { get; init; }
 
@@ -24,7 +24,7 @@ namespace Swopblock.Orders
 
     public interface ISellEntryItem : IEntryItem
     {
-        //public IMarketItem SellMarket { get; init; }
+        //public IMarketItem SellMarket { get { return PersuedMarket; } }
 
         //public decimal MinimumAskingAvailable { get; init; }
 
@@ -69,6 +69,8 @@ namespace Swopblock.Orders
 
     public interface IOfferItem : IChargeItem
     {
+        //IMarketItem EnsuingMarket { get; init; }
+
         //decimal Reservation { get; init; }
 
         //decimal Expiration { get; init; }
@@ -78,7 +80,7 @@ namespace Swopblock.Orders
 
     public interface IBidItem : IOfferItem, IBuyChargeItem
     {
-        //IMarketItem BiddingMarket { get; init; }
+        //IMarketItem BMarket { get { return PersuedMarket; } }
 
         //decimal MinimumBid { get; init; }
 
