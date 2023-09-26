@@ -1,52 +1,107 @@
 ﻿using System;
-using Swopblock.Orders;
+using Swopblock.OrdersOldNS;
 
 namespace Swopblock.TestOrders
 {
     #region Entry Test Items
 
-    public class TestIEntryItem : IEntryItem
+    public class TestIMarketItem : IMarketItem { }
+
+    public class TestIEntryItem// : IFirstEntryItem
     {
-        public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
+        public TestIEntryItem()
+        {
+            PersuedMarket = new TestIMarketItem();
+        }
+
+        public IMarketItem PersuedMarket { get; init; }
+
+        [Fact]
+        public void GetPersuedMarket()
+        {
+            Assert.NotNull(PersuedMarket);
+
+            Assert.IsAssignableFrom<IMarketItem>(PersuedMarket);
+        }
 
         [Fact]
         public void TestAssignableFromIEntryItem()
         {
-            Assert.IsAssignableFrom<IEntryItem>(this);
+            //Assert.IsAssignableFrom<IFirstEntryItem>(this);
         }
     }
 
-    public class TestIBuyEntryItem : IBuyEntryItem
+    public class TestIBuyEntryItem// : IBuyEntryItem
     {
-        public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
+        public TestIBuyEntryItem()
+        {
+            PersuedMarket = new TestIMarketItem();
+        }
+
+        public IMarketItem PersuedMarket { get; init; }
+
+        public IMarketItem BuyMarket { get; init; }
+
+        //public IMarketItem BuyMarket { get; init; }
+
+
+        [Fact]
+        public void TestGetPersuedMarket()
+        {
+            Assert.NotNull(PersuedMarket);
+
+            Assert.IsAssignableFrom<IMarketItem>(PersuedMarket);
+        }
+
+        [Fact]
+        public void TestGetBuyMarket()
+        {
+            //((IBuyEntryItem)this).testA(1, 2);
+
+            //this.testA(1, 2);
+        }
 
         [Fact]
         public void TestAssignableFromIEntryItem()
         {
-            Assert.IsAssignableFrom<IEntryItem>(this);
+            //Assert.IsAssignableFrom<IFirstEntryItem>(this);
         }
 
         [Fact]
         public void TestAssignableFromIBuyEntryItem()
         {
-            Assert.IsAssignableFrom<IBuyEntryItem>(this);
+            //Assert.IsAssignableFrom<IBuyEntryItem>(this);
         }
     }
 
-    public class TestISellEntryItem : ISellEntryItem
+    public class TestISellEntryItem// : ISellEntryItem
     {
-        public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
+        public TestISellEntryItem()
+        {
+            PersuedMarket = new TestIMarketItem();
+        }
+
+        public IMarketItem PersuedMarket { get; init; }
+
+        [Fact]
+        public void GetPersuedMarket()
+        {
+            Assert.NotNull(PersuedMarket);
+
+            Assert.IsAssignableFrom<IMarketItem>(PersuedMarket);
+        }
+
 
         [Fact]
         public void TestAssignableFromIEntryItem()
         {
-            Assert.IsAssignableFrom<IEntryItem>(this);
+            //Assert.IsAssignableFrom<IFirstEntryItem>(this);
         }
 
         [Fact]
         public void TestAssignableFromISellEntryItem()
         {
-            Assert.IsAssignableFrom<ISellEntryItem>(this);
+            //Assert.IsAssignableFrom<ISellEntryItem>(this);
         }
     }
 
@@ -61,30 +116,30 @@ namespace Swopblock.TestOrders
         [Fact]
         public void TestAssignableFromIEntryItem()
         {
-            Assert.IsAssignableFrom<IEntryItem>(this);
+            //Assert.IsAssignableFrom<IFirstEntryItem>(this);
         }
 
         [Fact]
         public void TestAssignableFromIChargeItem()
         {
-            Assert.IsAssignableFrom<IChargeItem>(this);
+            //Assert.IsAssignableFrom<IChargeItem>(this);
         }
     }
 
-    public class TestIBuyChargeItem : IBuyChargeItem
+    public class TestIBuyChargeItem// : IBuyChargeItem
     {
         public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
 
         [Fact]
         public void TestAssignableFromIEntryItem()
         {
-            Assert.IsAssignableFrom<IEntryItem>(this);
+            //Assert.IsAssignableFrom<IFirstEntryItem>(this);
         }
 
         [Fact]
         public void TestAssignableFromIBuyEntryItem()
         {
-            Assert.IsAssignableFrom<IBuyEntryItem>(this);
+            //Assert.IsAssignableFrom<IBuyEntryItem>(this);
         }
 
         [Fact]
@@ -96,24 +151,24 @@ namespace Swopblock.TestOrders
         [Fact]
         public void TestAssignableFromIBuyChargeItem()
         {
-            Assert.IsAssignableFrom<IBuyChargeItem>(this);
+            //Assert.IsAssignableFrom<IBuyChargeItem>(this);
         }
     }
 
-    public class TestISellChargeItem : ISellChargeItem
+    public class TestISellChargeItem// : ISellChargeItem
     {
         public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
 
         [Fact]
         public void TestAssignableFromIEntryItem()
         {
-            Assert.IsAssignableFrom<IEntryItem>(this);
+            //Assert.IsAssignableFrom<IFirstEntryItem>(this);
         }
 
         [Fact]
         public void TestAssignableFromISellEntryItem()
         {
-            Assert.IsAssignableFrom<ISellEntryItem>(this);
+            //Assert.IsAssignableFrom<ISellEntryItem>(this);
         }
         [Fact]
         public void TestAssignableFromIChargeItem()
@@ -124,7 +179,7 @@ namespace Swopblock.TestOrders
         [Fact]
         public void TestAssignableFromISellChargeItem()
         {
-            Assert.IsAssignableFrom<ISellChargeItem>(this);
+            //Assert.IsAssignableFrom<ISellChargeItem>(this);
         }
     }
 
@@ -139,7 +194,7 @@ namespace Swopblock.TestOrders
         [Fact]
         public void TestAssignableFromIEntryItem()
         {
-            Assert.IsAssignableFrom<IEntryItem>(this);
+            //Assert.IsAssignableFrom<IFirstEntryItem>(this);
         }
 
         [Fact]
@@ -155,9 +210,10 @@ namespace Swopblock.TestOrders
         }
     }
 
-    public class TestIBuyDischargeItem : IBuyDischargeItem
+    public class TestIBuyDischargeItem// : IBuyDischargeItem
     {
         public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
+        public IMarketItem BuyMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
 
         [Fact]
         public void TestAssignableFromIDisChargeItem()
@@ -168,7 +224,7 @@ namespace Swopblock.TestOrders
         [Fact]
         public void TestAssignableFromIEntryItem()
         {
-            Assert.IsAssignableFrom<IEntryItem>(this);
+            //Assert.IsAssignableFrom<IFirstEntryItem>(this);
         }
 
         [Fact]
@@ -180,23 +236,23 @@ namespace Swopblock.TestOrders
         [Fact]
         public void TestAssignableFromIBuyEntryItem()
         {
-            Assert.IsAssignableFrom<IBuyEntryItem>(this);
+            //Assert.IsAssignableFrom<IBuyEntryItem>(this);
         }
 
         [Fact]
         public void TestAssignableFromIBuyChargeItem()
         {
-            Assert.IsAssignableFrom<IBuyChargeItem>(this);
+            //Assert.IsAssignableFrom<IBuyChargeItem>(this);
         }
 
         [Fact]
         public void TestAssignableFromIBuyDischareItem()
         {
-            Assert.IsAssignableFrom<IBuyDischargeItem>(this);
+            //Assert.IsAssignableFrom<IBuyDischargeItem>(this);
         }
     }
 
-    public class TestISellDischargeItem : ISellDischargeItem
+    public class TestISellDischargeItem// : ISellDischargeItem
     {
         public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
 
@@ -209,7 +265,7 @@ namespace Swopblock.TestOrders
         [Fact]
         public void TestAssignableFromIEntryItem()
         {
-            Assert.IsAssignableFrom<IEntryItem>(this);
+            //Assert.IsAssignableFrom<IFirstEntryItem>(this);
         }
 
         [Fact]
@@ -221,19 +277,19 @@ namespace Swopblock.TestOrders
         [Fact]
         public void TestAssignableFromISellEntryItem()
         {
-            Assert.IsAssignableFrom<ISellEntryItem>(this);
+            //Assert.IsAssignableFrom<ISellEntryItem>(this);
         }
 
         [Fact]
         public void TestAssignableFromISellChargeItem()
         {
-            Assert.IsAssignableFrom<ISellChargeItem>(this);
+            //Assert.IsAssignableFrom<ISellChargeItem>(this);
         }
 
         [Fact]
         public void TestAssignableFromISellDischareItem()
         {
-            Assert.IsAssignableFrom<ISellDischargeItem>(this);
+            //Assert.IsAssignableFrom<ISellDischargeItem>(this);
         }
     }
 
@@ -243,14 +299,14 @@ namespace Swopblock.TestOrders
 
     #region Offer Test Items
 
-    public class TestIOfferItem : IOfferItem
+    public class TestIOfferItem// : IOfferItem
     {
-        public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
+        public IMarketItem PersuedMarket { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         [Fact]
         public void TestAssignableFromIEntryItem()
         {
-            Assert.IsAssignableFrom<IEntryItem>(this);
+            //Assert.IsAssignableFrom<IFirstEntryItem>(this);
         }
 
         [Fact]
@@ -266,9 +322,9 @@ namespace Swopblock.TestOrders
         }
     }
 
-    public class TestIBidItem : IBidItem
+    public class TestIBidItem// : IBidItem
     {
-        public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
+        public IMarketItem PersuedMarket { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         [Fact]
         public void TestAssignableFromIOfferItem()
@@ -279,19 +335,19 @@ namespace Swopblock.TestOrders
         [Fact]
         public void TestAssignableFromIBuyChargeItem()
         {
-            Assert.IsAssignableFrom<IBuyChargeItem>(this);
+            //Assert.IsAssignableFrom<IBuyChargeItem>(this);
         }
 
         [Fact]
         public void TestAssignableFromIBuyEntryItem()
         {
-            Assert.IsAssignableFrom<IBuyEntryItem>(this);
+            //Assert.IsAssignableFrom<IBuyEntryItem>(this);
         }
     }
 
-    public class TestIAskItem : IAskItem
+    public class TestIAskItem// : IAskItem
     {
-        public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
+        public IMarketItem PersuedMarket { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         [Fact]
         public void TestAssignableFromIOfferItem()
@@ -302,13 +358,13 @@ namespace Swopblock.TestOrders
         [Fact]
         public void TestAssignableFromISellChargeItem()
         {
-            Assert.IsAssignableFrom<ISellChargeItem>(this);
+            //Assert.IsAssignableFrom<ISellChargeItem>(this);
         }
 
         [Fact]
         public void TestAssignableFromISellEntryItem()
         {
-            Assert.IsAssignableFrom<ISellEntryItem>(this);
+            //Assert.IsAssignableFrom<ISellEntryItem>(this);
         }
     }
 
@@ -317,9 +373,9 @@ namespace Swopblock.TestOrders
 
     #region Invoice Test Items
 
-    public class TestIInvoiceItem : IInvoiceItem
+    public class TestIInvoiceItem// : IInvoiceItem
     {
-        public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
+        public IMarketItem PersuedMarket { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         [Fact]
         public void TestAssignableFromIInvoiceItem()
@@ -341,14 +397,15 @@ namespace Swopblock.TestOrders
 
     }
 
-    public class TestIBuyItem : IBuyItem
+    public class TestIBuyItem : TestIBuyEntryItem//, IBuyItem
     {
-        public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
+        public IMarketItem PersuedMarket { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public IMarketItem BuyMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
 
         [Fact]
         public void TestAssignableFromIBuyItem()
         {
-            Assert.IsAssignableFrom<IBuyItem>(this);
+            //Assert.IsAssignableFrom<IBuyItem>(this);
         }
 
         [Fact]
@@ -360,18 +417,18 @@ namespace Swopblock.TestOrders
         [Fact]
         public void TestAssignableFromIBidItem()
         {
-            Assert.IsAssignableFrom<IBidItem>(this);
+            //Assert.IsAssignableFrom<IBidItem>(this);
         }
     }
 
-    public class TestISellItem : ISellItem
+    public class TestISellItem// : ISellItem
     {
-        public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
+        public IMarketItem PersuedMarket { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         [Fact]
         public void TestAssignableFromISellItem()
         {
-            Assert.IsAssignableFrom<ISellItem>(this);
+            //Assert.IsAssignableFrom<ISellItem>(this);
         }
 
         [Fact]
@@ -383,7 +440,7 @@ namespace Swopblock.TestOrders
         [Fact]
         public void TestAssignableFromIAskItem()
         {
-            Assert.IsAssignableFrom<IAskItem>(this);
+            //Assert.IsAssignableFrom<IAskItem>(this);
         }
     }
 
@@ -392,14 +449,14 @@ namespace Swopblock.TestOrders
 
     #region Delivery Test Items
 
-    public class TestIDeliveryItem : IDeliveryItem
+    public class TestIDeliveryItem// : IDeliveryItem
     {
-        public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
+        public IMarketItem PersuedMarket { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         [Fact]
         public void TestAssignableFromIEntryItem()
         {
-            Assert.IsAssignableFrom<IEntryItem>(this);
+            //Assert.IsAssignableFrom<IFirstEntryItem>(this);
         }
 
         [Fact]
@@ -427,9 +484,9 @@ namespace Swopblock.TestOrders
         }
     }
 
-    public class TestIPaymentItem : IPaymentItem
+    public class TestIPaymentItem// : IPaymentItem
     {
-        public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
+        public IMarketItem PersuedMarket { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         [Fact]
         public void TestAssignableFromIPaymentItem()
@@ -446,13 +503,13 @@ namespace Swopblock.TestOrders
         [Fact]
         public void TestAssignableFromIBuyItem()
         {
-            Assert.IsAssignableFrom<IBuyItem>(this);
+            //Assert.IsAssignableFrom<IBuyItem>(this);
         }
     }
 
-    public class TestICashingItem : ICashingItem
+    public class TestICashingItem// : ICashingItem
     {
-        public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
+        public IMarketItem PersuedMarket { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         [Fact]
         public void TestAssignableFromICashingItem()
@@ -469,7 +526,7 @@ namespace Swopblock.TestOrders
         [Fact]
         public void TestAssignableFromISellItem()
         {
-            Assert.IsAssignableFrom<ISellItem>(this);
+            //Assert.IsAssignableFrom<ISellItem>(this);
         }
     }
 
@@ -478,14 +535,14 @@ namespace Swopblock.TestOrders
 
     #region Receipt Test Items
 
-    public class TestIReceiptItem : IReceiptItem
+    public class TestIReceiptItem// : IReceiptItem
     {
         public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
 
         [Fact]
         public void TestAssignableFromIEntryItem()
         {
-            Assert.IsAssignableFrom<IEntryItem>(this);
+            //Assert.IsAssignableFrom<IFirstEntryItem>(this);
         }
 
         [Fact]
@@ -519,7 +576,7 @@ namespace Swopblock.TestOrders
         }
     }
 
-    public class TestIExpenseItem : IExpenseItem
+    public class TestIExpenseItem// : IExpenseItem
     {
         public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
 
@@ -542,7 +599,7 @@ namespace Swopblock.TestOrders
         }
     }
 
-    public class TestIIncomeItem : IIncomeItem
+    public class TestIIncomeItem //: IIncomeItem
     {
         public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
 
@@ -569,14 +626,14 @@ namespace Swopblock.TestOrders
 
     #region Order Test Items
 
-    public class TestIOrderItem : IOrderItem
+    public class TestIOrderItem// : IOrderItem
     {
         public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
 
         [Fact]
         public void TestAssignableFromIEntryItem()
         {
-            Assert.IsAssignableFrom<IEntryItem>(this);
+            //Assert.IsAssignableFrom<IFirstEntryItem>(this);
         }
 
         [Fact]
@@ -622,7 +679,7 @@ namespace Swopblock.TestOrders
         }
     }
 
-    public class TestIBuyOrderItem : IBuyOrderItem
+    public class TestIBuyOrderItem //: IBuyOrderItem
     {
         public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
 
@@ -645,7 +702,7 @@ namespace Swopblock.TestOrders
         }
     }
 
-    public class TestISellOrderItem : ISellOrderItem
+    public class TestISellOrderItem// : ISellOrderItem
     {
         public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
 

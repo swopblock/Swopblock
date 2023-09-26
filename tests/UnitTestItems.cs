@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using Swopblock;
-using Swopblock.Orders;
+using Swopblock.OrdersOldNS;
 using Swopblock.TestOrders;
 
 namespace tests;
@@ -173,9 +173,9 @@ public class TestISwopNodeItems : ISwopNodeItems
         {
             //Orders = new IOrderItem[2];
 
-            Orders[0] = new TestIBlockItem();
+            //Orders[0] = new TestIBlockItem();
 
-            Orders[1] = new TestIBlockItem();
+            //Orders[1] = new TestIBlockItem();
         }
 
         public IOrderItem[] Orders
@@ -186,26 +186,26 @@ public class TestISwopNodeItems : ISwopNodeItems
             init;
         }
 
-        public class TestIBlockItem : IOrderItem
+        public class TestIBlockItem// : IOrderItem
         {
             public TestIBlockItem()
             {
-                Entries = new TestIEntryItem[2];
+                //Entries = new TestIEntryItem[2];
 
-                Entries[0] = new TestIEntryItem();
+                //Entries[0] = new TestIEntryItem();
 
-                Entries[1] = new TestIEntryItem();
+                //Entries[1] = new TestIEntryItem();
             }
-            public IEntryItem[] Entries
-            {
-                [Fact]
-                get;
+            //public IFirstEntryItem[] Entries
+            //{
+                //[Fact]
+                //get;
 
-                init;
-            }
+                //init;
+            //}
             public IMarketItem PersuedMarket { get => throw new NotImplementedException(); init => throw new NotImplementedException(); }
 
-            public class TestIEntryItem : IEntryItem
+            public class TestIEntryItem// : IFirstEntryItem
             {
                 public TestIEntryItem()
                 {
@@ -246,14 +246,14 @@ public class TestISwopNodeItems : ISwopNodeItems
 
                 //Entries[1] = new TestIBtcEntryItem();
             }
-
-            public IEntryItem[] Entries
+            /*
+            public IFirstEntryItem[] Entries
             {
                 [Fact]
                 get;
 
                 init;
-            }
+            }*/
 
             public class TestIBtcEntryItem : IBtcEntryItem
             {

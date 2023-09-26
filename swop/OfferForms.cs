@@ -1,7 +1,7 @@
 ﻿using System;
 namespace swop
 {
-	public class OffersOld: ExecOrderForms
+	public class OffersOld//: ExecOrderForms
 	{
         UInt64 AtLeastMedium;
 
@@ -18,7 +18,7 @@ namespace swop
 
 		}
 
-        public IInvoiceable Offer() { return null; }
+        //public IInvoiceable Offer() { return null; }
 
         public new static Offers Parse(string text)
         {

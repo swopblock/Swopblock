@@ -1,67 +1,27 @@
 ﻿using System;
+using System.Diagnostics;
 
-namespace Swopblock.Orders
+namespace Swopblock.OrdersOldNS
 {
     #region Entry Items
 
-    public interface IEntryItem
-    {
-        public IMarketItem PersuedMarket { get; init; }
-    }
+    public interface IEntryItem { }
 
-    public interface IBuyEntryItem : IEntryItem
-    {
-        //public IMarketItem BuyMarket { get { return PersuedMarket; } }
+    public interface IBaseValue { decimal Value { get; set; } }
 
-        //public decimal MinimumBiddingAvailable { get; init; }
-
-        //public decimal MaximumBiddingAvailable { get; init; }
-
-        //public decimal MinimumBuyingAvailable { get; init; }
-
-        //public decimal MaximumBuyingAvailable { get; init; }
-    }
-
-    public interface ISellEntryItem : IEntryItem
-    {
-        //public IMarketItem SellMarket { get { return PersuedMarket; } }
-
-        //public decimal MinimumAskingAvailable { get; init; }
-
-        //public decimal MaximumAskingAvailable { get; init; }
-
-        //public decimal MinimumSellingAvailable { get; init; }
-
-        //public decimal MaximumSellingAvailable { get; init; }
-    }
+    public interface IFaceValue { decimal Value { get; set; } }
 
     #endregion
 
     #region Charge Items
 
-    public interface IChargeItem : IEntryItem
-    {
-        //IAddressItem ChargingAddress { get; init; }
-    }
-
-    public interface IBuyChargeItem : IChargeItem, IBuyEntryItem { }
-
-    public interface ISellChargeItem : IChargeItem, ISellEntryItem { }
+    public interface IChargeItem : IEntryItem { }
 
     #endregion
 
     #region Discharge Items
 
-    public interface IDischargeItem : IChargeItem
-    {
-        //IAddressItem DischargingAddress { get; init; }
-    }
-
-    public interface IBuyDischargeItem : IDischargeItem, IBuyChargeItem { }
-
-    public interface ISellDischargeItem : IDischargeItem, ISellChargeItem { }
-
-
+    public interface IDischargeItem : IEntryItem { }
 
     #endregion
 
@@ -69,56 +29,73 @@ namespace Swopblock.Orders
 
     public interface IOfferItem : IChargeItem
     {
-        //IMarketItem EnsuingMarket { get; init; }
+        ISourceOfferItem Source { get; set; }
 
-        //decimal Reservation { get; init; }
+        IDestinationOfferItem Destination { get; set; }
 
-        //decimal Expiration { get; init; }
+        decimal Reservation { get; set; }
 
-        //ISignatureItem OfferSignature { init; }
+        decimal Expiration { get; set; }
+
+        ISignatureItem Signature { get; set; }
     }
 
-    public interface IBidItem : IOfferItem, IBuyChargeItem
+    public interface IAddressOfferItem
     {
-        //IMarketItem BMarket { get { return PersuedMarket; } }
+        IAddressItem Address { get; set; }
 
-        //decimal MinimumBid { get; init; }
-
-        //decimal MaximumBid { get; init; }
-
-        //IAddressItem BiddingAddress { get; init; }
-
-        //IMarketItem BuyingMarket { get; init; }
-
-        //decimal MinimumBuy { get; init; }
-
-        //decimal MaximumBuy { get; init; }
+        IOfferLimits Limits { get; set; }
     }
 
-    public interface IAskItem : IOfferItem, ISellChargeItem
+    public interface ISourceOfferItem : IAddressOfferItem { }
+
+    public interface IDestinationOfferItem : IAddressOfferItem { }
+
+    public interface IAddressSource : IAddressItem { }
+
+    public interface IAddressDestination : IAddressItem { }
+
+    public interface IOfferLimits
     {
-        //IMarketItem SellingMarket { get; init; }
+        decimal Minimum { get; set; }
 
-        //decimal MinimumSell { get; init; }
-
-        //decimal MaximumSell { get; init; }
-
-        //IAddressItem SellingAddress { get; init; }
-
-        //IMarketItem AskingMarket { get; init; }
-
-        //decimal MinimumAsk { get; init; }
-
-        //decimal MaximumAsk { get; init; }
+        decimal Maximum { get; set; }
     }
 
-    public interface IConsiderationLimitsItem { }
+    public interface IPaymentLimits : IOfferLimits { }
 
-    public interface IObjectLimitsItem { }
+    public interface ICachingLimits : IOfferLimits { }
 
-    public interface IReservationLimitsItem { }
 
-    public interface IOfferSignatureItem { }
+    public interface IPaymentSource : IAddressSource { }
+
+    public interface IPaymentDestination : IAddressDestination { }
+
+    public interface ICachingSource : IAddressSource { }
+
+    public interface ICachingDestination : IAddressDestination { }
+
+    public interface IPaymentSourceOfferItem : ISourceOfferItem { }
+
+    public interface ICachingDestinationOfferItem : IDestinationOfferItem { }
+
+    public interface IBiddingOfferItem : IOfferItem
+    {
+        IPaymentSourceOfferItem PaymentSource { get; set; }
+
+        ICachingDestinationOfferItem CachingDestination { get; set; }
+    }
+
+    public interface IPaymentDestinationOfferItem : IDestinationOfferItem { }
+
+    public interface ICachingSourceOfferItem : ISourceOfferItem { }
+
+    public interface IAskingOfferItem : IOfferItem
+    {
+        ICachingSourceOfferItem CachingSource { get; set; }
+
+        IPaymentDestinationOfferItem PaymentDestination { get; set; }
+    }
 
     public interface IMarketItem { }
 
@@ -126,13 +103,55 @@ namespace Swopblock.Orders
 
     #region Invoice Items
 
-    public interface IInvoiceItem : IOfferItem, IChargeItem
+    public interface IInvoiceItem : IChargeItem
     {
+        IAskingOfferItem AskingOffer { get; set; }
+
+        IBiddingOfferItem BiddingOffer { get; set; }
     }
 
-    public interface IBuyItem : IInvoiceItem, IBidItem { }
+    public interface IInvoicePricePoint
+    {
+        IInitialCoinOffering ICO { get; set; }
 
-    public interface ISellItem : IInvoiceItem, IAskItem { }
+        decimal BaseValue { get; set; }
+
+        decimal FaceValue { get; set; }
+    }
+
+    public interface IInitialCoinOffering
+    {
+        const decimal GenesisSupply = 52800000.0M;
+
+        decimal SupplyRemaining { get; set; }
+
+        decimal ExchangeVolume { get; set; }
+
+        IMarketItem[] CirculatingMarkets { get; set; } //?? IAMHHERE
+    }
+
+    //IAMHERE
+
+    //Price points are derived by observing the interaction between the Swopblock protocol predetermined demand and supply curve, which helps brands determine the possible profit margin for a product or service.Several factors contribute to the price points, but the demand and supply of the product or service must remain proportional to the price.
+
+    public interface ITransferableItem
+    {
+        IMarketItem TransferringMarket { get; set; }
+        decimal TransferringAmount { get; set; }
+        IAddressItem SendingAddress { get; set; }
+        IAddressItem ReceivingAddress { get; set; }
+    }
+
+    public interface IBuyInvoiceItem : IInvoiceItem
+    {
+        // { get; set; }
+    }
+
+    public interface ISellInvoiceItem : IInvoiceItem
+    {
+
+        ITransferableItem Receivable { get; set; }
+    }
 
     #endregion
 
@@ -140,12 +159,12 @@ namespace Swopblock.Orders
 
     public interface IDeliveryItem : IInvoiceItem, IDischargeItem
     {
-        //ISignatureItem DischargingSignature { get; init; }
+        //IAMHERE
     }
 
-    public interface IPaymentItem : IDeliveryItem, IBuyItem { }
+    public interface IPaymentItem : IDeliveryItem { }
 
-    public interface ICashingItem : IDeliveryItem, ISellItem { }
+    public interface ICashingItem : IDeliveryItem { }
 
     #endregion
 

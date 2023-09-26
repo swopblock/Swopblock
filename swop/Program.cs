@@ -85,7 +85,7 @@ string intention;
 
 while ((intention = Console.ReadLine() ?? "I am closing swop.").Contains("closing") == false)
 {
-    var offerable = Offers.Intend(intention);
+    //var offerable = TradingOffers.Intend(intention);
 
 
     //Console.WriteLine(offerable.Notify());

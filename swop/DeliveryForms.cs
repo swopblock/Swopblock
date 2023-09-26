@@ -1,7 +1,7 @@
 ﻿using System;
 namespace swop
 {
-	public class DeliveriesOld: ExecOrderForms
+	public class DeliveriesOld//: ExecOrderForms
 	{
 		public DeliveriesOld()
 		{

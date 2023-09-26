@@ -1,4 +1,5 @@
 ﻿using System;
+using Swopblock.OrdersOldNS;
 
 namespace Swopblock
 
@@ -108,7 +109,14 @@ namespace Swopblock
 
 
 
-    public interface IAddressItem { }
+    public interface IAddressItem
+    {
+        IMarketItem Market { get; set; }
+
+        IBaseValue BaseValue { get; set; }
+
+        IFaceValue FaceValue { get; set; }
+    }
 
 
 
