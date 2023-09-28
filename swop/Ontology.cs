@@ -8,18 +8,7 @@ namespace Swopblock
 {
     namespace X
     {
-        // a payment is an order that specs: source, exact amount transferred, and sink.
-        // a money order is an order that records:
-        //      source market,
-        //      source value of enough to be called upon for medium of exchange,
-        //      medium value of enough to secure delivery of source value,
-        //      
-        //      sink market,
-        //      .
-        // a market order is an order that specs: source, aproximate amount exchanged, and sinkMarket .
-
-
-        public record Values
+        public abstract record Values
 
             (decimal Value);
 
@@ -32,54 +21,48 @@ namespace Swopblock
 
                 (BaseValue);
 
+
         public record FaceValues
 
-            (decimal FaceValue)
+            (decimal FaceValue, decimal BaseValue)
 
-            : Values
+            : BaseValues
 
-                (FaceValue);
+                (BaseValue);
 
 
-        public record AddressValues
+        public record BookedValues
 
-            (decimal BaseValue, decimal FaceValue)
+            (decimal BaseValue, decimal FaceValue, decimal BookedBaseValue, decimal BookedFaceValue, decimal BookedBaseVolume, decimal BookedFaceVolume)
 
             : FaceValues
 
-                (FaceValue);
-
-        public record BookedAddressValues
-
-            (decimal BaseValue, decimal FaceValue, decimal BookedBaseValue, decimal BookedFaceValue)
-
-            : AddressValues
-
                 (BaseValue, FaceValue);
 
 
-        public record BlockValues
+        public record MarketBooks
 
-            (decimal BaseValue, decimal FaceValue)
+            (decimal MarketBaseValue, decimal MarketFaceValue, decimal MarketBookedBaseValue, decimal MarketBookedFaceValue, decimal MarketBaseVolume, decimal MarketFaceVolume, BookedValues[] MarketBook)
 
-            : AddressValues
+            : BookedValues
 
-                (BaseValue, FaceValue);
+                (MarketBaseValue, MarketFaceValue, MarketBookedBaseValue, MarketBookedFaceValue, MarketBaseVolume, MarketFaceValue);
 
-        public record BookedBlockValues
+        public record ExchangeBooks
 
-            (decimal BaseValue, decimal FaceValue, decimal BookedBaseValue, decimal BookedFaceValue)
+            (decimal ExchangeBaseValue, decimal ExchangeFaceValue, decimal ExchangeBookedBaseValue, decimal ExchangeBookedFaceValue, decimal ExchangeBaseVolume, decimal ExchangeFaceVolume, MarketBooks[] ExchangeBook)
 
-            : BlockValues
+            : BookedValues
 
-                (BaseValue, FaceValue);
+                (ExchangeBaseValue, ExchangeFaceValue, ExchangeBookedBaseValue, ExchangeBookedFaceValue, ExchangeBaseVolume, ExchangeFaceVolume);
+
 
 
         public record SwopblockValues
 
             (decimal BaseValue, decimal FaceValue)
 
-            : BlockValues
+            : FaceValues
 
                 (BaseValue, FaceValue);
 
@@ -93,21 +76,21 @@ namespace Swopblock
 
 
 
-        public record SpendingAddresses
+        public record SpendingValues
 
             (decimal BaseValue, decimal FaceValue)
 
-            : AddressValues
+            : FaceValues
 
                 (BaseValue, FaceValue);
 
-        public record OrderAddresses
+        //public record OrderAddresses
 
-            (decimal BaseValue, decimal FaceValue, decimal BookedBaseValue, decimal BookedFaceValue)
+            //(decimal BaseValue, decimal FaceValue, decimal BookedBaseValue, decimal BookedFaceValue)
 
-            : BookedAddressValues
+            //: BookedAddressValues
 
-                (BaseValue, FaceValue, BookedBaseValue, BookedFaceValue);
+                //(BaseValue, FaceValue, BookedBaseValue, BookedFaceValue);
 
         public record MoneyOrderAddresses
 
