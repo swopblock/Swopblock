@@ -4,8 +4,51 @@ using Swopblock;
 using System.Net;
 using OrdersNS;
 
+namespace Ontology
+{
+    public record OrderReservations;
+    public record OrderConfirmations;   // (Orders[] Orders);
+    public record OrderExpirations;
+
+    //public record OfferReservations
+
+    
+    public record Offers(Addresses Addresses);//: Orders;
+    //public record Buys: Offers;
+    //public record Sells: Offers;
+
+    public record Deals(Offers Offer);
+
+    //public record Invoices(Deals[] Deals);
+
+    public record Executions(Deals Deal);//: Orders;
+    //public record Payments: Executions;
+    //public record Deliveries: Executions;
+
+    //public record Receipts(Executions Execution);
+     
+
+
+    //public record Orders(Offers Offer);
+    //public record Confirmations;// (Orders[] Orders);
+
+    public record Receipts(Executions Execution);
+
+    //public record Transactions(Offers Offer, Deals Deal, Executions Execution, Receipts Receipt);
+
+    public record Addresses(Receipts[] Receipts);
+    public record Accounts(Addresses[] Addresses);
+    public record Nodes(Accounts[] Accounts);
+    public record Markets(Nodes[] Nodes);
+    public record Parties(Markets[] Nodes);
+    public record Neighborhoods(Parties[] Parties);
+    public record CORE(Neighborhoods[] Neighborhoods, Markets[] Markets): Parties(Markets);
+    public record LIVE(CORE[] SimulationParties);
+}
+
 namespace Swopblock
 {
+
     namespace X
     {
         public abstract record Values
