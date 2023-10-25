@@ -4,6 +4,11 @@ namespace Swopblock;
 
 public partial record Confirmation
 {
+    public static Confirmation SimulateHistory(int CandidateCountAverage, int CandidateCountDeviation)
+    {
+        return null;
+    }
+
     public static Confirmation LoadHistory
     (
         int CandidateCount,
@@ -25,9 +30,11 @@ public partial record Confirmation
                 );
         }
 
-        var confirmation = new Confirmation(candidates);
+        //var confirmation = new Confirmation(candidates);
 
-        return confirmation;
+        //return confirmation;
+
+        return null;
     }
 
 }

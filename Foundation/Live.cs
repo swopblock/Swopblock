@@ -4,6 +4,11 @@ namespace Swopblock;
 
 public partial record Live
 {
+    public static Live SimulateHistory(int AppCountAverage, int AppCountDeviation)
+    {
+        return null;
+    }
+
     public static Live LoadHistory
         (
             int AppCount,
@@ -13,10 +18,6 @@ public partial record Live
             int BlockchainCount,
 
             int NodeCount,
-
-            int PrivateKeyCount,
-
-            int PublicKeyCount,
 
             int ConfirmationCount,
 
@@ -39,10 +40,6 @@ public partial record Live
 
                     NodeCount,
 
-                    PrivateKeyCount,
-
-                    PublicKeyCount,
-
                     ConfirmationCount,
 
                     CandidateCount,
@@ -64,10 +61,6 @@ public partial record Live
             BlockchainCount,
 
             NodeCount,
-
-            PrivateKeyCount,
-
-            PublicKeyCount,
 
             ConfirmationCount,
 

@@ -4,14 +4,15 @@ namespace Swopblock;
 
 public partial record Blockchain
 {
+    public static Blockchain SimulateHistory(int NodeCountAverage, int NodeCountDeviation)
+    {
+        return null;
+    }
+
     public static Blockchain LoadHistory
 
     (
         int NodeCount,
-
-        int PrivateKeyCount,
-
-        int PublicKeyCount,
 
         int ConfirmationCount,
 
@@ -31,10 +32,6 @@ public partial record Blockchain
             (
                 NodeCount,
 
-                PrivateKeyCount,
-
-                PublicKeyCount,
-
                 ConfirmationCount,
 
                 CandidateCount,
@@ -45,9 +42,11 @@ public partial record Blockchain
             );
         }
 
-        var blockchain = new Blockchain(nodes);
+        //var blockchain = new Blockchain(nodes);
 
-        return blockchain;
+        //return blockchain;
+
+        return null;
     }
 
 }

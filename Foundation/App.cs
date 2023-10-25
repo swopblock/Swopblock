@@ -4,6 +4,11 @@ namespace Swopblock;
 
 public partial record App
 {
+    public static App SimulateHistory(int CoreCountAverage, int CoreCountDeviation)
+    {
+        return null;
+    }
+
     public static App LoadHistory
         (
             int CoreCount,
@@ -11,10 +16,6 @@ public partial record App
             int BlockchainCount,
 
             int NodeCount,
-
-            int PrivateKeyCount,
-
-            int PublicKeyCount,
 
             int ConfirmationCount,
 
@@ -37,10 +38,6 @@ public partial record App
 
                 NodeCount,
 
-                PrivateKeyCount,
-
-                PublicKeyCount,
-
                 ConfirmationCount,
 
                 CandidateCount,
@@ -51,9 +48,11 @@ public partial record App
             );
         }
 
-        var app = new App(cores);
+        //var app = new App(cores);
 
-        return app;
+        //return app;
+
+        return null;
     }
 }
 

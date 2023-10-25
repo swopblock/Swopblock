@@ -4,6 +4,11 @@ namespace Swopblock;
 
 public partial record Candidate
 {
+    public static Candidate SimulateHistory(int AddressCountAverage, int AddressCountDeviation)
+    {
+        return null;
+    }
+
     public static Candidate LoadHistory
     (
         int AddressCount,
@@ -18,9 +23,11 @@ public partial record Candidate
             addresses[i] = Address.LoadHistory(TransferCount);
         }
 
-        var candidate = new Candidate(addresses);
+        //var candidate = new Candidate(addresses);
 
-        return candidate;
+        //return candidate;
+
+        return null;
     }
 
 }

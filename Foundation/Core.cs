@@ -4,16 +4,17 @@ namespace Swopblock;
 
 public partial record Core
 {
+    public static Core SimulateHistory(int BlockchainCountAverage, int BlockchainCountDeviation)
+    {
+        return null;
+    }
+
     public static Core LoadHistory
 
     (
         int BlockchainCount,
 
         int NodeCount,
-
-        int PrivateKeyCount,
-
-        int PublicKeyCount,
 
         int ConfirmationCount,
 
@@ -35,10 +36,6 @@ public partial record Core
             (
                 NodeCount,
 
-                PrivateKeyCount,
-
-                PublicKeyCount,
-
                 ConfirmationCount,
 
                 CandidateCount,
@@ -49,9 +46,11 @@ public partial record Core
             );
         }
 
-        var core = new Core(blockchains);
+        //var core = new Core(blockchains);
 
-        return core;
+        //return core;
+
+        return null;
     }
 }
 

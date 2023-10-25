@@ -3,6 +3,11 @@ namespace Swopblock;
 
 public partial record Address
 {
+    public static Node SimulateHistory(int TransferCountAverage, int TransferCountDeviation)
+    {
+        return null;
+    }
+
     public static Address LoadHistory
     (
         int TransferCount
@@ -11,9 +16,16 @@ public partial record Address
     {
         var transfers = new Transfer[TransferCount];
 
-        var address = new Address(transfers);
+        for (int i = 0; i < TransferCount; i++)
+        {
+            transfers[i] = Transfer.LoadHistory();
+        }
 
-        return address;
+        //var address = new Address(transfers);
+
+        //return address;
+
+        return null;
     }
 
 }

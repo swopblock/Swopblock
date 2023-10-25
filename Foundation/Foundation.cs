@@ -22,24 +22,7 @@ public partial record Invoice
     DeliveryReceipts DeliveryReceipt
 )
 
-    : Address(new Transfer[]
-                {
-                    PaymentOffer,
-
-                    DeliveryOffer,
-
-                    PaymentDue,
-
-                    DeliveryDue,
-
-                    PaymentDeed,
-
-                    DeliveryDeed,
-
-                    PaymentReceipt,
-
-                    DeliveryReceipt
-                });
+    : Transfer;
 
 public partial record PaymentReceipts : Receipts;
 
@@ -68,34 +51,36 @@ public partial record Offers : InvoiceItems;
 public partial record InvoiceItems : Transfer;
 
 
-public partial record Transfer;
+public partial record Input: Transfer;
 
-public partial record Address(Transfer[] Transfers);
+public partial record Output: Transfer;
 
-public partial record Candidate(Address[] Addresses);
+public partial record Balance: Transfer;
 
-public partial record Confirmation(Candidate[] Candidates);
+public partial record Transfer();
 
-public partial record PublicKey(Confirmation[] Confirmations);
+public partial record Address(HashSet<Transfer> Transfers);
 
-public partial record PrivateKey(PublicKey[] PublicKeys);
+public partial record Candidate(HashSet<Address> Addresses);
 
-public partial record Node(PrivateKey[] PrivateKeys);
+public partial record Confirmation(HashSet<Candidate> Candidates);
 
-public partial record Blockchain(Node[] Nodes);
+public partial record Node(HashSet<Confirmation> Confirmations);
 
+public partial record Blockchain(HashSet<Node> Nodes);
 
-public partial record Core(Blockchain[] Blockchains);
+public partial record Core(HashSet<Blockchain> Blockchains);
 
 /* “Core” is a collection of Blockchains ... */
 
 
-public partial record App(Core[] Cores);
+public partial record App(HashSet<Core> Cores);
 
 /* “App” is a collection of Cores ... */
 
 
-public partial record Live(App[] Apps);
+public partial record Live(HashSet<Core> Cores, HashSet<App> Apps);
+
 
 /* “Live” is a collection of Apps and is a dashboard view of relevant summary
  * information about the entire network of internet connected applications 
@@ -105,6 +90,6 @@ public partial record Live(App[] Apps);
  * statical reports that are relevant to an understanding of the operational 
  * health of the Swopblock network. */
 
-
+public partial record Network(HashSet<Core> Cores, HashSet<App> Apps, HashSet<Live> Lives);
 
 
