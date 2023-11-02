@@ -63,7 +63,7 @@ public partial record Address(HashSet<Transfer> Transfers);
 
 public partial record Candidate(HashSet<Address> Addresses);
 
-public partial record Confirmation(HashSet<Candidate> Candidates);
+public partial record Confirmation;
 
 public partial record Node(HashSet<Confirmation> Confirmations);
 

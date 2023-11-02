@@ -2,7 +2,7 @@
 
 namespace Swopblock;
 
-public partial record Confirmation
+public partial record Confirmation(HashSet<Candidate> Candidates, Candidate PreviousConfirmation)
 {
     public static Confirmation SimulateHistory(int CandidateCountAverage, int CandidateCountDeviation)
     {
@@ -39,12 +39,12 @@ public partial record Confirmation
 
 }
 
-public record BtcConfirmation(HashSet<Candidate> Candidates): Confirmation(Candidates)
+public record BtcConfirmation(HashSet<Candidate> Candidates, Candidate Confirmation): Confirmation(Candidates, Confirmation)
 {
 
 }
 
-public record EthConfirmation(HashSet<Candidate> Candidates) : Confirmation(Candidates)
+public record EthConfirmation(HashSet<Candidate> Candidates, Candidate Confirmation) : Confirmation(Candidates, Confirmation)
 {
 
 }

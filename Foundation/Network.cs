@@ -3,7 +3,7 @@ namespace Swopblock;
 
 public partial record Network
 {
-    public Network? CreateGenesis()
+    public static Network? CreateGenesis()
     {
         Address genesisAddress = new Address(new HashSet<Transfer>());
 
@@ -13,7 +13,7 @@ public partial record Network
         genesisCandidate.Addresses.Add(genesisAddress);
 
 
-        Confirmation genesisConfirmation = new Confirmation(new HashSet<Candidate>());
+        Confirmation genesisConfirmation = new Confirmation(new HashSet<Candidate>(), genesisCandidate);
 
         genesisConfirmation.Candidates.Add(genesisCandidate);
 
@@ -56,6 +56,8 @@ public partial record Network
     
         return genesisNetwork;
     }
+
+    //public decimal GetGenesisBtcBaseValues
 
     public void LoadHistory()
     {
