@@ -40,3 +40,12 @@ public partial record Node
 
 }
 
+public record BtcNode(HashSet<Confirmation> Confirmations): Node(Confirmations)
+{
+
+}
+
+public record EthNode(HashSet<Confirmation> Confirmations) : Node(Confirmations)
+{
+
+}

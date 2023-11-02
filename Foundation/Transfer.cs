@@ -17,3 +17,12 @@ public partial record Transfer
 
 }
 
+public record BtcTransfer: Transfer
+{
+
+}
+
+public record EthTransfer: Transfer
+{
+
+}

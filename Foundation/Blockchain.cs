@@ -51,3 +51,13 @@ public partial record Blockchain
 
 }
 
+public record BtcBlockchain(HashSet<Node> Nodes): Blockchain(Nodes)
+{
+
+}
+
+
+public record EthBlockchain(HashSet<Node> Nodes) : Blockchain(Nodes)
+{
+
+}

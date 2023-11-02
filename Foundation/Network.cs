@@ -38,10 +38,23 @@ public partial record Network
         genesisApp.Cores.Add(genesisCore);
 
 
-        //Live genesisLive = new App
+        Live genesisLive = new Live(new HashSet<Core>(), new HashSet<App>());
+
+        genesisLive.Cores.Add(genesisCore);
+
+        genesisLive.Apps.Add(genesisApp);
+
+
+        Network genesisNetwork = new Network(new HashSet<Core>(), new HashSet<App>(), new HashSet<Live>());
+
+        genesisNetwork.Cores.Add(genesisCore);
+
+        genesisNetwork.Apps.Add(genesisApp);
+
+        genesisNetwork.Lives.Add(genesisLive);
 
     
-        return null;
+        return genesisNetwork;
     }
 
     public void LoadHistory()

@@ -39,3 +39,12 @@ public partial record Confirmation
 
 }
 
+public record BtcConfirmation(HashSet<Candidate> Candidates): Confirmation(Candidates)
+{
+
+}
+
+public record EthConfirmation(HashSet<Candidate> Candidates) : Confirmation(Candidates)
+{
+
+}
