@@ -20,9 +20,8 @@ public partial record Invoice
     PaymentReceipts PaymentReceipt,
 
     DeliveryReceipts DeliveryReceipt
-)
+);
 
-    : Transfer;
 
 public partial record PaymentReceipts : Receipts;
 
@@ -51,13 +50,13 @@ public partial record Offers : InvoiceItems;
 public partial record InvoiceItems : Transfer;
 
 
-public partial record Input: Transfer;
+//public partial record Input: Transfer;
 
-public partial record Output: Transfer;
+//public partial record Output: Transfer;
 
-public partial record Balance: Transfer;
+//public partial record Balance: Transfer;
 
-public partial record Transfer();
+public partial record Transfer;
 
 public partial record Address(HashSet<Transfer> Transfers);
 

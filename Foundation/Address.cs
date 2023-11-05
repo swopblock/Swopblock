@@ -3,7 +3,7 @@ namespace Swopblock;
 
 public partial record Address
 {
-    protected static decimal FaceValue = 52800000;
+    //protected static decimal FaceValue = 52800000;
 
     public static Node SimulateHistory(int TransferCountAverage, int TransferCountDeviation)
     {
@@ -32,11 +32,12 @@ public partial record Address
 
 }
 
-public partial record BtcAddress(HashSet<Transfer> Transfers): Address(Transfers)
+public partial record BtcAddress(HashSet<Transfer> Transfers)
 {
+
 }
 
-public partial record EthAddress(HashSet<Transfer> Transfers): Address(Transfers)
+public partial record EthAddress(HashSet<Transfer> Transfers)
 {
 
 }

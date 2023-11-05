@@ -22,7 +22,7 @@ public record BtcTransfer: Transfer
 
 }
 
-public record EthTransfer: Transfer
+public record EthTransfer : Transfer
 {
 
 }

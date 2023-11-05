@@ -15,6 +15,22 @@ public partial record Offers
         FaceValue
     )
 {
+    public void Write()
+    {
+
+    }
+
+    public void Sign()
+    {
+
+    }
+
+    public void Broadcast()
+    {
+
+    }
+
+
 
 }
 
