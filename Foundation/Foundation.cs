@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace Swopblock;
 
-public partial record Invoice
+public partial record Orders
 (
     PaymentOffers PaymentOffer,
 
@@ -39,15 +39,15 @@ public partial record PaymentOffers : Offers;
 
 public partial record DeliveryOffers : Offers;
 
-public partial record Receipts : InvoiceItems;
+public partial record Receipts : OrderItems;
 
-public partial record Deeds : InvoiceItems;
+public partial record Deeds : OrderItems;
 
-public partial record Dues : InvoiceItems;
+public partial record Dues : OrderItems;
 
-public partial record Offers : InvoiceItems;
+public partial record Offers : OrderItems;
 
-public partial record InvoiceItems : Transfer;
+public partial record OrderItems : Transfer;
 
 
 //public partial record Input: Transfer;

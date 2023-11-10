@@ -7,7 +7,7 @@ public partial record Deeds
 
 		decimal FaceValue
 	)
-:InvoiceItems
+:OrderItems
 	(
 		BaseValue,
 

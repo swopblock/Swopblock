@@ -2,11 +2,92 @@
 
 namespace Swopblock;
 
-public record SwopBlock(decimal BaseValue, decimal FaceValue)
+public record Swopblocks(decimal BaseValue, decimal FaceValue)
 {
+    protected decimal System;
 
+    protected decimal SystemFaceValue;
+
+
+    protected static decimal SystemFaceValue = 52800000;
+
+    protected virtual decimal BranchBaseValue { get; set; }
+
+    protected virtual decimal BranchFaceValue { get; set; }
+
+    public decimal FaceValuePerUnitBase
+    {
+        get
+        {
+            return SystemFaceValue / BranchBaseValue;
+        }
+    }
+
+    public decimal BaseValuePerUnitFace
+    {
+        get
+        {
+            return BranchBaseValue / SystemFaceValue;
+        }
+    }
+
+    public void OpenBalance(decimal AvailableBaseValue, decimal DeliveredBaseValue)
+    {
+        BranchBaseValue += BaseValue / 2;
+
+        BranchFaceValue -= 
+
+        return new Swopblocks(BaseValue, FaceValue);
+    }
+
+    //public SwopBlock Close()
+    //{
+
+    //}
 }
 
+public record BtcSwopBlock(decimal BtcValue, decimal FaceValue) : Swopblocks(BtcValue, FaceValue)
+{
+    public decimal BtcBaseValue;
+
+    public decimal BtcFaceValue;
+
+    protected override decimal BranchBaseValue { get { return BtcBaseValue; } set => BtcBaseValue = value; }
+
+    protected override decimal BranchFaceValue { get { return BtcFaceValue; } set { BtcFaceValue = value; } }
+
+    public static BtcSwopBlock Open(decimal BaseValue)
+    {
+        BaseValue += BaseValue / 2;
+
+        return null;
+    }
+}
+
+public record EthSwopBlock(decimal EthValue, decimal FaceValue) : Swopblocks(EthValue, FaceValue)
+{
+    public static EthSwopBlock Eth = new EthSwopBlock(0, 1);
+
+    public override Swopblocks Branch => Eth;
+}
+
+public record MoneyBlocks;
+
+public record MarketBlocks;
+
+public record SecondBlocks;
+
+public record MinuteBlocks;
+
+public record HourBlocks;
+
+public record DayBlocks;
+
+public record MonthBlocks;
+
+public record QuarterBlocks;
+
+public record YearBlocks;
 
 
 /*

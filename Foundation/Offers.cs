@@ -8,7 +8,7 @@ public partial record Offers
 
         decimal FaceValue
 
-    ): InvoiceItems
+    ): OrderItems
     (
         BaseValue,
 

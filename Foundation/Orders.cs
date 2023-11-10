@@ -2,12 +2,12 @@
 
 namespace Swopblock;
 
-public partial record Invoice
+public partial record Orders
 {
 }
 
 public record MarketOrderInvoice(OpenedMarketOrder OpenedMarketOrder, ClosedMarketOrder ClosedMarketOrder)
-    : Invoice(OpenedMarketOrder.PaymentOffer, OpenedMarketOrder.DeliveryOffer, OpenedMarketOrder.PaymentDue, OpenedMarketOrder.DeliveryDue,
+    : Orders(OpenedMarketOrder.PaymentOffer, OpenedMarketOrder.DeliveryOffer, OpenedMarketOrder.PaymentDue, OpenedMarketOrder.DeliveryDue,
         ClosedMarketOrder.PaymentDeed, ClosedMarketOrder.DeliveryDeed, ClosedMarketOrder.PaymentReceipt, ClosedMarketOrder.DeliveryReceipt);
 
 public record MoneyOrderInvoice(OpenedMoneyOrder OpenedMoneyOrder, ClosedMoneyOrder ClosedMoneyOrder);

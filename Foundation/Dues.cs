@@ -7,7 +7,7 @@ public partial record Dues
 
 		decimal FaceValue
 
-	):InvoiceItems
+	):OrderItems
 	(
 		BaseValue,
 

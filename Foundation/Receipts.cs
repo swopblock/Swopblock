@@ -7,7 +7,7 @@ public partial record Receipts
 
         decimal FaceValue
     )
-: InvoiceItems
+: OrderItems
     (
         BaseValue,
 
