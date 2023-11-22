@@ -38,23 +38,23 @@ public partial record Network
         genesisApp.Cores.Add(genesisCore);
 
 
-        Live genesisLive = new Live(new HashSet<Core>(), new HashSet<App>());
+        //Live genesisLive = new Live(new HashSet<Core>(), new HashSet<App>());
 
-        genesisLive.Cores.Add(genesisCore);
+        //genesisLive.Cores.Add(genesisCore);
 
-        genesisLive.Apps.Add(genesisApp);
+        //genesisLive.Apps.Add(genesisApp);
 
 
-        Network genesisNetwork = new Network(new HashSet<Core>(), new HashSet<App>(), new HashSet<Live>());
+        //Network genesisNetwork = new Network(new HashSet<Core>(), new HashSet<App>(), new HashSet<Live>());
 
-        genesisNetwork.Cores.Add(genesisCore);
+        //genesisNetwork.Cores.Add(genesisCore);
 
-        genesisNetwork.Apps.Add(genesisApp);
+        //genesisNetwork.Apps.Add(genesisApp);
 
-        genesisNetwork.Lives.Add(genesisLive);
+        //genesisNetwork.Lives.Add(genesisLive);
 
-    
-        return genesisNetwork;
+
+        return null;// genesisNetwork;
     }
 
     //public decimal GetGenesisBtcBaseValues

@@ -1,75 +1,288 @@
 ﻿using System;
 
 namespace Swopblock;
+using System;
+using System.Threading.Tasks;
 
-public record Swopblocks(decimal BaseValue, decimal FaceValue)
+public class SwopblockLedger
 {
-    protected decimal System;
+    private readonly object FaceValueLock = new object();
 
-    protected decimal SystemFaceValue;
+    private decimal PrivateFaceValue = Genesis;
 
+    public const decimal Genesis = 52800000;
 
-    protected static decimal SystemFaceValue = 52800000;
-
-    protected virtual decimal BranchBaseValue { get; set; }
-
-    protected virtual decimal BranchFaceValue { get; set; }
-
-    public decimal FaceValuePerUnitBase
+    public decimal Debit(decimal faceValue)
     {
-        get
+        decimal result = 0;
+
+        if (faceValue < 0)
         {
-            return SystemFaceValue / BranchBaseValue;
+            return result;
+        }
+
+        lock (FaceValueLock)
+        {
+            if (PrivateFaceValue >= (faceValue * 2))
+            {
+                PrivateFaceValue -= faceValue;
+
+                result = faceValue;
+            }
+        }
+
+        return result;
+    }
+
+    public decimal Credit(decimal faceValue)
+    {
+        decimal result = 0;
+
+        if (faceValue < 0)
+        {
+            return result;
+        }
+
+        lock (FaceValueLock)
+        {
+            if (PrivateFaceValue >= (faceValue * 2))
+            {
+                PrivateFaceValue += faceValue;
+
+                result = faceValue;
+            }
+        }
+
+        return result;
+    }
+
+    public decimal GetFaceValue()
+    {
+        lock (FaceValueLock)
+        {
+            return PrivateFaceValue;
         }
     }
-
-    public decimal BaseValuePerUnitFace
-    {
-        get
-        {
-            return BranchBaseValue / SystemFaceValue;
-        }
-    }
-
-    public void OpenBalance(decimal AvailableBaseValue, decimal DeliveredBaseValue)
-    {
-        BranchBaseValue += BaseValue / 2;
-
-        BranchFaceValue -= 
-
-        return new Swopblocks(BaseValue, FaceValue);
-    }
-
-    //public SwopBlock Close()
-    //{
-
-    //}
 }
 
-public record BtcSwopBlock(decimal BtcValue, decimal FaceValue) : Swopblocks(BtcValue, FaceValue)
+
+public class GenericSubLedger : SwopblockLedger
 {
-    public decimal BtcBaseValue;
+    private readonly object BaseValueLock = new object();
 
-    public decimal BtcFaceValue;
+    private decimal PrivateBaseValue = GenesisBaseValue;
 
-    protected override decimal BranchBaseValue { get { return BtcBaseValue; } set => BtcBaseValue = value; }
+    public const decimal GenesisBaseValue = 1;
 
-    protected override decimal BranchFaceValue { get { return BtcFaceValue; } set { BtcFaceValue = value; } }
-
-    public static BtcSwopBlock Open(decimal BaseValue)
+    public decimal Debit(decimal faceValue)
     {
-        BaseValue += BaseValue / 2;
+        decimal result = 0;
+
+        if (faceValue < 0)
+        {
+            return result;
+        }
+
+        lock (BaseValueLock)
+        {
+            if (PrivateBaseValue >= (faceValue * 2))
+            {
+                PrivateBaseValue -= faceValue;
+
+                result = faceValue;
+            }
+        }
+
+        return result;
+    }
+
+    public decimal Credit(decimal faceValue)
+    {
+        decimal result = 0;
+
+        if (faceValue < 0)
+        {
+            return result;
+        }
+
+        lock (BaseValueLock)
+        {
+            if (PrivateBaseValue >= (faceValue * 2))
+            {
+                PrivateBaseValue += faceValue;
+
+                result = faceValue;
+            }
+        }
+
+        return result;
+    }
+
+    public decimal GetFaceValue()
+    {
+        lock (BaseValueLock)
+        {
+            return PrivateBaseValue;
+        }
+    }
+
+
+}
+
+/*
+public abstract class S
+{
+    public FaceValues SwoblCash;
+
+    public static S[] History = new S[4096];
+
+    public static long i = 0; 
+
+    public static void Survey(decimal WidthSwobl, decimal HeightUsd)
+    {
+
+    }
+
+    public static void Record(string certificate, decimal WidthSwobl, decimal HeightUsd)
+    {
+
+    }
+
+    public S (decimal BaseValue)
+    {
+        //var investment = new S();
+
 
         return null;
     }
+
+    public virtual FaceValues CashOnDelivery(BaseValues Delivery)
+    {
+        return null;
+    }
+
+    public virtual FaceValues MarketValue
+    {
+        get
+        {
+            return null;
+        }
+    }
+
+    public virtual FaceValues MarketCap
+    {
+        get
+        {
+            return null;
+        }
+    }
+
+    public virtual BaseValues Market
+    {
+        get
+        {
+            return null;
+        }
+    }
+
+    //public virtual FaceValues CashOnHold(BaseValues Hold)
+    //{
+
+    //}
+
+    //public static DebitSystemAccout(decimal FaceValue);
+
+
+
+
+    protected static decimal BranchBaseValue;
+
+
+    public static decimal BidFaceValue;
+
+    public static decimal BidBaseValue;
+
+    public static decimal AskFaceValue;
+
+    public static decimal AskBaseValue;
+
+    public S()
+    {
+    }
+
+    public S(decimal FaceValue)
+    {
+    }
+
+    public S(decimal FaceValue, decimal BaseValue)
+    {
+    }
+
+    public static S GetPaymentOffer
+        (
+            decimal ReservedPaymentOffer,
+
+            decimal MinimumPaymentOffer,
+
+            decimal RequiredDeliveryReceipt,
+
+            decimal MaximumDeliveryReceipt
+        )
+    {
+        
+        return null;
+    }
+
+    public S SpotValues(S Bid, S Ask) { return null; }
+
+    //public decimal SpotFaceValue(decimal BaseValue) { return null; }
+
+    //public decimal SpotBaseValue(decimal FaceValue)
+    //{
+        //return null; }
+
+    //protected static decimal FaceValueUncirculated = 52800000;
+
+
+
+    //public static Swopblocks Genesis = new Swopblock()
 }
 
-public record EthSwopBlock(decimal EthValue, decimal FaceValue) : Swopblocks(EthValue, FaceValue)
+*/
+
+public record FaceValues(decimal FaceValue);
+
+public record BaseValues(decimal BaseValue)
 {
-    public static EthSwopBlock Eth = new EthSwopBlock(0, 1);
-
-    public override Swopblocks Branch => Eth;
+    //public static async Task<SwopblockLedger Join() { }
 }
+
+
+
+
+
+
+
+
+public class BtcLedger// : Swopblocks(BtcValueChange, FaceValueChange)
+{
+    //public FaceValues  
+    //public static decimal BtcBaseValueUncirculated = 1;
+}
+
+public class EthLedger//: Swopblocks(EthValueChange, FaceValueChange)
+{
+    public static decimal EthBaseValueUncirculated = 1;
+}
+
+
+
+
+
+
+
+
+
 
 public record MoneyBlocks;
 
@@ -88,7 +301,6 @@ public record MonthBlocks;
 public record QuarterBlocks;
 
 public record YearBlocks;
-
 
 /*
 public record SwopBlock(decimal BaseValue, decimal FaceValue)
