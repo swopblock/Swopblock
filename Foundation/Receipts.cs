@@ -1,17 +1,11 @@
 ﻿using System;
 namespace Swopblock;
 
-public partial record Receipts
+public partial record Notes
     (
         decimal BaseValue,
 
         decimal FaceValue
-    )
-: OrderItems
-    (
-        BaseValue,
-
-        FaceValue
     )
 {
 }

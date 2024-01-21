@@ -1,6 +1,22 @@
 ﻿using Swopblock;
+using Cocona;
 
-Console.WriteLine("Text what you would like to do.");
+var app = CoconaApp.Create();
+
+//app.Run
+
+CoconaApp.Run((string name) =>
+{
+    Console.WriteLine($"Hello {name}");
+});
+
+Console.WriteLine("Swopblock Random Trading.");
+
+Console.WriteLine();
+
+
+
+
 
 
 //var live = new Live()

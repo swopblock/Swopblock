@@ -1,17 +1,11 @@
 ﻿using System;
 namespace Swopblock;
 
-public partial record DeliveryDues
+public partial record SaleDues
     (
         decimal BaseValue,
 
         decimal FaceValue
-    )
-: Dues
-    (
-        BaseValue,
-
-        FaceValue
     )
 {
 }

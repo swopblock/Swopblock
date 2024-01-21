@@ -5,10 +5,10 @@ public partial record Network
 {
     public static Network? CreateGenesis()
     {
-        Address genesisAddress = new Address(new HashSet<Transfer>());
+        Address genesisAddress = new Address(new HashSet<Entries>());
 
 
-        Candidate genesisCandidate = new Candidate(new HashSet<Address>());
+        Candidate genesisCandidate = null; // new Candidate(new HashSet<Address>());
 
         genesisCandidate.Addresses.Add(genesisAddress);
 

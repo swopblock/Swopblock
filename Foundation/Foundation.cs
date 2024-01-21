@@ -9,70 +9,67 @@ namespace Swopblock;
 
 public partial record Orders
 (
-    PaymentOffers PaymentOffer,
+    CashOffers PaymentOffer,
 
-    DeliveryOffers DeliveryOffer,
+    SaleOffers DeliveryOffer,
 
-    PaymentDues PaymentDue,
+    CashDues PaymentDue,
 
-    DeliveryDues DeliveryDue,
+    SaleDues DeliveryDue,
 
-    PaymentDeeds PaymentDeed,
+    CashDeeds PaymentDeed,
 
-    DeliveryDeeds DeliveryDeed,
+    SaleDeeds DeliveryDeed,
 
-    PaymentReceipts PaymentReceipt,
+    CashNotes PaymentReceipt,
 
-    DeliveryReceipts DeliveryReceipt
+    SaleNotes DeliveryReceipt
 );
 
 
-public partial record PaymentReceipts : Receipts;
+public partial record CashNotes : Notes;
 
-public partial record DeliveryReceipts : Receipts;
+public partial record SaleNotes : Notes;
 
-public partial record PaymentDeeds : Deeds;
+public partial record CashDeeds : Deeds;
 
-public partial record DeliveryDeeds : Deeds;
+public partial record SaleDeeds : Deeds;
 
-public partial record PaymentDues : Dues;
+public partial record CashDues : Dues;
 
-public partial record DeliveryDues : Dues;
+public partial record SaleDues : Dues;
 
-public partial record PaymentOffers : Offers;
+public partial record CashOffers : Offers;
 
-public partial record DeliveryOffers : Offers;
+public partial record SaleOffers : Offers;
 
-public partial record Receipts : OrderItems;
+public partial record Notes : Results;
 
-public partial record Deeds : OrderItems;
+public partial record Deeds : Controls;
 
-public partial record Dues : OrderItems;
+public partial record Dues : Results;
 
-public partial record Offers : OrderItems;
+public partial record Offers : Commands;
 
-public partial record OrderItems : Transfer;
+public partial record Commands: Entries;
 
+public partial record Controls: Entries;
 
-//public partial record Input: Transfer;
+public partial record Results: Entries;
 
-//public partial record Output: Transfer;
+public partial record Entries;
 
-//public partial record Balance: Transfer;
+public partial record Address(HashSet<Entries> Entries);
 
-public partial record Transfer;
-
-public partial record Address(HashSet<Transfer> Transfers);
-
-public partial record Candidate(HashSet<Address> Addresses);
+public partial record Candidate(HashSet<Address> Addresses, HashSet<Orders> Orders);
 
 public partial record Confirmation;
 
-public partial record Node(HashSet<Confirmation> Confirmations): SwopPoint;
+public partial record Node(HashSet<Confirmation> Confirmations);//: SwopPoint;
 
 public partial record Blockchain(HashSet<Node> Nodes);
 
-public partial record Core(HashSet<Blockchain> Blockchains): SwopPoint;
+public partial record Core(HashSet<Blockchain> Blockchains);//: SwopPoint;
 
 /* “Core” is a collection of Blockchains ... */
 

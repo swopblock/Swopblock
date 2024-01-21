@@ -16,11 +16,11 @@ public partial record Address
     )
 
     {
-        var transfers = new Transfer[TransferCount];
+        var transfers = new Entries[TransferCount];
 
         for (int i = 0; i < TransferCount; i++)
         {
-            transfers[i] = Transfer.LoadHistory();
+            transfers[i] = Swopblock.Entries.LoadHistory();
         }
 
         //var address = new Address(transfers);
@@ -32,12 +32,12 @@ public partial record Address
 
 }
 
-public partial record BtcAddress(HashSet<Transfer> Transfers)
+public partial record BtcAddress(HashSet<Entries> Transfers)
 {
 
 }
 
-public partial record EthAddress(HashSet<Transfer> Transfers)
+public partial record EthAddress(HashSet<Entries> Transfers)
 {
 
 }

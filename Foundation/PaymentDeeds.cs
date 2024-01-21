@@ -1,17 +1,17 @@
 ﻿using System;
 namespace Swopblock;
 
-public partial record PaymentDeeds
+public partial record CashDeeds
     (
         decimal BaseValue,
 
         decimal FaceValue
     )
-: Deeds
-    (
-        BaseValue,
+//: Deeds
+    //(
+        //BaseValue,
 
-        FaceValue
-    )
+        //FaceValue
+    //)
 {
 }

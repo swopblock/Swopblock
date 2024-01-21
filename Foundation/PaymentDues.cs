@@ -1,17 +1,11 @@
 ﻿using System;
 namespace Swopblock;
 
-public partial record PaymentDues
+public partial record CashDuesY
     (
         decimal BaseValue,
 
         decimal FaceValue
-    )
-: Dues
-    (
-        BaseValue,
-
-        FaceValue
     )
 {
 }

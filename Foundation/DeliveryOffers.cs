@@ -2,18 +2,13 @@
 
 namespace Swopblock;
 
-public partial record DeliveryOffers
+public partial record SaleOffersY
     (
         decimal BaseValue,
 
         decimal FaceValue
     )
-: Offers
-    (
-        BaseValue,
-
-        FaceValue
-    )
+//: Offers
 {
 }
 

@@ -1,7 +1,7 @@
 ﻿using System;
 namespace Swopblock;
 
-public partial record Deeds
+public partial record DeedsY
 	(
 		decimal BaseValue,
 

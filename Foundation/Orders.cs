@@ -1,31 +1,56 @@
 ﻿using System;
 
-namespace Swopblock;
-
-public partial record Orders
+namespace Swopblock.DraftA
 {
+    public partial record Orders
+    (
+        CashOffers CashOffer,
+
+        SaleOffers SaleOffer,
+
+        CashDues CashDue,
+
+        SaleDues SaleDue,
+
+        CashDeeds CashDeed,
+
+        SaleDeeds SaleDeed,
+
+        CashNotes CashNode,
+
+        SaleNotes SaleNote
+    );
+
 }
 
-public record MarketOrderInvoice(OpenedMarketOrder OpenedMarketOrder, ClosedMarketOrder ClosedMarketOrder)
-    : Orders(OpenedMarketOrder.PaymentOffer, OpenedMarketOrder.DeliveryOffer, OpenedMarketOrder.PaymentDue, OpenedMarketOrder.DeliveryDue,
-        ClosedMarketOrder.PaymentDeed, ClosedMarketOrder.DeliveryDeed, ClosedMarketOrder.PaymentReceipt, ClosedMarketOrder.DeliveryReceipt);
+namespace Swopblock
+{
 
-public record MoneyOrderInvoice(OpenedMoneyOrder OpenedMoneyOrder, ClosedMoneyOrder ClosedMoneyOrder);
+    public partial record Orders
+    {
+    }
+
+    public record MarketOrderInvoice(OpenedMarketOrder OpenedMarketOrder, ClosedMarketOrder ClosedMarketOrder)
+        : Orders(OpenedMarketOrder.PaymentOffer, OpenedMarketOrder.DeliveryOffer, OpenedMarketOrder.PaymentDue, OpenedMarketOrder.DeliveryDue,
+            ClosedMarketOrder.PaymentDeed, ClosedMarketOrder.DeliveryDeed, ClosedMarketOrder.PaymentReceipt, ClosedMarketOrder.DeliveryReceipt);
+
+    public record MoneyOrderInvoice(OpenedMoneyOrder OpenedMoneyOrder, ClosedMoneyOrder ClosedMoneyOrder);
     //ToDo: Invoice(...);
 
-public record DeliveryOrderInvoice(OpenedDeliveryOrder OpenedDeliveryOrder, ClosedDeliveryOrder ClosedDeliveryOrder);
+    public record DeliveryOrderInvoice(OpenedDeliveryOrder OpenedDeliveryOrder, ClosedDeliveryOrder ClosedDeliveryOrder);
     //ToDo: Invoice(...);
 
-public record OpenedMarketOrder(PaymentOffers PaymentOffer, DeliveryOffers DeliveryOffer, PaymentDues PaymentDue, DeliveryDues DeliveryDue);
+    public record OpenedMarketOrder(CashOffers PaymentOffer, SaleOffers DeliveryOffer, CashDues PaymentDue, SaleDues DeliveryDue);
 
-public record ClosedMarketOrder(PaymentDeeds PaymentDeed, DeliveryDeeds DeliveryDeed, PaymentReceipts PaymentReceipt, DeliveryReceipts DeliveryReceipt);
+    public record ClosedMarketOrder(CashDeeds PaymentDeed, SaleDeeds DeliveryDeed, CashNotes PaymentReceipt, SaleNotes DeliveryReceipt);
 
 
-public record OpenedMoneyOrder(); //ToDo:
+    public record OpenedMoneyOrder(); //ToDo:
 
-public record ClosedMoneyOrder(); //ToDo:
+    public record ClosedMoneyOrder(); //ToDo:
 
-public record OpenedDeliveryOrder(); //ToDo:
+    public record OpenedDeliveryOrder(); //ToDo:
 
-public record ClosedDeliveryOrder(); //ToDo:
+    public record ClosedDeliveryOrder(); //ToDo:
+}
 

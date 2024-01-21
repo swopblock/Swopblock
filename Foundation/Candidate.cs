@@ -32,13 +32,13 @@ public partial record Candidate
 
 }
 
-public record BtcCandidate(HashSet<Address> Addresses): Candidate(Addresses)
-{
+//public record BtcCandidate(HashSet<Address> Addresses): Candidate(Addresses)
+//{
 
-}
+//}
 
-public record EthCandidate(HashSet<Address> Addresses): Candidate(Addresses)
-{
+//public record EthCandidate(HashSet<Address> Addresses): Candidate(Addresses)
+//{
 
-}
+//}
 

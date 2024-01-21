@@ -1,13 +1,13 @@
 ﻿using System;
 namespace Swopblock;
 
-public partial record PaymentReceipts
+public partial record CashNotes
     (
         decimal BaseValue,
 
         decimal FaceValue
     )
-: Receipts
+: Notes
     (
         BaseValue,
 
