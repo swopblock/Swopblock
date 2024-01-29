@@ -1,56 +1,66 @@
 ﻿using System;
 
-namespace Swopblock;
-
-public partial record Core
+namespace Swopblock.DraftA
 {
-    public static Core SimulateHistory(int BlockchainCountAverage, int BlockchainCountDeviation)
+    public record Core
     {
-        return null;
+
     }
+}
 
-    public static Core LoadHistory
+namespace Swopblock
+{
 
-    (
-        int BlockchainCount,
-
-        int NodeCount,
-
-        int ConfirmationCount,
-
-        int CandidateCount,
-
-        int AddressCount,
-
-        int TransferCount
-    )
-
+    public partial record Core
     {
-        var blockchains = new Blockchain[BlockchainCount];
-
-        for (int i = 0; i < BlockchainCount; i++)
+        public static Core SimulateHistory(int BlockchainCountAverage, int BlockchainCountDeviation)
         {
-            blockchains[i] =
-
-            Blockchain.LoadHistory
-            (
-                NodeCount,
-
-                ConfirmationCount,
-
-                CandidateCount,
-
-                AddressCount,
-
-                TransferCount
-            );
+            return null;
         }
 
-        //var core = new Core(blockchains);
+        public static Core LoadHistory
 
-        //return core;
+        (
+            int BlockchainCount,
 
-        return null;
+            int NodeCount,
+
+            int ConfirmationCount,
+
+            int CandidateCount,
+
+            int AddressCount,
+
+            int TransferCount
+        )
+
+        {
+            var blockchains = new Blockchain[BlockchainCount];
+
+            for (int i = 0; i < BlockchainCount; i++)
+            {
+                blockchains[i] =
+
+                Blockchain.LoadHistory
+                (
+                    NodeCount,
+
+                    ConfirmationCount,
+
+                    CandidateCount,
+
+                    AddressCount,
+
+                    TransferCount
+                );
+            }
+
+            //var core = new Core(blockchains);
+
+            //return core;
+
+            return null;
+        }
     }
 }
 

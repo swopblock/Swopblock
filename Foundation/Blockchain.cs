@@ -1,63 +1,88 @@
 ﻿using System;
 
-namespace Swopblock;
-
-public partial record Blockchain
+namespace Swopblock.DraftA
 {
-    public static Blockchain SimulateHistory(int NodeCountAverage, int NodeCountDeviation)
+    public record Blockchain
     {
-        return null;
+
     }
 
-    public static Blockchain LoadHistory
-
-    (
-        int NodeCount,
-
-        int ConfirmationCount,
-
-        int CandidateCount,
-
-        int AddressCount,
-
-        int TransferCount
-    )
-
+    public record BtcBlockchain : Blockchain
     {
-        var nodes = new Node[NodeCount];
 
-        for (int i = 0; i < NodeCount; i++)
+    }
+
+    public record EthBlockchain : Blockchain
+    {
+
+    }
+
+    public record SwopblockChain: Blockchain
+    {
+
+    }
+}
+
+namespace Swopblock
+{
+
+    public partial record Blockchain
+    {
+        public static Blockchain SimulateHistory(int NodeCountAverage, int NodeCountDeviation)
         {
-            nodes[i] = Node.LoadHistory
-            (
-                NodeCount,
-
-                ConfirmationCount,
-
-                CandidateCount,
-
-                AddressCount,
-
-                TransferCount
-            );
+            return null;
         }
 
-        //var blockchain = new Blockchain(nodes);
+        public static Blockchain LoadHistory
 
-        //return blockchain;
+        (
+            int NodeCount,
 
-        return null;
+            int ConfirmationCount,
+
+            int CandidateCount,
+
+            int AddressCount,
+
+            int TransferCount
+        )
+
+        {
+            var nodes = new Node[NodeCount];
+
+            for (int i = 0; i < NodeCount; i++)
+            {
+                nodes[i] = Node.LoadHistory
+                (
+                    NodeCount,
+
+                    ConfirmationCount,
+
+                    CandidateCount,
+
+                    AddressCount,
+
+                    TransferCount
+                );
+            }
+
+            //var blockchain = new Blockchain(nodes);
+
+            //return blockchain;
+
+            return null;
+        }
+
     }
 
-}
+    public record BtcBlockchain(HashSet<Node> Nodes) : Blockchain(Nodes)
+    {
 
-public record BtcBlockchain(HashSet<Node> Nodes): Blockchain(Nodes)
-{
-
-}
+    }
 
 
-public record EthBlockchain(HashSet<Node> Nodes) : Blockchain(Nodes)
-{
+    public record EthBlockchain(HashSet<Node> Nodes) : Blockchain(Nodes)
+    {
 
+    }
 }

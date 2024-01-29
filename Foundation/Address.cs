@@ -1,44 +1,54 @@
 ﻿using System;
-namespace Swopblock;
 
-public partial record Address
+namespace Swopblock.DraftA
 {
-    //protected static decimal FaceValue = 52800000;
+    public record Addresses;
+}
 
-    public static Node SimulateHistory(int TransferCountAverage, int TransferCountDeviation)
+
+namespace Swopblock
+{
+
+
+
+    public partial record Address
     {
-        return null;
-    }
+        //protected static decimal FaceValue = 52800000;
 
-    public static Address LoadHistory
-    (
-        int TransferCount
-    )
-
-    {
-        var transfers = new Entries[TransferCount];
-
-        for (int i = 0; i < TransferCount; i++)
+        public static Node SimulateHistory(int TransferCountAverage, int TransferCountDeviation)
         {
-            transfers[i] = Swopblock.Entries.LoadHistory();
+            return null;
         }
 
-        //var address = new Address(transfers);
+        public static Address LoadHistory
+        (
+            int TransferCount
+        )
 
-        //return address;
+        {
+            var transfers = new Entries[TransferCount];
 
-        return null;
+            for (int i = 0; i < TransferCount; i++)
+            {
+                transfers[i] = Swopblock.Entries.LoadHistory();
+            }
+
+            //var address = new Address(transfers);
+
+            //return address;
+
+            return null;
+        }
+
     }
 
+    public partial record BtcAddress(HashSet<Entries> Transfers)
+    {
+
+    }
+
+    public partial record EthAddress(HashSet<Entries> Transfers)
+    {
+
+    }
 }
-
-public partial record BtcAddress(HashSet<Entries> Transfers)
-{
-
-}
-
-public partial record EthAddress(HashSet<Entries> Transfers)
-{
-
-}
-
