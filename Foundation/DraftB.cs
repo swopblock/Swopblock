@@ -1,50 +1,58 @@
-﻿using System;
-namespace DraftB
+﻿namespace DraftB
 {
-	public class DraftB
+	[Flags]
+	public enum Revisions
 	{
-		public DraftB()
-		{
-		}
+		Alpha01
 	}
 
+    public enum Kinds
+	{
+		BTC, ETH, SWOBL
+	}
+
+	public record Address;
+
+	public record TxStream;
 
 
-	// TRANSACTION 
+	#region TRANSACTION
 
-	public record Transactions();
+	public record Transactions(Estimates Estimate, Invoices Invoice, Transfers Transfer, Receipts Receipt, Revisions Revision)
 
-	public record TransactionEstimated(Estimates Estimate) : Transactions();
+		: TransactionsReceipted(Estimate, Invoice, Transfer, Receipt);
 
-	public record TransactionInvoiced(Estimates Estimate, InvoicesX Invoice)
+	public record TransactionsEstimated(Estimates Estimate);
 
-		: TransactionEstimated(Estimate);
+	public record TransactionsInvoiced(Estimates Estimate, Invoices Invoice)
 
-	public record TransactionTransfered(Estimates Estimate, InvoicesX Invoice, TransfersX Transfer)
+		: TransactionsEstimated(Estimate);
 
-		: TransactionInvoiced(Estimate, Invoice);
+	public record TransactionsTransfered(Estimates Estimate, Invoices Invoice, Transfers Transfer)
 
-	public record TransactionReceipted(Estimates Estimate, InvoicesX Invoice, TransfersX Transfer, ReceiptsX Receipt)
+		: TransactionsInvoiced(Estimate, Invoice);
 
-		: TransactionTransfered(Estimate, Invoice, Transfer);
+	public record TransactionsReceipted(Estimates Estimate, Invoices Invoice, Transfers Transfer, Receipts Receipt)
 
+		: TransactionsTransfered(Estimate, Invoice, Transfer);
 
+    #endregion
 
-	// PHASE
+    #region PHASE
 
-	public record Phases();
+    public record Phases();
 
 	public record Estimates(CashOfferEntries CashOffer, SaleOfferEntries SaleOffer) : Phases();
 
-	public record InvoicesX(CashDueEntries CashDue, SaleDueEntries SaleDue) : Phases();
+	public record Invoices(CashDueEntries CashDue, SaleDueEntries SaleDue) : Phases();
 
-	public record TransfersX(CashDeedEntries CashDeed, SaleDeedEntries SaleDeed) : Phases();
+	public record Transfers(CashDeedEntries CashDeed, SaleDeedEntries SaleDeed) : Phases();
 
-	public record ReceiptsX(CashNoteEntries CashNote, SaleNoteEntries SaleNote) : Phases();
+	public record Receipts(CashNoteEntries CashNote, SaleNoteEntries SaleNote) : Phases();
 
+    #endregion
 
-
-    // ENTRY
+    #region ENTRY
 
     public record Entries();
 
@@ -83,13 +91,11 @@ namespace DraftB
 
 	public record SaleNoteEntries(AskSaleNoteMetrics AskNote, SellSaleNoteMetrics SellNote) : NoteEntries();
 
+    #endregion
 
+    #region METRIC
 
-	// METRIC
-
-	// TODO add in metric base types
-
-	public record Metrics();
+    public record Metrics();
 
 
 	public record OfferMetrics() : Metrics();
@@ -121,44 +127,46 @@ namespace DraftB
 	public record SaleNoteMetrics() : NoteMetrics();
 
 
+	
+	public record BidCashOfferMetrics(decimal BidMinimum, decimal BidMaximum, Kinds BidKind, Address BidAddress, TxStream WhenToOpen) : CashOfferMetrics();
 
-	public record BidCashOfferMetrics() : CashOfferMetrics();
-
-	public record BuyCashOfferMetrics() : CashOfferMetrics();
-
-
-	public record AskSaleOfferMetrics() : SaleOfferMetrics();
-
-	public record SellSaleOfferMetrics() : SaleOfferMetrics();
+	public record BuyCashOfferMetrics(decimal BuyMinimum, decimal BuyMaximum, Kinds BuyKind, Address BuyAddress, TxStream WhenToClose) : CashOfferMetrics();
 
 
-	public record BidCashDueMetrics() : CashDueMetrics();
+	public record AskSaleOfferMetrics(decimal AskMinimum, decimal AskMaximum, Kinds AskKind, Address AskAddress, TxStream WhenToOpen) : SaleOfferMetrics();
 
-	public record BuyCashDueMetrics() : CashDueMetrics();
-
-
-	public record AskSaleDueMetrics() : SaleDueMetrics();
-
-	public record SellSaleDueMetrics() : SaleDueMetrics();
+	public record SellSaleOfferMetrics(decimal SellMinimum, decimal SellMaximum, Kinds SellKind, Address SellAddress, TxStream WhenToClose) : SaleOfferMetrics();
 
 
-	public record BidCashDeedMetrics() : CashDeedMetrics();
+	public record BidCashDueMetrics(decimal BidDue, Kinds BidKind, Address BidAddress, Address AskAddress, TxStream WhenIsDue) : CashDueMetrics();
 
-	public record BuyCashDeedMetrics() : CashDeedMetrics();
-
-
-	public record AskSaleDeedMetrics() : SaleDeedMetrics();
-
-	public record SellSaleDeedMetrics() : SaleDeedMetrics();
+	public record BuyCashDueMetrics(decimal BuyDue, Kinds BuyKind, Address BuyAddress, Address SellAddress, TxStream WhenIsDue) : CashDueMetrics();
 
 
-	public record BidCashNoteMetrics() : CashNoteMetrics();
+	public record AskSaleDueMetrics(decimal AskDue, Kinds AskKind, Address AskAddress, Address BidAddress, TxStream WhenIsDue) : SaleDueMetrics();
 
-	public record BuyCashNoteMetrics() : CashNoteMetrics();
+	public record SellSaleDueMetrics(decimal SellDue, Kinds SellKind, Address SellAddress, Address BuyAddress, TxStream WhenIsDue) : SaleDueMetrics();
 
 
-	public record AskSaleNoteMetrics() : SaleNoteMetrics();
+	public record BidCashDeedMetrics(decimal BidDeed, Kinds BidKind, Address BidAddress, Address AskAddress, TxStream WhenWasConfirmed) : CashDeedMetrics();
 
-	public record SellSaleNoteMetrics() : SaleNoteMetrics();
+	public record BuyCashDeedMetrics(decimal BuyDeed, Kinds BuyKind, Address BuyAddress, Address SellAddress, TxStream WhenWasConfirmed) : CashDeedMetrics();
+
+
+	public record AskSaleDeedMetrics(decimal AskDeed, Kinds AskKind, Address AskAddress, Address BidAddress, TxStream WhenWasConfirmed) : SaleDeedMetrics();
+
+	public record SellSaleDeedMetrics(decimal SellDeed, Kinds SellKind, Address SellAddress, Address BuyAddress, TxStream WhenWasConfirmed) : SaleDeedMetrics();
+
+
+	public record BidCashNoteMetrics(decimal BidNote, Kinds BidKind, Address BidAddress, Address AskAddress, TxStream WhenWillBeAvailable) : CashNoteMetrics();
+
+	public record BuyCashNoteMetrics(decimal BuyNote, Kinds BuyKind, Address BuyAddress, Address SellAddress, TxStream WhenWillBeAvailable) : CashNoteMetrics();
+
+
+	public record AskSaleNoteMetrics(decimal AskNote, Kinds AskKind, Address AskAddress, Address BidAddress, TxStream WhenWillBeAvailable) : SaleNoteMetrics();
+
+	public record SellSaleNoteMetrics(decimal SellNote, Kinds SellKind, Address SellAddress, Address BuyAddress, TxStream WhenWillBeAvailable) : SaleNoteMetrics();
+
+    #endregion
 }
 

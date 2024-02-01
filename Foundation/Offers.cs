@@ -8,7 +8,7 @@ namespace Swopblock.DraftA
         {
             switch (formatedOffer)
             {
-                case "bid": return CashOffers.Random();
+                //case "bid": return CashOffers.Random();
                     //case "ask": return SaleOfferX.Random();
             }
 

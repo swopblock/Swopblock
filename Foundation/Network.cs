@@ -32,7 +32,7 @@ namespace Swopblock.DraftA
 
             for (int k = 0; k < AppCount; k++)
             {
-                Apps.Add(new App());
+                //Apps.Add(new App());
             }
         }
 

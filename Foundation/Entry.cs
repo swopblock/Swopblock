@@ -260,7 +260,7 @@ namespace Swopblock.DraftA
 
             this.BuyAddress = BuyAddress;
 
-            this.BidOfferExpiration = OfferExpiration;
+            //this.BidOfferExpiration = OfferExpiration;
         }
 
         public void SetAsk()
@@ -268,7 +268,7 @@ namespace Swopblock.DraftA
 
         }
 
-        public void SetInvoice()
+        public void SetInvoice() { }
 
         public void PreviewBid()
         {
@@ -363,7 +363,7 @@ namespace Swopblock.DraftA
 
         public static Byte[] Binary(string text)
         {
-            EntryInfo.Record()
+            //EntryInfo.Record()
             return null;
         }
 

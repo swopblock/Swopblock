@@ -31,7 +31,7 @@ namespace Swopblock.DraftA
 
         public CashOfferInfo(Kinds bidKind)
         {
-            BidKind = biddingAddress;
+            //BidKind = biddingAddress;
         }
 
         public CashOfferInfo(string text)
@@ -91,7 +91,7 @@ namespace Swopblock.DraftA
 
             decimal bidExpir = 1000000;
 
-            return new CashOffers
+            return null; /* new CashOffers
                 (
                     bidMin,
 
@@ -110,7 +110,7 @@ namespace Swopblock.DraftA
                     buyAddr,
 
                     bidExpir
-                );
+                );*/
         }
     }
 
