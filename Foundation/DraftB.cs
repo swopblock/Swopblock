@@ -16,39 +16,39 @@
 	public record TxStreams;
 
 
-	#region TRANSACTIONS
+	#region ORDERS
 
-	public record Transactions(Estimates Estimate, Invoices Invoice, Transfers Transfer, Receipts Receipt, Revisions Revision)
+	public record Orders(Estimates Estimate, Invoices Invoice, Transfers Transfer, Receipts Receipt, Revisions Revision)
 
-		: TransactionsReceipted(Estimate, Invoice, Transfer, Receipt);
+		: OrdersReceipted(Estimate, Invoice, Transfer, Receipt);
 
-	public record TransactionsEstimated(Estimates Estimate);
+	public record OrdersEstimated(Estimates Estimate);
 
-	public record TransactionsInvoiced(Estimates Estimate, Invoices Invoice)
+	public record OrdersInvoiced(Estimates Estimate, Invoices Invoice)
 
-		: TransactionsEstimated(Estimate);
+		: OrdersEstimated(Estimate);
 
-	public record TransactionsTransfered(Estimates Estimate, Invoices Invoice, Transfers Transfer)
+	public record OrdersTransfered(Estimates Estimate, Invoices Invoice, Transfers Transfer)
 
-		: TransactionsInvoiced(Estimate, Invoice);
+		: OrdersInvoiced(Estimate, Invoice);
 
-	public record TransactionsReceipted(Estimates Estimate, Invoices Invoice, Transfers Transfer, Receipts Receipt)
+	public record OrdersReceipted(Estimates Estimate, Invoices Invoice, Transfers Transfer, Receipts Receipt)
 
-		: TransactionsTransfered(Estimate, Invoice, Transfer);
+		: OrdersTransfered(Estimate, Invoice, Transfer);
 
     #endregion
 
-    #region PHASES
+    #region STAGES
 
-    public record Phases();
+    public record Stages();
 
-	public record Estimates(CashOfferEntries CashOffer, SaleOfferEntries SaleOffer) : Phases();
+	public record Estimates(CashOfferEntries CashOffer, SaleOfferEntries SaleOffer) : Stages();
 
-	public record Invoices(CashDueEntries CashDue, SaleDueEntries SaleDue) : Phases();
+	public record Invoices(CashDueEntries CashDue, SaleDueEntries SaleDue) : Stages();
 
-	public record Transfers(CashDeedEntries CashDeed, SaleDeedEntries SaleDeed) : Phases();
+	public record Transfers(CashDeedEntries CashDeed, SaleDeedEntries SaleDeed) : Stages();
 
-	public record Receipts(CashNoteEntries CashNote, SaleNoteEntries SaleNote) : Phases();
+	public record Receipts(CashNoteEntries CashNote, SaleNoteEntries SaleNote) : Stages();
 
     #endregion
 
