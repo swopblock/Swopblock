@@ -18,23 +18,67 @@
 
 	#region ORDERS
 
-	public record Orders(Estimates Estimate, Invoices Invoice, Transfers Transfer, Receipts Receipt, Revisions Revision)
+	public record Orders()
+	{
+		public const Revisions Revision = Revisions.Alpha01;
 
-		: OrdersReceipted(Estimate, Invoice, Transfer, Receipt);
+		public static Orders PlaceOrder(Estimates Estimate)
+		{
+			Orders order = null;
 
-	public record OrdersEstimated(Estimates Estimate);
+			return order;
+		}
+	}
 
-	public record OrdersInvoiced(Estimates Estimate, Invoices Invoice)
 
-		: OrdersEstimated(Estimate);
+	public record EstimatedOrders(Estimates Estimate) : Orders()
+	{
+		public InvoicedOrders InvoiceOrder()
+		{
+			InvoicedOrders invoice = null;
 
-	public record OrdersTransfered(Estimates Estimate, Invoices Invoice, Transfers Transfer)
+			return invoice;
+		}
+	}
 
-		: OrdersInvoiced(Estimate, Invoice);
+	public record InvoicedOrders(Estimates Estimate, Invoices Invoice)
 
-	public record OrdersReceipted(Estimates Estimate, Invoices Invoice, Transfers Transfer, Receipts Receipt)
+		: EstimatedOrders(Estimate)
 
-		: OrdersTransfered(Estimate, Invoice, Transfer);
+	{
+		public TransferredOrders TransferOrder()
+		{
+			TransferredOrders transfer = null;
+
+			return transfer;
+		}
+	}
+
+	public record TransferredOrders(Estimates Estimate, Invoices Invoice, Transfers Transfer)
+
+		: InvoicedOrders(Estimate, Invoice)
+
+	{
+		public ReceiptedOrders ReceiptOrder()
+		{
+			ReceiptedOrders receipt = null;
+
+			return receipt;
+		}
+	}
+
+	public record ReceiptedOrders(Estimates Estimate, Invoices Invoice, Transfers Transfer, Receipts Receipt)
+
+		: TransferredOrders(Estimate, Invoice, Transfer)
+
+	{
+		public Orders PlaceCashOrder(CashOfferEntries cashOfferEntry)
+		{
+			Orders order = null;
+
+			return order;
+		}
+	}
 
     #endregion
 
@@ -42,13 +86,47 @@
 
     public record Stages();
 
-	public record Estimates(CashOfferEntries CashOffer, SaleOfferEntries SaleOffer) : Stages();
+	public record Estimates(CashOfferEntries CashOffer, SaleOfferEntries SaleOffer) : Stages()
+	{
+		public static Estimates MakeCashOffer(CashOfferEntries cashOffer)
+		{
+			return null;
+		}
 
-	public record Invoices(CashDueEntries CashDue, SaleDueEntries SaleDue) : Stages();
+		public static Estimates MakeSaleOffer(SaleOfferEntries saleOffer)
+		{
+			return null;
+		}
+	}
 
-	public record Transfers(CashDeedEntries CashDeed, SaleDeedEntries SaleDeed) : Stages();
+	public record Invoices(CashDueEntries CashDue, SaleDueEntries SaleDue) : Stages()
+	{
+		public static Invoices MakeInvoice(Estimates Buyer, Estimates Seller)
+		{
+			return null;
+		}
 
-	public record Receipts(CashNoteEntries CashNote, SaleNoteEntries SaleNote) : Stages();
+		public static Invoices MakeInvoice(CashDueEntries CashDue, SaleDueEntries saleDue)
+		{
+			return null;
+		}
+	}
+
+	public record Transfers(CashDeedEntries CashDeed, SaleDeedEntries SaleDeed) : Stages()
+	{
+		public static Transfers MakeTransfer(CashDeedEntries cashDeed, SaleDeedEntries saleDeed)
+		{
+			return null;
+		}
+	}
+
+	public record Receipts(CashNoteEntries CashNote, SaleNoteEntries SaleNote) : Stages()
+	{
+		public static Transfers MakeReceipt(CashNoteEntries cashNote, SaleNoteEntries saleNote)
+		{
+			return null;
+		}
+	}
 
     #endregion
 
@@ -93,6 +171,123 @@
 
     #endregion
 
+    #region DEALERS
+
+	public record Dealers();
+
+	public record Buyers(Addresses BidAddress, Addresses BuyAddress) : Dealers();
+
+	public record Sellers(Addresses AskAddress, Addresses SellAddress) : Dealers();
+
+	public record BuyerEstimate
+		(
+			BidCashOfferTerms BidCashOfferTerms,
+
+			BuyCashOfferTerms BuyCashOfferTerms,
+
+			Addresses BidAddress,
+
+			Addresses BuyAddress,
+
+			TxStreams WhenToOpen
+		)
+
+		: Buyers(BidAddress, BuyAddress);
+
+	public record SellerEstimate
+		(
+			AskSaleOfferTerms AskSaleOfferTerms,
+
+			SellSaleOfferTerms SellSaleOfferTerms,
+
+			Addresses AskAddress,
+
+			Addresses SellAddress
+		)
+
+		: Sellers(AskAddress, SellAddress);
+
+	public record BuyerInvoice
+        (
+            BidCashDueTerms BidCashDueTerms,
+
+            BuyCashDueTerms BuyCashDueTerms,
+
+            Addresses BidAddress,
+
+            Addresses BuyAddress
+        )
+
+        : Buyers(BidAddress, BuyAddress);
+
+    public record SellerInvoice
+    (
+        AskSaleDueTerms AskSaleDueTerms,
+
+        SellSaleDueTerms SellSaleDueTerms,
+
+        Addresses AskAddress,
+
+        Addresses SellAddress
+    )
+
+		: Sellers(AskAddress, SellAddress);
+
+    public record BuyerTransfer
+		(
+            BidCashDeedTerms BidCashDeedTerms,
+
+            BuyCashDeedTerms BuyCashDeedTerms,
+
+            Addresses BidAddress,
+
+            Addresses BuyAddress
+        )
+
+        : Buyers(BidAddress, BuyAddress);
+
+    public record SellerTransfer
+    (
+        AskSaleDeedTerms AskSaleDeedTerms,
+
+        SellSaleDeedTerms SellSaleDeedTerms,
+
+        Addresses AskAddress,
+
+        Addresses SellAddress
+    )
+
+		: Sellers(AskAddress, SellAddress);
+
+    public record BuyerReceipt
+		(
+            BidCashNoteTerms BidCashOfferTerms,
+
+            BuyCashNoteTerms BuyCashOfferTerms,
+
+            Addresses BidAddress,
+
+            Addresses BuyAddress
+        )
+
+        : Buyers(BidAddress, BuyAddress);
+
+    public record SellerReceipt
+    (
+        AskSaleNoteTerms AskSaleNoteTerms,
+
+        SellSaleNoteTerms SellSaleNoteTerms,
+
+        Addresses AskAddress,
+
+        Addresses SellAddress
+    )
+
+		: Sellers(AskAddress, SellAddress);
+
+    #endregion
+
+
     #region TERMS
 
     public record Terms();
@@ -128,44 +323,44 @@
 
 
 	
-	public record BidCashOfferTerms(decimal BidMinimum, decimal BidMaximum, Kinds BidKind, Addresses BidAddress, TxStreams WhenToOpen) : CashOfferTerms();
+	public record BidCashOfferTerms(decimal BidMinimum, decimal BidMaximum, Kinds BidKind, TxStreams WhenToOpenBid) : CashOfferTerms();
 
-	public record BuyCashOfferTerms(decimal BuyMinimum, decimal BuyMaximum, Kinds BuyKind, Addresses BuyAddress, TxStreams WhenToClose) : CashOfferTerms();
-
-
-	public record AskSaleOfferTerms(decimal AskMinimum, decimal AskMaximum, Kinds AskKind, Addresses AskAddress, TxStreams WhenToOpen) : SaleOfferTerms();
-
-	public record SellSaleOfferTerms(decimal SellMinimum, decimal SellMaximum, Kinds SellKind, Addresses SellAddress, TxStreams WhenToClose) : SaleOfferTerms();
+	public record BuyCashOfferTerms(decimal BuyMinimum, decimal BuyMaximum, Kinds BuyKind, TxStreams WhenToCloseBuy) : CashOfferTerms();
 
 
-	public record BidCashDueTerms(decimal BidDue, Kinds BidKind, Addresses BidAddress, Addresses AskAddress, TxStreams WhenIsDue) : CashDueTerms();
+	public record AskSaleOfferTerms(decimal AskMinimum, decimal AskMaximum, Kinds AskKind, TxStreams WhenToOpenAsk) : SaleOfferTerms();
 
-	public record BuyCashDueTerms(decimal BuyDue, Kinds BuyKind, Addresses BuyAddress, Addresses SellAddress, TxStreams WhenIsDue) : CashDueTerms();
-
-
-	public record AskSaleDueTerms(decimal AskDue, Kinds AskKind, Addresses AskAddress, Addresses BidAddress, TxStreams WhenIsDue) : SaleDueTerms();
-
-	public record SellSaleDueTerms(decimal SellDue, Kinds SellKind, Addresses SellAddress, Addresses BuyAddress, TxStreams WhenIsDue) : SaleDueTerms();
+	public record SellSaleOfferTerms(decimal SellMinimum, decimal SellMaximum, Kinds SellKind, TxStreams WhenToCloseSell) : SaleOfferTerms();
 
 
-	public record BidCashDeedTerms(decimal BidDeed, Kinds BidKind, Addresses BidAddress, Addresses AskAddress, TxStreams WhenWasConfirmed) : CashDeedTerms();
+	public record BidCashDueTerms(decimal BidDue, Kinds BidKind, TxStreams WhenIsBidDue) : CashDueTerms();
 
-	public record BuyCashDeedTerms(decimal BuyDeed, Kinds BuyKind, Addresses BuyAddress, Addresses SellAddress, TxStreams WhenWasConfirmed) : CashDeedTerms();
-
-
-	public record AskSaleDeedTerms(decimal AskDeed, Kinds AskKind, Addresses AskAddress, Addresses BidAddress, TxStreams WhenWasConfirmed) : SaleDeedTerms();
-
-	public record SellSaleDeedTerms(decimal SellDeed, Kinds SellKind, Addresses SellAddress, Addresses BuyAddress, TxStreams WhenWasConfirmed) : SaleDeedTerms();
+	public record BuyCashDueTerms(decimal BuyDue, Kinds BuyKind, TxStreams WhenIsBuyDue) : CashDueTerms();
 
 
-	public record BidCashNoteTerms(decimal BidNote, Kinds BidKind, Addresses BidAddress, Addresses AskAddress, TxStreams WhenWillBeAvailable) : CashNoteTerms();
+	public record AskSaleDueTerms(decimal AskDue, Kinds AskKind, TxStreams WhenIsAskDue) : SaleDueTerms();
 
-	public record BuyCashNoteTerms(decimal BuyNote, Kinds BuyKind, Addresses BuyAddress, Addresses SellAddress, TxStreams WhenWillBeAvailable) : CashNoteTerms();
+	public record SellSaleDueTerms(decimal SellDue, Kinds SellKind, TxStreams WhenIsSellDue) : SaleDueTerms();
 
 
-	public record AskSaleNoteTerms(decimal AskNote, Kinds AskKind, Addresses AskAddress, Addresses BidAddress, TxStreams WhenWillBeAvailable) : SaleNoteTerms();
+	public record BidCashDeedTerms(decimal BidDeed, Kinds BidKind, TxStreams WhenWasBidConfirmed) : CashDeedTerms();
 
-	public record SellSaleNoteTerms(decimal SellNote, Kinds SellKind, Addresses SellAddress, Addresses BuyAddress, TxStreams WhenWillBeAvailable) : SaleNoteTerms();
+	public record BuyCashDeedTerms(decimal BuyDeed, Kinds BuyKind, TxStreams WhenWasBuyConfirmed) : CashDeedTerms();
+
+
+	public record AskSaleDeedTerms(decimal AskDeed, Kinds AskKind, TxStreams WhenWasAskConfirmed) : SaleDeedTerms();
+
+	public record SellSaleDeedTerms(decimal SellDeed, Kinds SellKind, TxStreams WhenWasSellConfirmed) : SaleDeedTerms();
+
+
+	public record BidCashNoteTerms(decimal BidNote, Kinds BidKind, TxStreams WhenWillBidBeAvailable) : CashNoteTerms();
+
+	public record BuyCashNoteTerms(decimal BuyNote, Kinds BuyKind, TxStreams WhenWillBuyBeAvailable) : CashNoteTerms();
+
+
+	public record AskSaleNoteTerms(decimal AskNote, Kinds AskKind, TxStreams WhenWillAskBeAvailable) : SaleNoteTerms();
+
+	public record SellSaleNoteTerms(decimal SellNote, Kinds SellKind, TxStreams WhenWillSellBeAvailable) : SaleNoteTerms();
 
     #endregion
 }
