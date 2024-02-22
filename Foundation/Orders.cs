@@ -28,6 +28,10 @@ namespace Swopblock
 
     public partial record Orders
     {
+        void Do()
+        {
+            
+        }
     }
 
     public record MarketOrderInvoice(OpenedMarketOrder OpenedMarketOrder, ClosedMarketOrder ClosedMarketOrder)

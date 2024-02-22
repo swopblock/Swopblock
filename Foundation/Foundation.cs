@@ -67,9 +67,9 @@ public partial record Confirmation;
 
 public partial record Node(HashSet<Confirmation> Confirmations);//: SwopPoint;
 
-public partial record Blockchain(HashSet<Node> Nodes);
+public partial record Market(HashSet<Node> Nodes);
 
-public partial record Core(HashSet<Blockchain> Blockchains);//: SwopPoint;
+public partial record Core(HashSet<Market> Blockchains);//: SwopPoint;
 
 /* “Core” is a collection of Blockchains ... */
 
@@ -90,7 +90,7 @@ public partial record Live(HashSet<Core> Cores);
  * statical reports that are relevant to an understanding of the operational 
  * health of the Swopblock network. */
 
-public partial record Network(HashSet<Blockchain> Blockchains, HashSet<Core> Cores, HashSet<App> Apps, HashSet<Live> Lives);
+public partial record Network(HashSet<Market> Blockchains, HashSet<Core> Cores, HashSet<App> Apps, HashSet<Live> Lives);
 
 //Swop Points are physical devices that connect to and exchange SWOBL with
 //a computer network. Some examples of Swop Points are mobile devices,

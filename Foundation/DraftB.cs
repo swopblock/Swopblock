@@ -13,6 +13,8 @@
 
 	public record Addresses;
 
+	public record Signatures;
+
 	public record TxStreams;
 
 
@@ -72,7 +74,7 @@
 		: TransferredOrders(Estimate, Invoice, Transfer)
 
 	{
-		public Orders PlaceCashOrder(CashOfferEntries cashOfferEntry)
+		public Orders PlaceCashOrder(CashOfferMessages cashOfferEntry)
 		{
 			Orders order = null;
 
@@ -86,43 +88,43 @@
 
     public record Stages();
 
-	public record Estimates(CashOfferEntries CashOffer, SaleOfferEntries SaleOffer) : Stages()
+	public record Estimates(BuyerEstimates BuyerEstimate, SellerEstimates SellerEstimate) : Stages()
 	{
-		public static Estimates MakeCashOffer(CashOfferEntries cashOffer)
+		public static Estimates MakeCashOffer(CashOfferMessages cashOffer)
 		{
 			return null;
 		}
 
-		public static Estimates MakeSaleOffer(SaleOfferEntries saleOffer)
+		public static Estimates MakeSaleOffer(SaleOfferMessages saleOffer)
 		{
 			return null;
 		}
 	}
 
-	public record Invoices(CashDueEntries CashDue, SaleDueEntries SaleDue) : Stages()
+	public record Invoices(BuyerInvoices BuyerInvoice, SellerInvoices SellerInvoice) : Stages()
 	{
 		public static Invoices MakeInvoice(Estimates Buyer, Estimates Seller)
 		{
 			return null;
 		}
 
-		public static Invoices MakeInvoice(CashDueEntries CashDue, SaleDueEntries saleDue)
+		public static Invoices MakeInvoice(CashDueMessages CashDue, SaleDueMessages saleDue)
 		{
 			return null;
 		}
 	}
 
-	public record Transfers(CashDeedEntries CashDeed, SaleDeedEntries SaleDeed) : Stages()
+	public record Transfers(BuyerTransfers BuyerTransfer, SellerTransfers Seller) : Stages()
 	{
-		public static Transfers MakeTransfer(CashDeedEntries cashDeed, SaleDeedEntries saleDeed)
+		public static Transfers MakeTransfer(CashDeedMessages cashDeed, SaleDeedMessages saleDeed)
 		{
 			return null;
 		}
 	}
 
-	public record Receipts(CashNoteEntries CashNote, SaleNoteEntries SaleNote) : Stages()
+	public record Receipts(BuyerReceipts BuyerReceipt, SellerReceipts SellerReceipt) : Stages()
 	{
-		public static Transfers MakeReceipt(CashNoteEntries cashNote, SaleNoteEntries saleNote)
+		public static Transfers MakeReceipt(CashNoteMessages cashNote, SaleNoteMessages saleNote)
 		{
 			return null;
 		}
@@ -130,44 +132,44 @@
 
     #endregion
 
-    #region ENTRIES
+    #region MESSAGES
 
-    public record Entries();
-
-
-	public record InvoiceEntries() : Entries();
-
-	public record ReceiptEntries() : Entries();
+    public record Messages();
 
 
-    public record OfferEntries() : InvoiceEntries();
+	public record InvoiceMessages() : Messages();
 
-    public record DueEntries() : InvoiceEntries();
-
-
-    public record DeedEntries() : ReceiptEntries();
-
-    public record NoteEntries() : ReceiptEntries();
+	public record ReceiptMessages() : Messages();
 
 
-	public record CashOfferEntries(BidCashOfferTerms BidOffer, BuyCashOfferTerms BuyOffer) : OfferEntries();
+    public record OfferMessages() : InvoiceMessages();
 
-	public record SaleOfferEntries(AskSaleOfferTerms AskOffer, SellSaleOfferTerms SellOffer) : OfferEntries();
-
-
-	public record CashDueEntries(BidCashDueTerms BidDue, BuyCashDueTerms BuyDue) : DueEntries();
-
-	public record SaleDueEntries(AskSaleDueTerms AskDue, SellSaleDueTerms SellDue) : DueEntries();
+    public record DueMessages() : InvoiceMessages();
 
 
-	public record CashDeedEntries(BidCashDeedTerms BidDeed, BuyCashDeedTerms BuyDeed) : DeedEntries();
+    public record DeedMessages() : ReceiptMessages();
 
-	public record SaleDeedEntries(AskSaleDeedTerms AskDeed, SellSaleDeedTerms SellDeed) : DeedEntries();
+    public record NoteMessages() : ReceiptMessages();
 
 
-	public record CashNoteEntries(BidCashNoteTerms BidNote, BuyCashNoteTerms BuyNote) : NoteEntries();
+	public record CashOfferMessages(string CashOfferText) : OfferMessages();
 
-	public record SaleNoteEntries(AskSaleNoteTerms AskNote, SellSaleNoteTerms SellNote) : NoteEntries();
+	public record SaleOfferMessages(string SaleOfferText) : OfferMessages();
+
+
+	public record CashDueMessages(string CashDueText) : DueMessages();
+
+	public record SaleDueMessages(string SaleDueText) : DueMessages();
+
+
+	public record CashDeedMessages(string CashDeedText) : DeedMessages();
+
+	public record SaleDeedMessages(string SaleDeedText) : DeedMessages();
+
+
+	public record CashNoteMessages(string CashNoteText) : NoteMessages();
+
+	public record SaleNoteMessages(string SaleNoteText) : NoteMessages();
 
     #endregion
 
@@ -175,115 +177,97 @@
 
 	public record Dealers();
 
-	public record Buyers(Addresses BidAddress, Addresses BuyAddress) : Dealers();
+	public record Buyers(Signatures BidAddress, Addresses BuyAddress) : Dealers();
 
-	public record Sellers(Addresses AskAddress, Addresses SellAddress) : Dealers();
+	public record Sellers(Signatures AskAddress, Addresses SellAddress) : Dealers();
 
-	public record BuyerEstimate
+	public record BuyerEstimates
 		(
 			BidCashOfferTerms BidCashOfferTerms,
 
 			BuyCashOfferTerms BuyCashOfferTerms,
 
-			Addresses BidAddress,
+			Buyers Buyer,
 
-			Addresses BuyAddress,
+			CashOfferMessages CashOfferMessage
+		);
 
-			TxStreams WhenToOpen
-		)
-
-		: Buyers(BidAddress, BuyAddress);
-
-	public record SellerEstimate
+	public record SellerEstimates
 		(
 			AskSaleOfferTerms AskSaleOfferTerms,
 
 			SellSaleOfferTerms SellSaleOfferTerms,
 
-			Addresses AskAddress,
+			Sellers Seller,
 
-			Addresses SellAddress
-		)
+			SaleOfferMessages SaleOfferMessage
+		);
 
-		: Sellers(AskAddress, SellAddress);
-
-	public record BuyerInvoice
+	public record BuyerInvoices
         (
             BidCashDueTerms BidCashDueTerms,
 
             BuyCashDueTerms BuyCashDueTerms,
 
-            Addresses BidAddress,
+            Buyers Buyer,
 
-            Addresses BuyAddress
-        )
+			CashDueMessages CashDueMessage
+        );
 
-        : Buyers(BidAddress, BuyAddress);
-
-    public record SellerInvoice
+    public record SellerInvoices
     (
         AskSaleDueTerms AskSaleDueTerms,
 
         SellSaleDueTerms SellSaleDueTerms,
 
-        Addresses AskAddress,
+        Sellers Seller,
 
-        Addresses SellAddress
-    )
+		SaleDueMessages SaleDueMessage
+    );
 
-		: Sellers(AskAddress, SellAddress);
-
-    public record BuyerTransfer
+    public record BuyerTransfers
 		(
             BidCashDeedTerms BidCashDeedTerms,
 
             BuyCashDeedTerms BuyCashDeedTerms,
 
-            Addresses BidAddress,
+            Buyers Buyer,
 
-            Addresses BuyAddress
-        )
+			CashDeedMessages CashDeedMessages
+        );
 
-        : Buyers(BidAddress, BuyAddress);
-
-    public record SellerTransfer
+    public record SellerTransfers
     (
         AskSaleDeedTerms AskSaleDeedTerms,
 
         SellSaleDeedTerms SellSaleDeedTerms,
 
-        Addresses AskAddress,
+        Sellers Seller,
 
-        Addresses SellAddress
-    )
+		SaleDeedMessages SaleDeedMessage
+    );
 
-		: Sellers(AskAddress, SellAddress);
-
-    public record BuyerReceipt
+    public record BuyerReceipts
 		(
             BidCashNoteTerms BidCashOfferTerms,
 
             BuyCashNoteTerms BuyCashOfferTerms,
 
-            Addresses BidAddress,
+            Buyers Buyer,
 
-            Addresses BuyAddress
-        )
+			CashNoteMessages CashNoteMessage
+        );
 
-        : Buyers(BidAddress, BuyAddress);
-
-    public record SellerReceipt
+    public record SellerReceipts
     (
         AskSaleNoteTerms AskSaleNoteTerms,
 
         SellSaleNoteTerms SellSaleNoteTerms,
 
-        Addresses AskAddress,
+        Sellers Seller,
 
-        Addresses SellAddress
-    )
-
-		: Sellers(AskAddress, SellAddress);
+		SaleNoteMessages SaleNoteMessage
+    );
 
     #endregion
 

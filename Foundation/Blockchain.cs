@@ -26,14 +26,14 @@ namespace Swopblock.DraftA
 namespace Swopblock
 {
 
-    public partial record Blockchain
+    public partial record Market
     {
-        public static Blockchain SimulateHistory(int NodeCountAverage, int NodeCountDeviation)
+        public static Market SimulateHistory(int NodeCountAverage, int NodeCountDeviation)
         {
             return null;
         }
 
-        public static Blockchain LoadHistory
+        public static Market LoadHistory
 
         (
             int NodeCount,
@@ -75,13 +75,13 @@ namespace Swopblock
 
     }
 
-    public record BtcBlockchain(HashSet<Node> Nodes) : Blockchain(Nodes)
+    public record BtcBlockchain(HashSet<Node> Nodes) : Market(Nodes)
     {
 
     }
 
 
-    public record EthBlockchain(HashSet<Node> Nodes) : Blockchain(Nodes)
+    public record EthBlockchain(HashSet<Node> Nodes) : Market(Nodes)
     {
 
     }

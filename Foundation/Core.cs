@@ -35,13 +35,13 @@ namespace Swopblock
         )
 
         {
-            var blockchains = new Blockchain[BlockchainCount];
+            var blockchains = new Market[BlockchainCount];
 
             for (int i = 0; i < BlockchainCount; i++)
             {
                 blockchains[i] =
 
-                Blockchain.LoadHistory
+                Market.LoadHistory
                 (
                     NodeCount,
 

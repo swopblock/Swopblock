@@ -73,12 +73,12 @@ namespace Swopblock
             genesisNode.Confirmations.Add(genesisConfirmation);
 
 
-            Blockchain genesisBlockchain = new Blockchain(new HashSet<Node>());
+            Market genesisBlockchain = new Market(new HashSet<Node>());
 
             genesisBlockchain.Nodes.Add(genesisNode);
 
 
-            Core genesisCore = new Core(new HashSet<Blockchain>());
+            Core genesisCore = new Core(new HashSet<Market>());
 
             genesisCore.Blockchains.Add(genesisBlockchain);
 
