@@ -1,51 +1,105 @@
 ﻿namespace Swopblock.AutoTeller;
 
-public class KindsOfItems
+public class Markets
 {
     // IAMHERE protected 
 }
 
-public class BtcKindOfItems : KindsOfItems
+public class BtcMarket : Markets
 {
 
 }
 
-public class EthKindOfItems : KindsOfItems
+public class EthMarket: Markets
 {
 
 }
 
-public class KindsOfCash : KindsOfItems
+public class UsdMarket: Markets
 {
 
 }
 
-public class UsdKindOfCash : KindsOfCash
-{
+public record Address(PublicLock Lock, PrivateKey Key);
 
-}
+public record BtcAddress(BtcPublicLock BtcLock, BtcPrivateKey BtcKey);
 
-public class SwoblKindOfCash : KindsOfCash
-{
+public record EthAddress(EthPublicLock EthLock, EthPrivateKey EthKey);
 
-}
+public record UsdAddress(UsdPublicLock UsdLock, UsdPrivateKey UsdKey);
 
-public record PublicLock;
+public record ItemNote(Address Address, ItemNote Available, Signature Signature, decimal BaseValueOnHold, string BaseValueUnit);
 
-public record PrivateKey;
+public record BtcItemNote(Address Address, ItemNote Available, Signature Signature, decimal BaseValueOnHold)
 
-public record Signature(PrivateKey FreeValue, PublicLock LockValue);
+    : ItemNote(Address, Available, Signature, BaseValueOnHold, "BTC");
 
-public record ItemNote(KindsOfItems KindOfItem, decimal ItemValue, Signature Signature);
+public record EthItemNote(Address Address, ItemNote Available, Signature Signature, decimal BaseValueOnHold)
 
-public record CashNote(KindsOfCash KindOfCash, decimal FaceValue, Signature Signature, ItemNote ItemNote)
+    : ItemNote(Address, Available, Signature, BaseValueOnHold, "ETH");
+
+public record UsdItemNote(Address Address, ItemNote Available, Signature Signature, decimal BaseValueOnHold)
+
+    : ItemNote(Address, Available, Signature, BaseValueOnHold, "USD");
+
+public record CashNote(Address Address, ItemNote Available, Signature Signature, decimal BaseValueOnHold, string BaseValueUnit, decimal FaceValueOnHold, string FaceValueUnit)
+
+    : ItemNote(Address, Available, Signature, BaseValueOnHold, BaseValueUnit);
+
+public record BtcCashNote(Address Address, ItemNote Available, Signature Signature, decimal BaseValueOnHold, decimal FaceValueOnHold)
+
+    : CashNote(Address, Available, Signature, BaseValueOnHold, "BTC", FaceValueOnHold, "SWOBL");
+
+public record EthCashNote(Address Address, ItemNote Available, Signature Signature, decimal BaseValueOnHold, decimal FaceValueOnHold)
+
+    : CashNote(Address, Available, Signature, BaseValueOnHold, "ETH", FaceValueOnHold, "SWOBL");
+
+public record UsdCashNote(Address Address, ItemNote Available, Signature Signature, decimal BaseValueOnHold, decimal FaceValueOnHold)
+
+    : CashNote(Address, Available, Signature, BaseValueOnHold, "USD", FaceValueOnHold, "SWOBL");
+
+public record PublicLock(Signature Signature);
+
+public record BtcPublicLock(BtcPrivateKey BtcKey);
+
+public record EthPublicLock(EthPrivateKey EthKey);
+
+public record UsdPublicLock(UsdPrivateKey UsdKey);
+
+public record PrivateKey(Signature Signature); // IAMHERE
+
+public record BtcPrivateKey;
+
+public record EthPrivateKey;
+
+public record UsdPrivateKey;
+
+public record Endorsement(PublicLock InputLock, PrivateKey InputUnlockKey);
+
+public record BtcEndorsement(PublicLock InputLock, PrivateKey InputUnlockKey)
+
+    : Endorsement(InputLock, InputUnlockKey);
+
+public record EthEndorsement(PublicLock InputLock, PrivateKey InputUnlockKey)
+
+    : Endorsement(InputLock, InputUnlockKey);
+
+public record UsdEndorsement(PublicLock InputLock, PrivateKey InputUnlockKey)
+
+    : Endorsement(InputLock, InputUnlockKey);
+
+public record Signature(Endorsement Endorsement, PublicLock OutputLock);
+
+//public record ItemNote(Markets KindOfItem, decimal ItemValue, Signature Signature);
+
+public record CashNoteOld(CashNote KindOfCash, decimal FaceValue, Signature Signature, ItemNote ItemNote)
 {
     public Offer MakeAnOffer()
     {
         return null;
     }
 
-    public static CashNote CashAReceipt(Receipt receipt)
+    public static CashNoteOld CashAReceipt(Receipt receipt)
     {
         return null;
     }
@@ -85,7 +139,7 @@ public record Offer
     public Estimate MakeAnEstimate()
     {
         //var matchedOffer = 
-        return new Estimate(this, new Offer(null, KindsOfOffers.Ask, 1, 2, 3, 4, 100, 200, new Signature(new PrivateKey(), new PublicLock())), "Details");
+        return new Estimate(this, new Offer(null, KindsOfOffers.Ask, 1, 2, 3, 4, 100, 200, new Signature(null, null)), "Details");
     }
 
     public void Write()
@@ -158,8 +212,20 @@ public class OrderStream
 
 }
 
+public class Signatory
+{
+
+}
+
 public class AutoTellerModel
 {
+    public Signatory Signatory { get; init; }
+
+    public AutoTellerModel(Signatory signatory)
+    {
+        Signatory = signatory;
+    }
+
     private Queue<Offer> Offers = new Queue<Offer>();
 
     private Queue<Estimate> Estimates = new Queue<Estimate>();
