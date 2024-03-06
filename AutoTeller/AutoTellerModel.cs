@@ -1,13 +1,282 @@
-﻿namespace Swopblock.AutoTeller;
+﻿// Autonomous Cryptographic Teller
+
+namespace Swopblock.Act;
+
+#region Asymmetric Cryptography
+
+public abstract record PrivateKey();
+
+public record BtcPrivateKey();
+
+public record EthPrivateKey();
+
+
+public abstract record Signature() : PrivateKey();
+
+public record BtcSignature() : BtcPrivateKey();
+
+public record EthSignature() : EthPrivateKey();
+
+
+public abstract record PublicLock();
+
+public record BtcPublicLock();
+
+public record EthPublicLock();
+
+
+public abstract record Address() : PublicLock();
+
+public record BtcAddress() : Address();
+
+public record EthAddress() : Address();
+
+#endregion
+
+
+#region Confirmation Base Types
+
+public abstract record Candidate();
+
+public record BtcCandidate() : Candidate();
+
+public record EthCandidate() : Candidate();
+
+
+public abstract record Confirmation()
+{
+    public virtual void Write() { }
+
+    public virtual void Sign() { }
+
+    public virtual void Broadcast() { }
+
+    public virtual Confirmation Confirm() { return null; }
+}
+
+public record BtcConfirmation() : Confirmation();
+
+public record EthConfirmation() : Confirmation();
+
+#endregion
+
+
+#region 1. Offers: (First Confirmation Phase)
+
+public record Offer(CashNote Hold);
+
+public record ItemOffer(ItemEstimate ItemEstimate, Offer Offer) : Confirmation();
+
+public record CashOffer(CashEstimate CashEstimate, Offer Offer) : Confirmation();
+
+#endregion
+
+#region 2. Estimates: (Second Confirmation Phase)
+
+public record ItemEstimate();
+
+public record CashEstimate();
+
+public record Estimate(ItemOffer EstimateableItemOffer, CashOffer EstimateableCashOffer) : Confirmation();
+
+#endregion
+
+#region 3. Invoices: (Third Confirmation Phase)
+
+public record ItemValue();
+
+public record CashValue();
+
+public record Invoice(ItemValue Quantity, CashValue Total, Estimate InvoicableEstimate) : Confirmation();
+
+#endregion
+
+#region 4. Tranfers: (Fourth Confirmation Phase)
+
+public record ItemDelivery();
+
+public record CashPayment();
+
+public record Transfer(ItemDelivery Delivery, CashPayment Payment, Invoice TransferableInvoice) : Confirmation();
+
+#endregion
+
+#region 5. Receipts: (Fifth Confirmation Phase)
+
+public record Receipt(ItemNote ItemNote, CashNote CashNote, Transfer ReceiptableTransfer) : Confirmation();
+
+public record Note(ItemNote ItemInput, CashNote CashInput);
+
+
+public abstract record Item(Signature Seller, decimal ItemValue, Address Buyer)
+{
+    public string Unit { get { return ""; } }
+}
+
+public record BtcItem(BtcSignature Seller, decimal ItemValue, BtcAddress Buyer);
+
+public record EthItem(EthSignature Seller, decimal ItemValue, EthAddress Buyer);
+
+//public record Note(Item Item, Signature Buyer, decimal CashValue, Address Seller);
+
+public record Endorsement(Note Input, PrivateKey Signature);
+
+public record ItemEndorsement(ItemNote Input);
+
+public record ItemNote(decimal Value, string Unit, PublicLock Output);
+
+public record CashNote;// (ItemEndorsement Input, decimal Value, string Unit, PublicItemLock Output, CashEndorsement CashInput, decimal CashValue, PublicLock CashOutput)
+
+    //;//: ItemNote(Value, Unit, Output);
+
+#endregion
+
+
+#region Markets
+
+public record Blockchain(string Unit);
+
+public record Markets(Blockchain Blockchain)
+{
+    public virtual CashOffer MakeCashOffer(int a)
+    {
+        //var offer = new Offer(1);
+
+        //offer.
+
+        return null;
+    }
+
+    public virtual ItemOffer MakeItemOffer(int b) { return null; }
+
+    public virtual Estimate MakeEstimate(CashOffer CashOffer)
+    {
+        //offer.Write();
+
+        //offer.Sign();
+
+        //offer.Broadcast();
+
+        return null;// offer.Confirm();
+    }
+
+    public virtual Estimate MakeEstimate(ItemOffer ItemOffer)
+    {
+        ItemOffer.Write();
+
+        return null;
+    }
+
+    public virtual Invoice MakeInvoice(Estimate Estimate) { return null; }
+
+    public virtual Transfer MakeTransfer(Invoice Invoice) { return null; }
+
+    public virtual Receipt MakeReceipt(Transfer Transfer) { return null; }
+
+    public virtual Confirmation Confirm(Confirmation confirmation)
+    {
+        confirmation.Write();
+
+        confirmation.Sign();
+
+        confirmation.Broadcast();
+
+        return confirmation.Confirm();
+    }
+}
+
+#endregion
+
+
+#region Brainstormed Source Coding
+
+/*
+
+public record MarketsA : MarketsZ
+{
+    public EstimateA MakeEstimate(OfferA Offer) { return null; }
+}
+
+public record MarketsB : MarketsZ
+{
+    public EstimateB MakeEstimate(OfferB Offer)
+    {
+        var estimate = base.MakeEstimate(Offer);
+
+        
+        return estimate;
+    }
+}
+
+public record Offer(int a)
+{
+    public void Write() { }
+
+    public void Sign() { }
+
+    public void Broadcast() { }
+
+    public Estimate Confirm() { return null; }
+}
+
+public record Estimate(int b)
+{
+    public void Write() { }
+
+    public void Sign() { }
+
+    public void Broadcast() { }
+
+    public Invoice Confirm() { return null; }
+}
+
+public record Invoice(int c)
+{
+    public void Write() { }
+
+    public void Sign() { }
+
+    public void Broadcast() { }
+
+    public Transfer Confirm() { return null; }
+}
+
+public record Transfer(int d)
+{
+    public void Write() { }
+
+    public void Sign() { }
+
+    public void Broadcast() { }
+
+    public Receipt Confirm() { return null; }
+}
+
+public record Receipt(int e)
+{
+    public Endorsement UseToDraftOffer()
+    {
+        return null;
+    }
+}
+
 
 public class Markets
 {
-    // IAMHERE protected 
+    protected virtual Offer DraftOffer() { throw new NotImplementedException(); }
+
+    protected virtual Estimate MakeEstimate(Offer Offer) { throw new NotImplementedException(); }
+
+    protected virtual Invoice MakeInvoice(Estimate Estimate) { throw new NotImplementedException(); }
+
+    protected virtual Transfer MakeTransfer(Invoice Invoice) { throw new NotImplementedException(); }
+
+    protected virtual Receipt MakeReceipt(Transfer Transfer) { throw new NotImplementedException(); }
 }
 
 public class BtcMarket : Markets
 {
-
+    public Offer DraftOffer() { return null; }
 }
 
 public class EthMarket: Markets
@@ -28,57 +297,67 @@ public record EthAddress(EthPublicLock EthLock, EthPrivateKey EthKey);
 
 public record UsdAddress(UsdPublicLock UsdLock, UsdPrivateKey UsdKey);
 
-public record ItemNote(Address Address, ItemNote Available, Signature Signature, decimal BaseValueOnHold, string BaseValueUnit);
 
-public record BtcItemNote(Address Address, ItemNote Available, Signature Signature, decimal BaseValueOnHold)
 
-    : ItemNote(Address, Available, Signature, BaseValueOnHold, "BTC");
+public record ItemNote(decimal Value, string Unit, PublicLock Output);
 
-public record EthItemNote(Address Address, ItemNote Available, Signature Signature, decimal BaseValueOnHold)
 
-    : ItemNote(Address, Available, Signature, BaseValueOnHold, "ETH");
+public record BtcItemNote(BtcEndorsement Input, decimal Value, PublicLock Output)
 
-public record UsdItemNote(Address Address, ItemNote Available, Signature Signature, decimal BaseValueOnHold)
+    : ItemNote(Value, "BTC", Output);
 
-    : ItemNote(Address, Available, Signature, BaseValueOnHold, "USD");
+public record EthItemNote(EthEndorsement Input, decimal Value, PublicLock Output)
 
-public record CashNote(Address Address, ItemNote Available, Signature Signature, decimal BaseValueOnHold, string BaseValueUnit, decimal FaceValueOnHold, string FaceValueUnit)
+    : ItemNote(Value, "ETH", Output);
 
-    : ItemNote(Address, Available, Signature, BaseValueOnHold, BaseValueUnit);
+public record UsdItemNote(UsdEndorsement Input, decimal Value, PublicLock Output)
 
-public record BtcCashNote(Address Address, ItemNote Available, Signature Signature, decimal BaseValueOnHold, decimal FaceValueOnHold)
+    : ItemNote(Value, "USD", Output);
 
-    : CashNote(Address, Available, Signature, BaseValueOnHold, "BTC", FaceValueOnHold, "SWOBL");
 
-public record EthCashNote(Address Address, ItemNote Available, Signature Signature, decimal BaseValueOnHold, decimal FaceValueOnHold)
 
-    : CashNote(Address, Available, Signature, BaseValueOnHold, "ETH", FaceValueOnHold, "SWOBL");
+public record CashNote<ItemEndorsement, PublicItemLock, CashEndorsement, PublicCashLock>(ItemEndorsement Input, decimal Value, string Unit, PublicItemLock Output, CashEndorsement CashInput, decimal CashValue, PublicLock CashOutput)
 
-public record UsdCashNote(Address Address, ItemNote Available, Signature Signature, decimal BaseValueOnHold, decimal FaceValueOnHold)
+    ;//: ItemNote(Value, Unit, Output);
 
-    : CashNote(Address, Available, Signature, BaseValueOnHold, "USD", FaceValueOnHold, "SWOBL");
 
-public record PublicLock(Signature Signature);
+public record BtcCashNote<E>(BtcEndorsement Input, decimal Value, PublicLock Output, CashEndorsement CashInput, decimal CashValue, PublicLock CashOutput)
 
-public record BtcPublicLock(BtcPrivateKey BtcKey);
+    : ItemNote(Input, Value, "BTC", Output);
 
-public record EthPublicLock(EthPrivateKey EthKey);
+public record EthCashNote(ItemNote Input, decimal Value, PublicLock Output, CashNote CashInput, decimal CashValue, PublicLock CashOutput)
 
-public record UsdPublicLock(UsdPrivateKey UsdKey);
+    : ItemNote(Input, Value, "ETH", Output);
 
-public record PrivateKey(Signature Signature); // IAMHERE
+public record UsdCashNote(ItemNote Input, decimal Value, PublicLock Output, CashNote CashInput, decimal CashValue, PublicLock CashOutput)
 
-public record BtcPrivateKey;
+    : ItemNote(Input, Value, "USD", Output);
 
-public record EthPrivateKey;
 
-public record UsdPrivateKey;
 
-public record Endorsement(PublicLock InputLock, PrivateKey InputUnlockKey);
+public record PublicLock;
 
-public record BtcEndorsement(PublicLock InputLock, PrivateKey InputUnlockKey)
+public record BtcPublicLock : PublicLock;
 
-    : Endorsement(InputLock, InputUnlockKey);
+public record EthPublicLock : PublicLock;
+
+public record UsdPublicLock : PublicLock;
+
+public record PrivateKey;
+
+public record BtcPrivateKey : PrivateKey;
+
+public record EthPrivateKey : PrivateKey;
+
+public record UsdPrivateKey : PrivateKey;
+
+public record Endorsement();// (ItemNote InputNote, PrivateKey Signature);
+
+public record CashEndorsement();
+
+public record BtcEndorsement(): Endorsement(); // (BtcItemNote InputNote, PrivateKey InputUnlockKey)
+
+    : Endorsement((ItemNote)InputNote, InputUnlockKey);
 
 public record EthEndorsement(PublicLock InputLock, PrivateKey InputUnlockKey)
 
@@ -88,7 +367,7 @@ public record UsdEndorsement(PublicLock InputLock, PrivateKey InputUnlockKey)
 
     : Endorsement(InputLock, InputUnlockKey);
 
-public record Signature(Endorsement Endorsement, PublicLock OutputLock);
+public record Signature(PrivateKey UnlockInput, PublicLock OutputLock);
 
 //public record ItemNote(Markets KindOfItem, decimal ItemValue, Signature Signature);
 
@@ -271,6 +550,7 @@ public class AutoTellerModel
         return NewTransfer.MakeAReceipt();
     }
 }
+*/
 
-
+#endregion
 
