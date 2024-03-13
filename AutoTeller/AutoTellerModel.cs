@@ -2,7 +2,7 @@
 
 namespace Swopblock.Act;
 
-#region Asymmetric Cryptography
+#region Asymmetric Cryptographic Base Types
 
 public abstract record PrivateKey();
 
@@ -43,7 +43,7 @@ public record BtcCandidate() : Candidate();
 public record EthCandidate() : Candidate();
 
 
-public abstract record Confirmation()
+public abstract record Confirmation(Confirmation[] Candidates)
 {
     public virtual void Write() { }
 
@@ -51,19 +51,24 @@ public abstract record Confirmation()
 
     public virtual void Broadcast() { }
 
-    public virtual Confirmation Confirm() { return null; }
+    public virtual Confirmation Confirm()
+    {
+        throw new NotImplementedException();
+    }
 }
 
-public record BtcConfirmation() : Confirmation();
+public record BtcConfirmation() : Confirmation(new Confirmation[8]);
 
-public record EthConfirmation() : Confirmation();
+public record EthConfirmation() : Confirmation(new Confirmation[8]);
 
-public record Offer() : Confirmation();
+public record Offer() : Confirmation(new Confirmation[8]);
 
 #endregion
 
 
 #region 1A. Asks: (Offer Asking Confirmation Phase 1A)
+
+public record CashNote();
 
 public record CashEstimate();
 
