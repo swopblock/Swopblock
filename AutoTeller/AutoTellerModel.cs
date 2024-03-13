@@ -34,7 +34,7 @@ public record EthAddress() : Address();
 #endregion
 
 
-#region Confirmation Base Types
+#region Confirmation and Other Base Types
 
 public abstract record Candidate();
 
@@ -58,52 +58,71 @@ public record BtcConfirmation() : Confirmation();
 
 public record EthConfirmation() : Confirmation();
 
-#endregion
-
-
-#region 1. Offers: (First Confirmation Phase)
-
-public record Offer(CashNote Hold);
-
-public record ItemOffer(ItemEstimate ItemEstimate, Offer Offer) : Confirmation();
-
-public record CashOffer(CashEstimate CashEstimate, Offer Offer) : Confirmation();
+public record Offer() : Confirmation();
 
 #endregion
 
-#region 2. Estimates: (Second Confirmation Phase)
 
-public record ItemEstimate();
+#region 1A. Asks: (Offer Asking Confirmation Phase 1A)
 
 public record CashEstimate();
 
-public record Estimate(ItemOffer EstimateableItemOffer, CashOffer EstimateableCashOffer) : Confirmation();
+public record ItemOffer();
+
+public record Ask(CashNote Hold, ItemOffer ItemOffer, CashEstimate CashEstimate)
+
+    : Offer();
 
 #endregion
 
-#region 3. Invoices: (Third Confirmation Phase)
+#region 1B. Bids: (Offer Bidding Confirmation Phase 1B)
+
+public record CashOffer();
+
+public record ItemEstimate();
+
+public record Bid(CashNote Hold, CashOffer CashOffer, ItemEstimate ItemEstimate)
+
+    : Offer();
+
+#endregion
+
+#region 2. Estimates: (Estimating Confirmation Phase 2)
+
+public record Estimate(Bid EstimateableBid, Ask EstimateableAsk) : Confirmation();
+
+#endregion
+
+#region 3. Invoices: (Invoicing Confirmation Phase 3)
 
 public record ItemValue();
 
 public record CashValue();
 
-public record Invoice(ItemValue Quantity, CashValue Total, Estimate InvoicableEstimate) : Confirmation();
+public record Invoice(Estimate InvoicableEstimate, ItemValue Quantity, CashValue Total) : Confirmation();
 
 #endregion
 
-#region 4. Tranfers: (Fourth Confirmation Phase)
+#region 4. Tranfers: (Transferring Confirmation Phase 4)
 
 public record ItemDelivery();
 
 public record CashPayment();
 
-public record Transfer(ItemDelivery Delivery, CashPayment Payment, Invoice TransferableInvoice) : Confirmation();
+public record Transfer(Invoice TransferableInvoice, ItemDelivery Delivery, CashPayment Payment) : Confirmation();
 
 #endregion
 
-#region 5. Receipts: (Fifth Confirmation Phase)
+#region 5. Receipts: (Receipting Confirmation Phase 5)
+
+public record ItemNote();
+
+public record CashNote();
 
 public record Receipt(ItemNote ItemNote, CashNote CashNote, Transfer ReceiptableTransfer) : Confirmation();
+
+#endregion
+
 
 public record Note(ItemNote ItemInput, CashNote CashInput);
 
@@ -123,13 +142,13 @@ public record Endorsement(Note Input, PrivateKey Signature);
 
 public record ItemEndorsement(ItemNote Input);
 
-public record ItemNote(decimal Value, string Unit, PublicLock Output);
+//public record ItemNote(decimal Value, string Unit, PublicLock Output);
 
-public record CashNote;// (ItemEndorsement Input, decimal Value, string Unit, PublicItemLock Output, CashEndorsement CashInput, decimal CashValue, PublicLock CashOutput)
+//public record CashNote;// (ItemEndorsement Input, decimal Value, string Unit, PublicItemLock Output, CashEndorsement CashInput, decimal CashValue, PublicLock CashOutput)
 
     //;//: ItemNote(Value, Unit, Output);
 
-#endregion
+//#endregion
 
 
 #region Markets
@@ -162,7 +181,7 @@ public record Markets(Blockchain Blockchain)
 
     public virtual Estimate MakeEstimate(ItemOffer ItemOffer)
     {
-        ItemOffer.Write();
+        //ItemOffer.Write();
 
         return null;
     }
