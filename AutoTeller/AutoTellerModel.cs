@@ -1,40 +1,99 @@
-﻿// Autonomous Cryptographic Teller
+﻿namespace Swopblock.Alpha;
 
-namespace Swopblock.Act;
+public record AutoTeller(AutoTill AutoTill, Account[] UserAccounts, params Markets[] Markets)
+{
+    public void Load()
+    {
+
+    }
+
+    public void Sync()
+    {
+
+    }
+
+    public virtual bool VerifyHold(CashNote Hold)
+    {
+        return false;
+    }
+
+    public virtual Bid? MakeBidOffer(CashNote Hold, CashOffer CashOffer, ItemEstimate ItemEstimate)
+    {
+        return VerifyHold(Hold) ? new Bid(Hold, CashOffer, ItemEstimate) : null;
+    }
+
+    public virtual Ask? MakeAskOffer(CashNote Hold, ItemOffer ItemOffer, CashEstimate CashEstimate)
+    {
+        return VerifyHold(Hold) ? new Ask(Hold, ItemOffer, CashEstimate) : null;
+    }
+
+    public virtual Receipt? MakeBuyOrder(CashNote Hold, CashOffer CashOffer, ItemEstimate ItemEstimate)
+    {
+        var bid = MakeBidOffer(Hold, CashOffer, ItemEstimate);
+
+        var estimate = bid?.MakeEstimate();
+
+        var invoice = estimate?.MakeInvoice();
+
+        var transfer = invoice?.MakeTransfer();
+
+        var receipt = transfer?.MakeReceipt();
+
+        return receipt;
+    }
+
+    public virtual Receipt? MakeSellOrder(CashNote Hold, ItemOffer ItemOffer, CashEstimate CashEstimate)
+    {
+        var ask = MakeAskOffer(Hold, ItemOffer, CashEstimate);
+
+        var estimate = ask?.MakeEstimate();
+
+        var invoice = estimate?.MakeInvoice();
+
+        var transfer = invoice?.MakeTransfer();
+
+        var receipt = transfer?.MakeReceipt();
+
+        return receipt;
+    }
+}
+
+public record AutoTill(string Units, params Account[] TillAccounts);
+
+    //: Markets(Units, TillAccounts);
+
+public record Markets(string Units, Message[] MessageHistory)
+{
+    public virtual Offer MakeOffer() { throw new NotImplementedException(); }
+
+    public virtual Estimate MakeEstimate(Offer Offer) { throw new NotImplementedException(); }
+
+    public virtual Invoice MakeInvoice(Estimate Estimate) { throw new NotImplementedException(); }
+
+    public virtual Transfer MakeTransfer(Invoice Invoice) { throw new NotImplementedException(); }
+
+    public virtual Receipt MakeReceipt(Transfer Transfer) { throw new NotImplementedException(); }
+}
+
+
 
 #region Asymmetric Cryptographic Base Types
 
 public abstract record PrivateKey();
 
-public record BtcPrivateKey();
-
-public record EthPrivateKey();
-
-
 public abstract record Signature() : PrivateKey();
-
-public record BtcSignature() : BtcPrivateKey();
-
-public record EthSignature() : EthPrivateKey();
 
 
 public abstract record PublicLock();
 
-public record BtcPublicLock();
-
-public record EthPublicLock();
-
-
 public abstract record Address() : PublicLock();
 
-public record BtcAddress() : Address();
-
-public record EthAddress() : Address();
+public record Account(string Units, PublicLock PublicLock, PrivateKey PrivateKey);
 
 #endregion
 
 
-#region Confirmation and Other Base Types
+#region Other Base Types
 
 public abstract record Candidate();
 
@@ -42,26 +101,38 @@ public record BtcCandidate() : Candidate();
 
 public record EthCandidate() : Candidate();
 
+public record Message();
 
-public abstract record Confirmation(Confirmation[] Candidates)
+public abstract record Process()
 {
-    public virtual void Write() { }
-
-    public virtual void Sign() { }
-
-    public virtual void Broadcast() { }
-
-    public virtual Confirmation Confirm()
+    public virtual Process Execute()
     {
-        throw new NotImplementedException();
+        Verify();
+
+        Write();
+
+        Sign();
+
+        var candidates = Broadcast();
+
+        return Confirm(candidates);
     }
+
+    public abstract bool Verify();
+
+    public abstract void Write();
+
+    public abstract void Sign();
+
+    public abstract Message[] Broadcast();
+
+    public abstract Process Confirm(Message[] Candidates);
 }
 
-public record BtcConfirmation() : Confirmation(new Confirmation[8]);
 
-public record EthConfirmation() : Confirmation(new Confirmation[8]);
-
-public record Offer() : Confirmation(new Confirmation[8]);
+public abstract record Offer() : Process()
+{
+}
 
 #endregion
 
@@ -76,7 +147,64 @@ public record ItemOffer();
 
 public record Ask(CashNote Hold, ItemOffer ItemOffer, CashEstimate CashEstimate)
 
-    : Offer();
+    : Offer()
+{
+    public virtual Ask MakeAskOffer(Receipt[] Holdings)
+    {
+        //VerifyHold();
+
+        Write();
+
+        Sign();
+
+        var candidates = Broadcast();
+
+        return (Ask) Confirm(candidates);
+    }
+
+    public Receipt MakeSellOrder(Receipt[] Holdings)
+    {
+        var estimate = MakeEstimate();
+
+        var invoice = estimate.MakeInvoice();
+
+        var transfer = invoice.MakeTransfer();
+
+        var receipt = transfer.MakeReceipt();
+
+        return receipt;
+    }
+
+    public Estimate MakeEstimate()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override bool Verify()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void Write()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void Sign()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override Message[] Broadcast()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override Process Confirm(Message[] Candidates)
+    {
+        throw new NotImplementedException();
+    }
+}
 
 #endregion
 
@@ -88,13 +216,92 @@ public record ItemEstimate();
 
 public record Bid(CashNote Hold, CashOffer CashOffer, ItemEstimate ItemEstimate)
 
-    : Offer();
+    : Offer()
+{
+    public Estimate MakeEstimate()
+    {
+        Write();
+
+        Sign();
+
+        var messages = Broadcast();
+
+        return (Estimate) this.Confirm(messages);
+    }
+
+    public override void Write() { }
+
+    public override void Sign() { }
+
+    public override Message[] Broadcast()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override Process Confirm(Message[] Candidates)
+    {
+        throw new NotImplementedException();
+    }
+
+    public override bool Verify()
+    {
+        throw new NotImplementedException();
+    }
+}
 
 #endregion
 
 #region 2. Estimates: (Estimating Confirmation Phase 2)
 
-public record Estimate(Bid EstimateableBid, Ask EstimateableAsk) : Confirmation();
+public record Estimate(Bid EstimateableBid, Ask EstimateableAsk) : Process()
+{
+    public Invoice MakeInvoice()
+    {
+        return (Invoice) this.Execute();
+    }
+
+    public override Process Execute()
+    {
+        return base.Execute();
+    }
+
+    public override void Write()
+    {
+    }
+
+    public override void Sign()
+    {
+    }
+
+    public override Message[] Broadcast()
+    {
+        throw new NotImplementedException();
+    }
+
+    public new Invoice Confirm2(Message[] Candidates)
+    {
+        throw new NotImplementedException();
+    }
+
+    public override bool Verify()
+    {
+        return EstimateableBid.Verify();
+    }
+
+    public override Process Confirm(Message[] Candidates)
+    {
+        throw new NotImplementedException();
+    }
+}
+
+public record BtcEstimate(Bid EstimateableBid, Ask EstimateableAsk)
+
+    : Estimate(EstimateableBid, EstimateableAsk);
+
+public record EthEstimate(Bid EstimateableBid, Ask EstimateableAsk)
+
+    : Estimate(EstimateableBid, EstimateableAsk);
+
 
 #endregion
 
@@ -104,7 +311,41 @@ public record ItemValue();
 
 public record CashValue();
 
-public record Invoice(Estimate InvoicableEstimate, ItemValue Quantity, CashValue Total) : Confirmation();
+public record Invoice(Estimate InvoicableEstimate, ItemValue Quantity, CashValue Total)
+
+    : Process()
+{
+    public override Message[] Broadcast()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override Process Confirm(Message[] Candidates)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Transfer MakeTransfer()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void Sign()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override bool Verify()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void Write()
+    {
+        throw new NotImplementedException();
+    }
+}
+
 
 #endregion
 
@@ -114,7 +355,40 @@ public record ItemDelivery();
 
 public record CashPayment();
 
-public record Transfer(Invoice TransferableInvoice, ItemDelivery Delivery, CashPayment Payment) : Confirmation();
+public record Transfer(Invoice TransferableInvoice, ItemDelivery Delivery, CashPayment Payment)
+
+    : Process()
+{
+    public override Message[] Broadcast()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override Process Confirm(Message[] Candidates)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Receipt MakeReceipt()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void Sign()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override bool Verify()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void Write()
+    {
+        throw new NotImplementedException();
+    }
+}
 
 #endregion
 
@@ -122,9 +396,37 @@ public record Transfer(Invoice TransferableInvoice, ItemDelivery Delivery, CashP
 
 public record ItemNote();
 
-public record CashNote();
+//public record CashNote();
 
-public record Receipt(ItemNote ItemNote, CashNote CashNote, Transfer ReceiptableTransfer) : Confirmation();
+public record Receipt(ItemNote ItemNote, CashNote CashNote, Transfer ReceiptableTransfer)
+
+    : Process()
+{
+    public override Message[] Broadcast()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override Process Confirm(Message[] Candidates)
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void Sign()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override bool Verify()
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void Write()
+    {
+        throw new NotImplementedException();
+    }
+}
 
 #endregion
 
@@ -137,9 +439,9 @@ public abstract record Item(Signature Seller, decimal ItemValue, Address Buyer)
     public string Unit { get { return ""; } }
 }
 
-public record BtcItem(BtcSignature Seller, decimal ItemValue, BtcAddress Buyer);
+//public record BtcItem(Signature Seller, decimal ItemValue, BtcAddress Buyer);
 
-public record EthItem(EthSignature Seller, decimal ItemValue, EthAddress Buyer);
+//public record EthItem(EthSignature Seller, decimal ItemValue, EthAddress Buyer);
 
 //public record Note(Item Item, Signature Buyer, decimal CashValue, Address Seller);
 
@@ -160,7 +462,7 @@ public record ItemEndorsement(ItemNote Input);
 
 public record Blockchain(string Unit);
 
-public record Markets(Blockchain Blockchain)
+public record Markets2(Blockchain Blockchain)
 {
     public virtual CashOffer MakeCashOffer(int a)
     {
@@ -191,22 +493,22 @@ public record Markets(Blockchain Blockchain)
         return null;
     }
 
-    public virtual Invoice MakeInvoice(Estimate Estimate) { return null; }
+    //public virtual Invoice MakeInvoice(Estimate Estimate) { return null; }
 
-    public virtual Transfer MakeTransfer(Invoice Invoice) { return null; }
+    //public virtual Transfer MakeTransfer(Invoice Invoice) { return null; }
 
-    public virtual Receipt MakeReceipt(Transfer Transfer) { return null; }
+    //public virtual Receipt MakeReceipt(Transfer Transfer) { return null; }
 
-    public virtual Confirmation Confirm(Confirmation confirmation)
-    {
-        confirmation.Write();
+    //public virtual Confirmation Confirm(Confirmation confirmation)
+    //{
+        //confirmation.Write();
 
-        confirmation.Sign();
+        //confirmation.Sign();
 
-        confirmation.Broadcast();
+        //confirmation.Broadcast();
 
-        return confirmation.Confirm();
-    }
+        //return confirmation.Confirm();
+    //}
 }
 
 #endregion
@@ -284,19 +586,6 @@ public record Receipt(int e)
     }
 }
 
-
-public class Markets
-{
-    protected virtual Offer DraftOffer() { throw new NotImplementedException(); }
-
-    protected virtual Estimate MakeEstimate(Offer Offer) { throw new NotImplementedException(); }
-
-    protected virtual Invoice MakeInvoice(Estimate Estimate) { throw new NotImplementedException(); }
-
-    protected virtual Transfer MakeTransfer(Invoice Invoice) { throw new NotImplementedException(); }
-
-    protected virtual Receipt MakeReceipt(Transfer Transfer) { throw new NotImplementedException(); }
-}
 
 public class BtcMarket : Markets
 {
