@@ -1,6 +1,6 @@
 ﻿namespace APP
 {
-    public class Class1
+    public class APP
     {
 
     }
