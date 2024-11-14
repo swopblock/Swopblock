@@ -1,6 +1,6 @@
 ﻿namespace ETH_CORE
 {
-    public class Class1
+    public class EthCore
     {
 
     }

@@ -1,6 +1,6 @@
 ﻿namespace CORE
 {
-    public class CORE
+    public class Core
     {
 
     }
