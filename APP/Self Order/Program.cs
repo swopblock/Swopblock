@@ -12,3 +12,15 @@ class SelfOrder : App
     {
     }
 }
+
+public record Order(string orderType, MinMaxOffer offer, MinMaxOrder order);
+
+public record MinMaxOffer(decimal MinOfferAmount, decimal MaxOfferAmount, string KindOfOffer);
+public record MinMaxOrder(decimal MinOrderAmount, decimal MaxOrderAmount, string KindOfOrder);
+
+public record BidBuyOrder(MinMaxOffer bidOffer, MinMaxOrder buyOrder) : Order("BidBuyOrder", bidOffer, buyOrder);
+
+public record AskSellOrder(MinMaxOffer askOffer, MinMaxOrder sellOrder) : Order("BidBuyOrder", askOffer, sellOrder);
+
+
+
