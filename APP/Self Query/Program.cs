@@ -3,11 +3,11 @@ using System.Text.RegularExpressions;
 
 using System;
 
-public class SelfTrade : Program
+public class SelfQuery : AppProgram
 {
     public new static void Main()
     {
-        new SelfTrade().Run("Welcome to Swopblock Self Query!", "Query FORM:", Query.RenderQueryForm());
+        new SelfQuery().Run("Welcome to Swopblock Self Query!", "Query FORM:", Query.RenderQueryForm());
     }
 
 
@@ -40,7 +40,7 @@ public record Query
     public static Query? ParseToNewQuery(string text)
     {
         string pattern =
-            @"Estimate the bid and the ask of an offer between (\d+\.?\d*) " +
+            @"Estimate the price of an offer between (\d+\.?\d*) " +
             @"and (\d+\.?\d*) (\w+) of the amount at my address (\d+) " +
             @"in exchange for an order between (\d+\.?\d*) " +
             @"and (\d+\.?\d*) (\w+) of the amount at my address (\d+) " +
@@ -72,7 +72,7 @@ public record Query
     public string? RenderToEnglishMessage()
     {
         return
-            $"Estimate the bid and the ask of an offer between {MinOfferAmount} " +
+            $"Estimate the price of an offer between {MinOfferAmount} " +
             $"and {MaxOfferAmount} {KindOfOffer} of the amount at my address {OfferAddress} " +
             $"in exchange for an order between {MinOrderAmount} " +
             $"and {MaxOrderAmount} of the amount at my address {OrderAddress} " +
@@ -84,7 +84,7 @@ public record Query
     public static string RenderQueryForm()
     {
         return
-            "Estimate the bid and the ask of an offer between {MinOfferAmount} " +
+            "Estimate the price of an offer between {MinOfferAmount} " +
             "and {MaxOfferAmount} {KindOfOffer} of the amount at my address {OfferAddress} " +
             "in exchange for an order between {MinOrderAmount} " +
             "and {MaxOrderAmount} of the amount at my address {OrderAddress} " +

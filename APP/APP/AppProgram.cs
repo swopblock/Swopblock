@@ -1,10 +1,10 @@
 ﻿using System;
 
-public class Program
+public class AppProgram
 {
     public static void Main()
     {
-        var process = new Program();
+        var process = new AppProgram();
 
         process.Run("Enter a message (enter 'exit' to quit):", "Greeting Template:", "Hi! My name is {YourName}.");
     }

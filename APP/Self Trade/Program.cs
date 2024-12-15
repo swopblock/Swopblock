@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 using System;
 
-public class SelfTrade : Program
+public class SelfTrade : AppProgram
 {
     public new static void Main()
     {
@@ -32,19 +32,21 @@ public record Trade
         decimal DeliveryAmount,
         string KindOfDelivery,
         string DeliverySendingAddress,
-        string DeliveryReceivingAddress
+        string DeliveryReceivingAddress,
+        decimal InvoiceMarketVolume,
+        string KindOfInvoiceMarketVolume
     )
 {
     public static Trade? ParseToNewTrade(string text)
     {
         string pattern =
-            @"Give the payment of (\d+\.?\d*) (\w+) " +
+            @"Trade the payment of (\d+\.?\d*) (\w+) " +
             @"from the payment sending address (\d+) " +
             @"to the payment receiving address (\d+) " +
-            @"to trade with the delivery of (\d+\.?\d*) (\w+) " +
+            @"with the delivery of (\d+\.?\d*) (\w+) " +
             @"from the delivery sending address (\d+) " +
             @"to the delivery receiving address (\d+) " +
-            @"before the trade is set to expire.";
+            @"by the invoice made when the market volume reached (\d+\.?\d*) (\w+).";
 
 
         var match = Regex.Match(text, pattern, RegexOptions.IgnoreCase);
@@ -60,7 +62,9 @@ public record Trade
                     decimal.Parse(match.Groups[5].Value), //DeliveryAmount,
                     match.Groups[6].Value,                //KindOfDelivery,
                     match.Groups[7].Value,                //DeliverySendingAddress,
-                    match.Groups[8].Value                 //DeliveryReceivingAddress,
+                    match.Groups[8].Value,                 //DeliveryReceivingAddress,
+                    decimal.Parse(match.Groups[9].Value), //InvoiceMarketVolume,
+                    match.Groups[10].Value                //KindOfInvoiceMarketVolume,
                 );
         }
 
@@ -69,23 +73,23 @@ public record Trade
 
     public string? RenderToEnglishMessage()
     {
-        return $"Give the payment of {PaymentAmount} {KindOfPayment} " +
+        return $"Trade the payment of {PaymentAmount} {KindOfPayment} " +
             $"from the payment sending address {PaymentSendingAddress} " +
             $"to the payment receiving address {PaymentReceivingAddress} " +
-            $"to trade with the delivery of {DeliveryAmount} {KindOfDelivery} " +
+            $"with the delivery of {DeliveryAmount} {KindOfDelivery} " +
             $"from the delivery sending address {DeliverySendingAddress} " +
             $"to the delivery receiving address {DeliveryReceivingAddress} " +
-            $"before the trade is set to expire.";
+            $"by the invoice made when the market volume reached {InvoiceMarketVolume} {KindOfInvoiceMarketVolume}.";
     }
 
     public static string RenderTradeForm()
     {
-        return "Give the payment of {PaymentAmount} {KindOfPayment} " +
+        return "Trade the payment of {PaymentAmount} {KindOfPayment} " +
             "from the payment sending address {PaymentSendingAddress} " +
             "to the payment receiving address {PaymentReceivingAddress} " +
-            "to trade with the delivery of {DeliveryAmount} {KindOfDelivery} " +
+            "with the delivery of {DeliveryAmount} {KindOfDelivery} " +
             "from the delivery sending address {DeliverySendingAddress} " +
             "to the delivery receiving address {DeliveryReceivingAddress} " +
-            "before the trade is set to expire.";
+            "by the invoice made when the market volume reached {InvoiceMarketVolume} {KindOfInvoiceMarketVolume}.";
     }
 }

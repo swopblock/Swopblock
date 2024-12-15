@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 using System;
 
-public class SelfOrder : Program
+public class SelfOrder : AppProgram
 {
     public new static void Main()
     {
