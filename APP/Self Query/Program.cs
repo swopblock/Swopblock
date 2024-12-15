@@ -75,7 +75,7 @@ public record Query
             $"Estimate the price of an offer between {MinOfferAmount} " +
             $"and {MaxOfferAmount} {KindOfOffer} of the amount at my address {OfferAddress} " +
             $"in exchange for an order between {MinOrderAmount} " +
-            $"and {MaxOrderAmount} of the amount at my address {OrderAddress} " +
+            $"and {MaxOrderAmount} {KindOfOrder} of the amount at my address {OrderAddress} " +
             $"before the market volume reaches {MarketVolumeExpiration} {KindOfMarketVolume}.";
 
 
@@ -87,7 +87,7 @@ public record Query
             "Estimate the price of an offer between {MinOfferAmount} " +
             "and {MaxOfferAmount} {KindOfOffer} of the amount at my address {OfferAddress} " +
             "in exchange for an order between {MinOrderAmount} " +
-            "and {MaxOrderAmount} of the amount at my address {OrderAddress} " +
+            "and {MaxOrderAmount} {KindOfOrder} of the amount at my address {OrderAddress} " +
             "before the market volume reaches {MarketVolumeExpiration} {KindOfMarketVolume}.";
     }
 }
