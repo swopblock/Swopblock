@@ -88,7 +88,14 @@ public record Query
             "and {MaxOfferAmount} {KindOfOffer} of the amount at my address {OfferAddress} " +
             "in exchange for an order between {MinOrderAmount} " +
             "and {MaxOrderAmount} {KindOfOrder} of the amount at my address {OrderAddress} " +
-            "before the market volume reaches {MarketVolumeExpiration} {KindOfMarketVolume}.";
+            "before the market volume reaches {MarketVolumeExpiration} {KindOfMarketVolume}." +
+
+            "The values of an offer for {EstimatedOfferAmount} {KindOfEstimatedOffer} " +
+            "at your address {EstimatedOfferAddress} " +
+            "and of an order for {EstimatedOrderAmount} {KindOfEstimatedOrderAmount}" +
+            "at your address {EstimatedOrderAddress} " +
+            "are estimated for any time before the market volume reaches {MarketVolumeExpiration} {KindOfMarketVolume}.";
+        ;
     }
 }
 

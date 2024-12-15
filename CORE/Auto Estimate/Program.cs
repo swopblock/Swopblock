@@ -42,7 +42,7 @@ public record Estimate
             @"at your address (\d+) " +
             @"and of an order for (\d+\.?\d*) (\w+)" +
             @"at your address (\d+) " +
-            @"are estimated for any time before the market volume reaches (\d+\.?\d*) (\w+).";
+            @"are estimated equivalent for any time before the market volume reaches (\d+\.?\d*) (\w+).";
 
 
         var match = Regex.Match(text, pattern, RegexOptions.IgnoreCase);
@@ -72,7 +72,7 @@ public record Estimate
             $"at your address {EstimatedOfferAddress} " +
             $"and of an order for {EstimatedOrderAmount} {KindOfEstimatedOrder}" +
             $"at your address {EstimatedOrderAddress} " +
-            $"are estimated for any time before the market volume reaches {MarketVolumeExpiration} {KindOfMarketVolume}.";
+            $"are estimated equivalent for any time before the market volume reaches {MarketVolumeExpiration} {KindOfMarketVolume}.";
 
 
     }
@@ -84,7 +84,7 @@ public record Estimate
             "at your address {EstimatedOfferAddress} " +
             "and of an order for {EstimatedOrderAmount} {KindOfEstimatedOrderAmount}" +
             "at your address {EstimatedOrderAddress} " +
-            "are estimated for any time before the market volume reaches {MarketVolumeExpiration} {KindOfMarketVolume}.";
+            "are estimated equivalent for any time before the market volume reaches {MarketVolumeExpiration} {KindOfMarketVolume}.";
     }
 }
 
