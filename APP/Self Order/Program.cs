@@ -1,16 +1,39 @@
 ﻿using System;
 using System.Text.RegularExpressions;
+using Swopblock.Utilities;
 
 using System;
 
-public class SelfOrder : AppProgram
+public class SelfOrder : AppProgram, IProcessForm
 {
-    public new static void Main()
+    public static async Task Main()
     {
-        new SelfOrder().Run("Welcome to Swopblock Self Order!", "ORDER FORM:", Order.RenderAnOrderForm());
+        WelcomeOrderHere();
+
+        var order = Console.ReadLine();
+
+        while (order != null && order != "exit")
+        {
+            Console.WriteLine();
+
+            await foreach (var message in IProcessForm.ProcessForm((IForm)new OrderForm(order)))
+            {
+                Console.WriteLine(message);
+            }
+
+            WelcomeOrderHere();
+
+            order = Console.ReadLine();
+        }
     }
 
-
+    public static void WelcomeOrderHere()
+    {
+        Console.WriteLine();
+        Console.WriteLine("Welcome to Swopblock Self Order!");
+        Console.WriteLine("Place your order here.");
+        Console.WriteLine();
+    }
 
     protected override string? ProcessMessage(string message)
     {
@@ -22,6 +45,146 @@ public class SelfOrder : AppProgram
         return order.RenderToEnglishMessage();
     }
 }
+
+public enum OrderStatus
+{
+    Void,
+    Messageing,
+    Messaged,
+    MessagedFailed,
+    Parsing,
+    Parsed,
+    ParsedFailed,
+    Writting,
+    Written,
+    WrittenFailed,
+    Signing,
+    SigningSucceeded,
+    SigningFailed,
+    Broadcasting,
+    BroadcastedFailed,
+    BroadcastingSucceeded,
+    Confirmed,
+    ConfirmedFailed
+}
+
+//public interface IProcessForm 
+//{
+//    static async IAsyncEnumerable<string> ProcessForm(IForm Form)
+//    {
+//        await foreach (var Text in Form.NewForm())
+//        {
+//            await foreach (var Message in Text.Message())
+//            {
+//                await foreach (var Object in Message.Parse())
+//                {
+//                    await foreach (var Binary in Object.Write())
+//                    {
+//                        await foreach (var Signature in Binary.Sign())
+//                        {
+//                            await foreach (var Received in Signature.Broadcast())
+//                            {
+//                                await foreach (var Confirmation in Received.Confirm())
+//                                {
+//                                    await foreach (var Status in Confirmation.Status())
+//                                    {
+//                                        yield return Status;
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
+//}
+
+//public interface IForm { IAsyncEnumerable<IText> NewForm(); }
+//public interface IText { IAsyncEnumerable<IParse> Message(); }
+//public interface IParse { IAsyncEnumerable<IWrite> Parse(); }
+//public interface IWrite { IAsyncEnumerable<ISign> Write(); }
+//public interface ISign { IAsyncEnumerable<IBroadcast> Sign(); }
+//public interface IBroadcast { IAsyncEnumerable<IConfirm> Broadcast(); }
+//public interface IConfirm { IAsyncEnumerable<IStatus> Confirm(); }
+//public interface IStatus { IAsyncEnumerable<string> Status(); }
+public record OrderForm(string Text) : IProcessForm, IForm, IText, IParse, IWrite, ISign, IBroadcast, IConfirm, IStatus
+{
+    private string textMessage;
+
+    private string[] statusMessages = 
+    { 
+        "Success: new order form created.",
+        "Success: text to object parsed.",
+        "Success: object to binary written.",
+        "Success: binary signed.",
+        "Success: signed binary broacasted.",
+        "Success: broadcast confirmed."
+    };
+
+    public Order Object { get; set; }
+
+    //public string Message { get; set; }
+
+    public byte[] Binary { get; set; }
+
+    public string Json { get; set; }
+    public async IAsyncEnumerable<IText> NewForm()
+    {
+        Console.WriteLine("Created a text form.");
+
+        yield return (IText)this;
+    }
+
+    public async IAsyncEnumerable<IParse> Message()
+    {
+        Console.WriteLine("Created a message form.");
+
+        yield return (IParse)this;
+    }
+
+    public async IAsyncEnumerable<IWrite> Parse()
+    {
+        Console.WriteLine("Created an object form.");
+
+        yield return (IWrite)this;
+    }
+
+    public async IAsyncEnumerable<ISign> Write()
+    {
+        Console.WriteLine("Created a binary form.");
+
+        yield return (ISign)this;
+    }
+
+    public async IAsyncEnumerable<IBroadcast> Sign()
+    {
+        Console.WriteLine("Created a signed binary form.");
+
+        yield return (IBroadcast)this;
+    }
+
+    public async IAsyncEnumerable<IConfirm> Broadcast()
+    {
+        Console.WriteLine("Broadcasted the signed binary form.");
+
+        yield return (IConfirm)this;
+    }
+
+    public async IAsyncEnumerable<IStatus> Confirm()
+    {
+        Console.WriteLine("Confirmed the broadcasted signed binary form.");
+
+        yield return (IStatus)this;
+    }
+
+    public async IAsyncEnumerable<string> Status()
+    {
+        yield return "Ready for another form.";
+    }
+
+}
+
 
 public record Order
     (   
@@ -84,6 +247,7 @@ public record Order
                         "and an order between {MinOrderAmount} and {MaxOrderAmount} {KindOfOrder} at my address {OrderAddress} and set " +
                         "this offer to expire when the market volume reaches {MarketVolumeExpiration} {KindOfMarketVolume}.";
     }
+
 }
 
 
